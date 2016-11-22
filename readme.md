@@ -327,7 +327,11 @@ As of June 2015, ES6 is ratified as the newest JS version. Until browsers catch 
 
 The most popular transpiler is Babel(https://babeljs.io/).
 
-    C:\ npm install -g babel
+    C:\ npm install --save-dev babel-cli
+
+Only install this locally into an already created project.
+    
+Since it's generally a bad idea to run Babel globally you may want to uninstall the global copy by running `npm uninstall --global babel-cli`
 
 Pairing this with a build system will give you the ability to write today's scripting language without worrying about incompatibilities. Check out [Babel's tools](https://babeljs.io/docs/setup/) to build your custom stack.
 
