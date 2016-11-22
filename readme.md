@@ -5,11 +5,12 @@ This document assumes you're running a fresh copy of the latest version of **Win
 If you have any comments or suggestions, feel free to give me a shout [on Twitter](https://twitter.com/asuh)!
 
 - [Windows Prepartion](#system-update-and-disk-encryption)
-- [.NET Framework](#net-framework)
+- [.NET Framework](#net)
 - [Chocolatey](#chocolatey)
 - [Git](#git)
 - [Node.js](#nodejs)
 - [Ninite](#ninite)
+- [MongoDB](#mongodb)
 - [Projects Directory](#projects-directory)
 - [ZSH](#zsh-optional)
 - [Sass](#sass)
@@ -18,7 +19,6 @@ If you have any comments or suggestions, feel free to give me a shout [on Twitte
 - [Vagrant](#vagrant)
 - [Yeoman](#yeoman)
 - [ES6](#es6)
-- [MongoDB](#mongodb)
 - [PHP and Composer](#php-and-composer)
 - [Apps](#apps)
 
