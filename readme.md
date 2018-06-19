@@ -25,7 +25,7 @@ The following workflow assumes a clean installation of Windows 10, whether from 
 
 Throughout this document, you will encounter examples like this that contain one or more of the arguments listed:
 
-    sudo command -flag --flag directory file.extention
+    sudo command -flag --flag directory file.extention # Comments are behind pound signs
 
 Front-end development has increasingly moved towards an open-source, command-line interface (CLI) dependent workflow. Whether we access modules, packages or simply useful commands, setting up a command-line shell to your liking is a good idea to start.
 
@@ -121,6 +121,7 @@ Chocolatey can be used with either `choco install` or `cinst`. They are intercha
 To [install a package](https://chocolatey.org/docs/commands-install) simply type:
 
     choco install <package>
+    choco install <package> --version=x.x.x # specific version (replace x with version number)
 
 Replace `<package>` with the name of the package you want to install.
 
@@ -128,21 +129,11 @@ To view Chocolatey's directory of packages:
 
 [https://chocolatey.org/packages](https://chocolatey.org/packages)
 
-To update a package:
+Other useful commands:
 
     choco upgrade <package>
-
-To install a specific version of a package (replace x with version number):
-
-    choco install <package> --version=x.x.x
-
-To see if any of your packages need to be updated:
-
-    choco outdated
-
-To see what you have installed (with their version numbers):
-
-    choco list --a
+    choco outdated # outdated packages
+    choco list --a # what's installed, including version numbers
 
 ### Installing multiple applications
 
@@ -179,21 +170,25 @@ The `core.autocrlf=input` setting is pretty crucial; it can break things you ins
 
 ## Node.js
 
-Install [Node.js](https://nodejs.org/) with WSL command line:
+Node allows Node Package Manager (NPM) to install external scripts from a repository. Why is this important? You don't have to go to multiple websites to grab the individual library files. They can be automated into your project using NPM.
+
+Install [Node.js](https://nodejs.org/) and [npm](https://npmjs.org/) with WSL command line:
 
     sudo apt install nodejs
-
-This also installs the [npm](https://npmjs.org/) package manager. 
 
 Once installation is complete, restart your command line application so that you can verify that Node and NPM are correctly installed:
 
     node --version
     npm --version
 
-Node modules are installed locally in the `node_modules` folder of each project by default, but there are at least two that are worth installing globally if you know you'll use them. Those are [TypeScript](http://www.typescriptlang.org/), [Gulp](http://gulpjs.com/):
+Node modules are defined in a local `package.json` file inside your project. `npm install` will download external libraries and frameworks into each project's own `node_modules` folder by default. You'll never need to actually edit files in this folder, only reference them.
+
+Two popular packages worth installing globally are [TypeScript](http://www.typescriptlang.org/), [Gulp](http://gulpjs.com/):
 
     npm install typescript
     npm install -g gulp
+
+Your specific project might not need either of these but this is an example of how to install external libraries.
 
 ### Npm usage
 
@@ -201,10 +196,8 @@ To install a package:
 
     npm install <package> # Install locally
     npm install -g <package> # Install globally
-
-To install a package and save it in your project's `package.json` file:
-
-    npm install <package> --save
+    npm install <package> --save # Insert into package.json as dependency
+    npm install <package> --save-dev # Insert into package.json as devDependency
 
 To see what's installed:
 
@@ -223,7 +216,7 @@ Javascript frameworks such as Angular, React and Vue now rely on the newest vers
 
 Until browsers catch up implementing the newest features of ES6, it is recommended to use a transpiler to convert your unsupported ES6 back to ES5, which is universally supported in all modern browsers.
 
-The most popular transpiler is Babel(https://babeljs.io/). Only install this locally into an already created project.
+The most popular transpiler is Babel(https://babeljs.io/). Only install this locally into an already created project using WSL command line:
 
     npm install --save-dev babel-cli babel-preset-env
 
