@@ -25,7 +25,9 @@ The following workflow assumes a clean installation of Windows 10, whether from 
 
 Throughout this document, you will encounter examples like this that contain one or more of the arguments listed:
 
-    sudo command -flag --flag directory file.extention # Comments are behind pound signs
+```bash
+sudo command -flag --flag directory file.extention # Comments are behind pound signs
+```
 
 Front-end development has increasingly moved towards an open-source, command-line interface (CLI) dependent workflow. Whether we access modules, packages or simply useful commands, setting up a command-line shell to your liking is a good idea to start.
 
@@ -120,8 +122,10 @@ Chocolatey can be used with either `choco install` or `cinst`. They are intercha
 
 To [install a package](https://chocolatey.org/docs/commands-install) simply type:
 
-    choco install <package>
-    choco install <package> --version=x.x.x # specific version (replace x with version number)
+```bash
+choco install <package>
+choco install <package> --version=x.x.x # specific version (replace x with version number)
+```
 
 Replace `<package>` with the name of the package you want to install.
 
@@ -131,9 +135,11 @@ To view Chocolatey's directory of packages:
 
 Other useful commands:
 
-    choco upgrade <package>
-    choco outdated # outdated packages
-    choco list --a # what's installed, including version numbers
+```bash
+choco upgrade <package>
+choco outdated # outdated packages
+choco list --a # what's installed, including version numbers
+```
 
 ### Installing multiple applications
 
@@ -174,7 +180,16 @@ Node allows Node Package Manager (NPM) to install external scripts from a reposi
 
 Install [Node.js](https://nodejs.org/) and [npm](https://npmjs.org/) with WSL command line:
 
-    sudo apt install nodejs
+    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+
+Alternatively, there's a useful utility called [nvm](https://github.com/creationix/nvm) that allows you to install multiple versions of Node. One project might not be able to support the latest version of Node so nvm to the rescue.
+
+```bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+source ~/.bashrc
+nvm install --lts # long-term support, which is not always the latest version
+```
 
 Once installation is complete, restart your command line application so that you can verify that Node and NPM are correctly installed:
 
@@ -194,21 +209,27 @@ Your specific project might not need either of these but this is an example of h
 
 To install a package:
 
-    npm install <package> # Install locally
-    npm install -g <package> # Install globally
-    npm install <package> --save # Insert into package.json as dependency
-    npm install <package> --save-dev # Insert into package.json as devDependency
+```bash
+npm install <package> # Install locally
+npm install -g <package> # Install globally
+npm install <package> --save # Insert into package.json as dependency
+npm install <package> --save-dev # Insert into package.json as devDependency
+```
 
 To see what's installed:
 
-    npm list # Local
-    npm list -g # Global
+```bash
+npm list # Local
+npm list -g # Global
+```
 
 Other useful commands:
 
-    npm outdated # Outdated packages
-    npm update <package> # Update a package
-    npm uninstall <package> # Uninstall a package
+```bash
+npm outdated # Outdated packages
+npm update <package> # Update a package
+npm uninstall <package> # Uninstall a package
+```
 
 ## ES6
 
