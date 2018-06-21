@@ -147,7 +147,7 @@ Chocolatey is awesome because now that you understand what it does, you can inst
 
 Note: if you use Boxstarter, you can include the following line inside your Powershell script and run everything together.
 
-    choco install googlechrome chromium firefox opera brave vivaldi tor-browser thunderbird slack sublimetext3 atom vscode openvpn cmder notepadplusplus github sourcetree vlc filezilla virtualbox vagrant malwarebytes superantispyware qbittorrent authy-desktop boxstarter -y
+    choco install googlechrome chromium firefox opera brave vivaldi tor-browser thunderbird slack sublimetext3 atom vscode openvpn cmder notepadplusplus sourcetree vlc filezilla virtualbox vagrant malwarebytes qbittorrent authy-desktop -y
 
 Note: Google Chrome and Microsoft Edge contain Adobe Reader, Flash and Java by default. Running standalone versions of each is not recommended because they are a security risk without regular maintenance and updates.
 
@@ -155,9 +155,14 @@ Note: Google Chrome and Microsoft Edge contain Adobe Reader, Flash and Java by d
 
 The folks at Chcolatey provide new tool called [Boxstarter](http://www.boxstarter.org/) to automate a Windows setup process. The important reasons to use this tools are for resilient reboot and Windows customization.
 
-    cinst boxstarter
+```bash
+# Install boxstarter
+. { iwr -useb https://boxstarter.org/bootstrapper.ps1 } | iex; get-boxstarter -Force
+# Run your boxstarter script
+Install-BoxstarterPackage -PackageName https://gist.githubusercontent.com/asuh/ba46d8c534b13ae4db89b4d3323eec97/raw/b1d04d9d679977d70b83ad2c1455b40f7ee32ad9/boxstarter.ps1 -DisableReboots
+```
 
-Using boxstarter requires some step by step instructions to create an executable file all found on the website above. To get you started, I recommend starting with [this already created .ps1 file](https://gist.github.com/jessfraz/7c319b046daa101a4aaef937a20ff41f).
+Using boxstarter requires some step by step instructions to create an executable file all found on the website above. To get you started, I recommend starting with [this already created .ps1 file](https://gist.github.com/asuh/ba46d8c534b13ae4db89b4d3323eec97).
 
 ## Ninite
 
