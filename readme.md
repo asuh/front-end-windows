@@ -57,8 +57,9 @@ Two main caveats:
 
 ## Projects Directory
 
-If you don't already have one, create a projects directory. I like to use `C:\Users\{yourusername}\Sites\[project-name]`. I prefer my Sites folder to exist along side the rest of my user profile folders.
+If you don't already have one, create a projects directory. I like to use `C:\Users\<winusername>\Sites\<project-name>`. I prefer my Sites folder to exist along side the rest of my user profile folders.
 
+    cd c:\Users\<winusername>
     mkdir -p Sites
 
 Depending on the type of projects you work on, this might not be necessary or preferable.
@@ -81,7 +82,23 @@ Powershell.exe (Run as Administrator)
 
 After a restart, install your preferred version of Linux Distribution, Ubuntu being the most popular choice. Here's a [complete set of instructions](https://docs.microsoft.com/en-us/windows/wsl/install-win10) from Microsoft to install WSL.
 
-Once installed, as you'll see below, we're going to use this VM to harbor the various languages and packages needed for web development. 
+Once installed, as you'll see below, we're going to use this container to harbor the various languages and packages needed for web development.
+
+One of the first things we need to figure out is how to access our projects within Windows.
+
+Here's the windows folder structure for the Home directory:
+
+    C:\Users\<winusername>\
+
+WSL maps that to this:
+
+    /mnt/c/Users/<winusername>
+
+Using the Projects directory I created above, if I store all my projects in `C:\Users\Micah\Sites`, in bash I'll get there using this command:
+
+    cd /mnt/c/Users/Micah/Sites
+
+Once you create a new folder inside of your Projects directory, this will become your home for that project. It's where you'll install any package managers you might need such as NPM and Composer.
 
 ## ZSH (optional)
 
@@ -181,9 +198,9 @@ The `core.autocrlf=input` setting is pretty crucial; it can break things you ins
 
 ## Node.js
 
-Node allows Node Package Manager (NPM) to install external scripts from a repository. Why is this important? You don't have to go to multiple websites to grab the individual library files. They can be automated into your project using NPM.
+Node.js allows Node Package Manager (NPM) to install external scripts from a repository. Why is this important? You don't have to go to multiple websites to grab the individual library files. They can be automated into your project using NPM. The following commands should all be run using WSL.
 
-Install [Node.js](https://nodejs.org/) and [npm](https://npmjs.org/) with WSL command line:
+Install [Node.js](https://nodejs.org/) and [npm](https://npmjs.org/):
 
     curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
     sudo apt-get install -y nodejs
