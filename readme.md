@@ -12,6 +12,7 @@ The following workflow assumes a clean installation of Windows 10, whether from 
 - [ZSH](#zsh-optional)
 - [Chocolatey and Boxstarter](#chocolatey-and-boxstarter)
 - [Ninite](#ninite)
+- [Privacy](#privacy)
 - [Git](#git)
 - [Node.js](#nodejs)
 - [ES6](#es6)
@@ -184,6 +185,13 @@ Using boxstarter requires some step by step instructions to create an executable
 ## Ninite
 
 If you have more software you need installed not included in Chocolatey or you wish to use something that has a GUI, [Ninite](https://ninite.com/) is an awesome addition.
+
+## Privacy
+
+I think now is the time to briefly let you know that Windows 10 communicates with many remove Microsoft services by default. Microsoft collects data on how you use the operating system through a process called telemetry. There's not a lot of transparency about what's going on but there are many free and open source applications that help us shut down and block as many as we know about.
+
+First, I recommend you look through [PrivacyTools.io](https://www.privacytools.io/). There's a ton of valuable software and links to consume.
+Second, consult [this evergreen, updated list of privacy tools for Windows 10](https://www.ghacks.net/2015/08/14/comparison-of-windows-10-privacy-tools/). As of June 2018, most of the content is updated and relevant. Run any scripts you feel will help you.
 
 ## Git
 
