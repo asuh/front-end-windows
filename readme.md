@@ -109,11 +109,11 @@ Because many tools recommended can be used with Bash, which contains the command
 
 [Z Shell](https://en.wikipedia.org/wiki/Z_shell), or ZSH, was written to extend Bash and make improvements to how Bash works. One of the most popular frameworks written around ZSH is called [Oh My Zsh!](http://ohmyz.sh/).
 
-Install it using WSL:
+Install Oh My Zsh! using WSL:
 
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     
-Now you have ZSH installed. [Sign up and follow the videos recorded by Wes Bos](https://commandlinepoweruser.com/) to learn a ton more about ZSH and why it's so powerful.
+Now you have Oh My ZSH! installed. [Sign up and follow the videos recorded by Wes Bos](https://commandlinepoweruser.com/) to learn a ton more about ZSH and why it's so powerful.
 
 ## Chocolatey and Boxstarter
 
@@ -177,7 +177,7 @@ The folks at Chcolatey provide new tool called [Boxstarter](http://www.boxstarte
 # Install boxstarter
 . { iwr -useb https://boxstarter.org/bootstrapper.ps1 } | iex; get-boxstarter -Force
 # Run your boxstarter script
-Install-BoxstarterPackage -PackageName https://gist.githubusercontent.com/asuh/ba46d8c534b13ae4db89b4d3323eec97/raw/b1d04d9d679977d70b83ad2c1455b40f7ee32ad9/boxstarter.ps1 -DisableReboots
+Install-BoxstarterPackage -PackageName https://gist.githubusercontent.com/asuh/ba46d8c534b13ae4db89b4d3323eec97/raw/1a4c9d55dce2909218919b16ed567cf16d6c85a6/boxstarter.ps1 -DisableReboots
 ```
 
 Using boxstarter requires some step by step instructions to create an executable file all found on the website above. To get you started, I recommend starting with [this already created .ps1 file](https://gist.github.com/asuh/ba46d8c534b13ae4db89b4d3323eec97).
