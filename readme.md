@@ -169,6 +169,8 @@ Note: if you use Boxstarter, you can include the following line inside your Powe
 
 Note: Google Chrome and Microsoft Edge contain Adobe Reader, Flash and Java by default. Running standalone versions of each is not recommended because they are a security risk without regular maintenance and updates.
 
+This process will require you to restart Windows for Vagrant to complete its installation. Several packages will auto-start the software and ask you to set them up as well.
+
 ### Boxstarter
 
 The folks at Chcolatey provide new tool called [Boxstarter](http://www.boxstarter.org/) to automate a Windows setup process. The important reasons to use this tools are for resilient reboot and Windows customization.
@@ -181,6 +183,8 @@ Install-BoxstarterPackage -PackageName https://gist.githubusercontent.com/asuh/b
 ```
 
 Using boxstarter requires some step by step instructions to create an executable file all found on the website above. To get you started, I recommend starting with [this already created .ps1 file](https://gist.github.com/asuh/ba46d8c534b13ae4db89b4d3323eec97).
+
+Note: you will have to restart Windows to complete some of the installations.
 
 ## Ninite
 
