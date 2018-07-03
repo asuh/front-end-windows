@@ -101,6 +101,20 @@ Using the Projects directory I created above, if I store all my projects in `C:\
 
 Once you create a new folder inside of your Projects directory, this will become your home for that project. It's where you'll install any package managers you might need such as NPM and Composer.
 
+### Security
+
+Two of the most common commands to set up new projects and tools are `apt-get` and `sudo`. Knowing this, it's imperative to keep the system and software up-to-date and patched.
+
+Once WSL is installed, update the `apt-get` tool so that it updates the package lists for app updates.
+
+```bash
+sudo apt update # apt and apt-get are interchangable
+```
+    
+It's a good habit to get into that every time you use `apt-get`, run this update first. You can combine the two using the following:
+
+    sudo apt update && apt-get <package>
+
 ## ZSH (optional)
 
 By default, Windows comes with three command line tools: Command Prompt, Powershell and now Bash in WSL. Powershell is a task automation and configuration management framework that includes command-line shell.
