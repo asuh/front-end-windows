@@ -165,7 +165,7 @@ Chocolatey is awesome because now that you understand what it does, you can inst
 
 Note: if you use Boxstarter, you can include the following line inside your Powershell script and run everything together.
 
-    choco install googlechrome chromium firefox opera brave vivaldi tor-browser thunderbird slack sublimetext3 atom vscode openvpn cmder notepadplusplus sourcetree vlc filezilla virtualbox vagrant malwarebytes qbittorrent authy-desktop -y
+    choco install googlechrome chromium firefox opera brave vivaldi tor-browser thunderbird slack git sublimetext3 atom vscode openvpn cmder notepadplusplus sourcetree vlc filezilla virtualbox vagrant malwarebytes qbittorrent authy-desktop -y
 
 Note: Google Chrome and Microsoft Edge contain Adobe Reader, Flash and Java by default. Running standalone versions of each is not recommended because they are a security risk without regular maintenance and updates.
 
@@ -207,6 +207,8 @@ What's a developer without [Git](http://git-scm.com/)? To install, from your WSL
     git config --global core.autocrlf input
 
 The `core.autocrlf=input` setting is pretty crucial; it can break things you install over git. If you have 2FA enabled on Github (you should), you’ll also need to follow the [Add SSH Key to Github](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/#platform-linux) and be sure you’re using the Linux instructions.
+
+If you used Chocolatey above to install applications, you'll notice this is the 2nd time we're installing Git; it is required for Visual Studio Code and is available for other local Windows apps.
 
 ## Node.js
 
