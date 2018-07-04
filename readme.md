@@ -81,7 +81,7 @@ Powershell.exe (Run as Administrator)
 
     Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
 
-After a restart, install your preferred version of Linux Distribution, Ubuntu being the most popular choice. Here's a [complete set of instructions](https://docs.microsoft.com/en-us/windows/wsl/install-win10) from Microsoft to install WSL.
+After a restart, install your preferred version of Linux Distribution, Ubuntu being the most popular choice and loaded with many useful packages and languages like Git. Here's a [complete set of instructions](https://docs.microsoft.com/en-us/windows/wsl/install-win10) from Microsoft to install WSL.
 
 Once installed, as you'll see below, we're going to use this container to harbor the various languages and packages needed for web development.
 
@@ -105,12 +105,15 @@ Once you create a new folder inside of your Projects directory, this will become
 
 Two of the most common commands to set up new projects and tools are `apt-get` and `sudo`. Knowing this, it's imperative to keep the system and software up-to-date and patched.
 
-Once WSL is installed, update the `apt-get` tool so that it updates the package lists for app updates.
+Once WSL is installed, update the `apt-get` tool as well as packages so that it updates the package lists for app updates.
 
 ```bash
-sudo apt update # apt and apt-get are interchangable
+sudo apt update && sudo apt upgrade # apt and apt-get are interchangable
 ```
-    
+
+`apt update` synchronizes your list of available packages with the servers in source repositories. 
+`apt upgrade` then downloads & installs any newer versions of your installed programs.
+
 It's a good habit to get into that every time you use `apt-get`, run this update first. You can combine the two using the following:
 
     sudo apt update && apt-get <package>
