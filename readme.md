@@ -4,12 +4,11 @@ This document assumes you're running a fresh copy of the latest version of **Win
 
 The following workflow assumes a clean installation of Windows 10, whether from Signature PC or a full manual reinstall from a vendor laptop. While it's okay to have third-party software installed, the installation process will be more streamlined and less convoluted with a bare Windows 10 system.
 
-- [Command Line Shell](#command-line-shell)
+- [Command Line Interface](#command-line-interface)
 - [Windows Prepartion](#system-update-and-disk-encryption)
 - [Projects Directory](#projects-directory)
 - [.NET Framework](#net)
 - [Windows Subsystem for Linux](#windows-subsystem-for-linux)
-- [ZSH](#zsh-optional)
 - [Chocolatey and Boxstarter](#chocolatey-and-boxstarter)
 - [Ninite](#ninite)
 - [Privacy](#privacy)
@@ -21,8 +20,9 @@ The following workflow assumes a clean installation of Windows 10, whether from 
 - [Sublime Text, Atom, and VSCode](#sublime-text-atom-and-vscode)
 - [VirtualBox](#virtualbox)
 - [Vagrant](#vagrant)
+- [ZSH](#zsh-optional)
 
-## Command Line Shell
+## Command Line Interface
 
 Throughout this document, you will encounter examples like this that contain one or more of the arguments listed:
 
@@ -30,9 +30,9 @@ Throughout this document, you will encounter examples like this that contain one
 sudo command -flag --flag directory file.extention # Comments are behind pound signs
 ```
 
-Front-end development has increasingly moved towards an open-source, command-line interface (CLI) dependent workflow. Whether we access modules, packages or simply useful commands, setting up a command-line shell to your liking is a good idea to start.
+Anytime you see the above, it is referring to your CLI of choice, whether it's the built-in Command Prompt or Powershell as well as Bash Shell or Z Shell [see below](#zsh-optional) in your [Windows Subsystem for Linux](#windows-subsystem-for-linux). You might also use a third-party application like [Cmder](https://cmder.net/), [Cygwin](https://www.cygwin.com/) or [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/).
 
-Anytime you see this, it is referring to your CLI of choice, whether it's the built-in Command Prompt, Powershell, Bash Shell in your Linux Distro or a third-party application like [Cmder](https://cmder.net/).
+Front-end development has increasingly moved towards an open-source driven, command-line interface (CLI) dependent workflow. Whether we access modules, packages or simply useful commands, setting up a command-line shell to your liking is a good idea.
 
 ## System update and Disk Encryption
 
@@ -125,20 +125,6 @@ sudo apt update && sudo apt upgrade # apt and apt-get are interchangable
 It's a good habit to get into that every time you use `apt-get`, run this update first. You can combine the two using the following:
 
     sudo apt update && apt-get <package>
-
-## ZSH (optional)
-
-By default, Windows comes with three command line tools: Command Prompt, Powershell and now Bash in WSL. Powershell is a task automation and configuration management framework that includes command-line shell.
-
-Because many tools recommended can be used with Bash, which contains the command language used to interact with Unix functions, such as `pwd`, `ls`, and `cd`, it is recommended to either use [Bash](https://docs.microsoft.com/en-us/windows/wsl/about) or use something like [Cmder](http://cmder.net/). Cmder is a console emulator that provides a shell for Bash.
-
-[Z Shell](https://en.wikipedia.org/wiki/Z_shell), or ZSH, was written to extend Bash and make improvements to how Bash works. One of the most popular frameworks written around ZSH is called [Oh My Zsh!](http://ohmyz.sh/).
-
-Install Oh My Zsh! using WSL:
-
-    sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    
-Now you have Oh My ZSH! installed. [Sign up and follow the videos recorded by Wes Bos](https://commandlinepoweruser.com/) to learn a ton more about ZSH and why it's so powerful.
 
 ## Chocolatey and Boxstarter
 
@@ -406,6 +392,20 @@ The brilliance of vagrant is its ability to be so portable. When you have a proj
     vagrant up
 
 My favorite box to use for new projects is called [Scotch Box](https://box.scotch.io/). It is fully-featured and contains everything I need built in to get started with many projects using PHP, JS or Ruby. For a WordPress environment, [Roots](https://roots.io/) has [Trellis](https://roots.io/trellis/) which includes everything you need for a powerful VM.
+
+## ZSH (optional)
+
+[Z Shell](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH), or ZSH, was written to extend Bash and make improvements to how Bash works. Install Zsh on WSL:
+
+    apt install zsh
+
+One of the most popular frameworks written around ZSH is called [Oh My Zsh!](http://ohmyz.sh/).
+
+Install Oh My Zsh! using WSL:
+
+    sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+[Sign up and follow the videos recorded by Wes Bos](https://commandlinepoweruser.com/) to learn a ton more about ZSH and why it's so powerful.
 
 ## TODO
 - Allow apps downloaded from anywhere system preferences
