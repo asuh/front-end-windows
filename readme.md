@@ -56,6 +56,14 @@ Two main caveats:
 - Make sure you do not forget your BitLocker password. You'll have four options to retain a recovery key so choose the best option for you. Losing this recovery key means you cannot log in and everything on your computer is 100% inaccessible.
 - After encryption completes, a corruption that makes the Windows 10 partition unaccessible has no recovery because of the level of encryption. Make sure you're both backing up using a local backup device such as [Windows 10 Backup](https://support.microsoft.com/en-us/help/17143/windows-10-back-up-your-files) on an external drive or a NAS, and a cloud backup provider like [Backblaze](https://www.backblaze.com/), [Carbonite](https://carbonite.com/), or [iDrive](https://www.idrive.com).
 
+### Clean up Windows
+
+Whether you're using a Signature PC from Microsoft, a manufacturer's Windows installation with third-party software or you installed Windows from scratch yourself, it's always a good idea to have a solid base installation with as few potential issues as possible.
+
+There are a ton of community driven starter packages and files to help clean up and uninstall unnecessary software and files. [Tron](https://github.com/bmrf/tron) is an all-inclusive from start to finish that touches everything from uninstall software to cleaning up temp files and checking for malware. It can easily take a minimum of 2-3 hours because of how thorough it is.
+
+I've also included additional scripts and information on cleaning up and updating Windows in the [Boxstarter](#chocolatey-and-boxstarter) and [Privacy](#privacy) sections below.
+
 ## Projects Directory
 
 If you don't already have one, create a projects directory. I like to use `C:\Users\<winusername>\Sites\<project-name>`. I prefer my Sites folder to exist along side the rest of my user profile folders.
