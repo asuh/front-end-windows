@@ -1,6 +1,6 @@
 # Front-End Development Setup on a PC
 
-This document assumes you're running a fresh copy of the latest version of **Windows 10**, >=version 1803.
+This document assumes you're running a fresh copy of the latest version of **Windows 10**, >=version 1809.
 
 The following workflow assumes a clean installation of Windows 10, whether from Signature PC or a full manual reinstall from a vendor laptop. While it's okay to have third-party software installed, the installation process will be more streamlined and less convoluted with a bare Windows 10 system.
 
@@ -39,10 +39,12 @@ Front-end development has increasingly moved towards an open-source driven, comm
 Step One - Update the system!
 **Windows Key > Settings > Update & Security**
 
-Step Two - Turn on BitLocker (Windows 10 Pro and above)
+Step Two - Turn on BitLocker for full disk encryption (read 2018/11 Addendum below before continuing)
 **Control Panel\System and Security\BitLocker Drive Encryption**
 
-Click on the text "Turn on BitLocker" to turn on and enable BitLocker. On a brand new machine or Windows 10 installation, it will take some time to fully encrypt the disk.
+Note: As of November 2018, it is recommended to disable hardware encryption and force Bitlocker to use Software Encryption because of [research that reveals vulnerabilities](https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/ADV180028).
+
+In Bitlocker manage page, click on the text "Turn on BitLocker" to turn on and enable BitLocker and follow the recommendations for drive encryption.
 
 Alternatively, you can use a third-party encryption software like [Veracrypt](https://en.wikipedia.org/wiki/VeraCrypt/), which is open-source and well regarded in the security community.
 
