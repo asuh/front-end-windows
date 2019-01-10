@@ -37,9 +37,11 @@ Front-end development has increasingly moved towards an open-source driven, comm
 ## System update and Disk Encryption
 
 Step One - Update the system!
+
 **Windows Key > Settings > Update & Security**
 
 Step Two - Turn on BitLocker for full disk encryption (read 2018/11 Addendum below before continuing)
+
 **Control Panel\System and Security\BitLocker Drive Encryption**
 
 Note: As of November 2018, it is recommended to disable hardware encryption and force Bitlocker to use Software Encryption because of [research that reveals vulnerabilities](https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/ADV180028).
