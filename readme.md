@@ -8,10 +8,10 @@ The following workflow assumes a clean installation of Windows 10, whether from 
 - [Windows Prepartion](#system-update-and-disk-encryption)
 - [Projects Directory](#projects-directory)
 - [.NET Framework](#net)
-- [Windows Subsystem for Linux](#windows-subsystem-for-linux)
 - [Chocolatey and Boxstarter](#chocolatey-and-boxstarter)
 - [Ninite](#ninite)
 - [Privacy](#privacy)
+- [Windows Subsystem for Linux](#windows-subsystem-for-linux)
 - [Git](#git)
 - [Node.js](#nodejs)
 - [ES6](#es6)
@@ -45,6 +45,13 @@ Step Two - Turn on BitLocker for full disk encryption (read 2018/11 Addendum bel
 **Control Panel\System and Security\BitLocker Drive Encryption**
 
 Note: As of November 2018, it is recommended to disable hardware encryption and force Bitlocker to use Software Encryption because of [research that reveals vulnerabilities](https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/ADV180028).
+
+```bash
+    # If encryption was previously enabled, check the type of drive encryption being used
+    manage-bde.exe -status
+```
+
+To enable software encryption with a group policy, [follow the instructions found on lifehacker.com](https://lifehacker.com/how-to-switch-to-software-encryption-on-your-vulnerable-1830289471)
 
 In Bitlocker manage page, click on the text "Turn on BitLocker" to turn on and enable BitLocker and follow the recommendations for drive encryption.
 
@@ -84,6 +91,89 @@ An important dependency for application installation and IIS is **.NET Framework
 **Control Panel > Turn Windows features on or off**
 
 Choose to install, if not already installed, both .NET Framework 3.5 and .NET Framework 4.7.x.
+
+## Chocolatey and Boxstarter
+
+Package managers make it so much easier to install and update applications (for Operating Systems) or libraries (for programming languages). The most popular one for Windows is [Chocolatey](https://chocolatey.org/).
+
+### Install
+
+Two options:
+
+Cmd.exe (Right-click, Run as Administrator)
+
+    C:\ @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+    
+For PowerShell, ([Ensure Get-ExecutionPolicy is at least RemoteSigned](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-6&viewFallbackFrom=powershell-Microsoft.PowerShell.Core)). 
+
+PowerShell.exe (Right-click, Run as Administrator)
+
+    Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+
+### Usage
+
+Chocolatey can be used with either `choco install` or `cinst`. They are interchangable.
+
+To [install a package](https://chocolatey.org/docs/commands-install) simply type:
+
+```bash
+choco install <package>
+choco install <package> --version=x.x.x # specific version (replace x with version number)
+```
+
+Replace `<package>` with the name of the package you want to install.
+
+To view Chocolatey's directory of packages:
+
+[https://chocolatey.org/packages](https://chocolatey.org/packages)
+
+Other useful commands:
+
+```bash
+choco upgrade <package>
+choco list --a # what's installed, including version numbers
+```
+
+Note: `choco outdated` does not stay in sync with evergreen software using the free version of Chocolatey. For example, if you use Chocolatey to install Firefox version 70, and Firefox upgrades itself to version 71, Chocolatey doesn't know that Firefox updated itself and the `outdated` command only remembers the version of Firefox you installed. In order to sync this up, [Chocolatey provides this feature in the paid upgrade](https://chocolatey.org/docs/features-synchronize) of Chocolatey.
+
+### Installing multiple applications
+
+Chocolatey is awesome because now that you understand what it does, you can install all your favorite apps in one command. Here's a list of my favorite apps, including Firefox, that I need for development on a regular basis.
+
+Note: if you use Boxstarter, you can include the following line inside your Powershell script and run everything together.
+
+    choco install googlechrome chromium firefox opera brave vivaldi tor-browser thunderbird slack git sublimetext3 atom vscode openvpn cmder notepadplusplus sourcetree vlc filezilla virtualbox vagrant malwarebytes qbittorrent authy-desktop -y
+
+Note: Google Chrome and Microsoft Edge contain encapsulated versions of Adobe Reader, Flash and Java by default. Running standalone versions of Adobe Reader, Flash, and Java is not recommended because they are a security risk without regular maintenance and updates.
+
+Using Chocolatey to install software like Vagrant will require you to restart Windows for Vagrant to complete its installation. Several packages will auto-start the software and ask you to set them up as well.
+
+### Boxstarter
+
+The folks at Chcolatey provide new tool called [Boxstarter](http://www.boxstarter.org/) to automate a Windows setup process. The important reasons to use this tools are for resilient reboot and Windows customization.
+
+```bash
+# Install boxstarter
+. { iwr -useb https://boxstarter.org/bootstrapper.ps1 } | iex; get-boxstarter -Force
+# Run your boxstarter script
+Install-BoxstarterPackage -PackageName https://gist.githubusercontent.com/asuh/ba46d8c534b13ae4db89b4d3323eec97/raw/1a4c9d55dce2909218919b16ed567cf16d6c85a6/boxstarter.ps1 -DisableReboots
+```
+
+Using boxstarter requires some step by step instructions to create an executable file all found on the website above. To get you started, I recommend starting with [this already created .ps1 file](https://gist.github.com/asuh/ba46d8c534b13ae4db89b4d3323eec97).
+
+Note: you will have to restart Windows to complete some of the installations.
+
+## Ninite
+
+If you have more software you need installed not included in Chocolatey or you wish to use something that has a GUI, [Ninite](https://ninite.com/) is an awesome addition.
+
+## Privacy
+
+I think now is the time to briefly let you know that Windows 10 communicates with many remote Microsoft services by default. Microsoft collects data on how you use the operating system through a process called telemetry. There's not a lot of transparency about what's going on but there are many free and open source applications that help us shut down and block as many as we know about.
+
+First, I recommend you look through [PrivacyTools.io](https://www.privacytools.io/). There's a ton of valuable software and links to consume.
+Second, [consult this evergreen, updated list of privacy tools for Windows 10](https://www.ghacks.net/2015/08/14/comparison-of-windows-10-privacy-tools/). As of June 2018, most of the content is updated and relevant. Run any scripts you feel will help you.
 
 ## Windows Subsystem for Linux
 
@@ -130,91 +220,9 @@ It's a good habit to get into that every time you use `apt-get`, run this update
 
     sudo apt update && apt-get <package>
 
-## Chocolatey and Boxstarter
-
-Package managers make it so much easier to install and update applications (for Operating Systems) or libraries (for programming languages). The most popular one for Windows is [Chocolatey](https://chocolatey.org/).
-
-### Install
-
-Two ways (Run as Administrator):
-
-Cmd.exe
-
-    C:\ @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
-    
-For PowerShell, ([Ensure Get-ExecutionPolicy is at least RemoteSigned](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-6&viewFallbackFrom=powershell-Microsoft.PowerShell.Core)). 
-
-PowerShell.exe 
-
-    Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-
-
-### Usage
-
-Chocolatey can be used with either `choco install` or `cinst`. They are interchangable.
-
-To [install a package](https://chocolatey.org/docs/commands-install) simply type:
-
-```bash
-choco install <package>
-choco install <package> --version=x.x.x # specific version (replace x with version number)
-```
-
-Replace `<package>` with the name of the package you want to install.
-
-To view Chocolatey's directory of packages:
-
-[https://chocolatey.org/packages](https://chocolatey.org/packages)
-
-Other useful commands:
-
-```bash
-choco upgrade <package>
-choco outdated # outdated packages
-choco list --a # what's installed, including version numbers
-```
-
-### Installing multiple applications
-
-Chocolatey is awesome because now that you understand what it does, you can install all your favorite apps in one command! Here's a list of my favorite apps, including Google Chrome, that I need for development on a regular basis.
-
-Note: if you use Boxstarter, you can include the following line inside your Powershell script and run everything together.
-
-    choco install googlechrome chromium firefox opera brave vivaldi tor-browser thunderbird slack git sublimetext3 atom vscode openvpn cmder notepadplusplus sourcetree vlc filezilla virtualbox vagrant malwarebytes qbittorrent authy-desktop -y
-
-Note: Google Chrome and Microsoft Edge contain Adobe Reader, Flash and Java by default. Running standalone versions of each is not recommended because they are a security risk without regular maintenance and updates.
-
-This process will require you to restart Windows for Vagrant to complete its installation. Several packages will auto-start the software and ask you to set them up as well.
-
-### Boxstarter
-
-The folks at Chcolatey provide new tool called [Boxstarter](http://www.boxstarter.org/) to automate a Windows setup process. The important reasons to use this tools are for resilient reboot and Windows customization.
-
-```bash
-# Install boxstarter
-. { iwr -useb https://boxstarter.org/bootstrapper.ps1 } | iex; get-boxstarter -Force
-# Run your boxstarter script
-Install-BoxstarterPackage -PackageName https://gist.githubusercontent.com/asuh/ba46d8c534b13ae4db89b4d3323eec97/raw/1a4c9d55dce2909218919b16ed567cf16d6c85a6/boxstarter.ps1 -DisableReboots
-```
-
-Using boxstarter requires some step by step instructions to create an executable file all found on the website above. To get you started, I recommend starting with [this already created .ps1 file](https://gist.github.com/asuh/ba46d8c534b13ae4db89b4d3323eec97).
-
-Note: you will have to restart Windows to complete some of the installations.
-
-## Ninite
-
-If you have more software you need installed not included in Chocolatey or you wish to use something that has a GUI, [Ninite](https://ninite.com/) is an awesome addition.
-
-## Privacy
-
-I think now is the time to briefly let you know that Windows 10 communicates with many remote Microsoft services by default. Microsoft collects data on how you use the operating system through a process called telemetry. There's not a lot of transparency about what's going on but there are many free and open source applications that help us shut down and block as many as we know about.
-
-First, I recommend you look through [PrivacyTools.io](https://www.privacytools.io/). There's a ton of valuable software and links to consume.
-Second, consult [this evergreen, updated list of privacy tools for Windows 10](https://www.ghacks.net/2015/08/14/comparison-of-windows-10-privacy-tools/). As of June 2018, most of the content is updated and relevant. Run any scripts you feel will help you.
-
 ## Git
 
-What's a developer without [Git](http://git-scm.com/)? To install, from your WSL command line run:
+What's a developer without [Git](http://git-scm.com/)? To install, from **WSL command line** run:
 
     sudo apt install git
     git config --global user.name "Your Name Here"
@@ -296,9 +304,9 @@ Since it's generally a bad idea to run Babel globally you may want to uninstall 
 
 ## Sass
 
-Install your preprocessor of choice, but I highly recommend using Sass. They all do the same thing but Sass has the most momentum behind it right now.
+Install your preprocessor of choice, but I recommend using Sass. They all do the same thing but Sass has the most momentum behind it right now.
 
-With WSL command line:
+With **WSL command line**:
 
     npm install -g sass
 
