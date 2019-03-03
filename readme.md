@@ -75,6 +75,10 @@ There are a ton of community driven starter packages and files to help clean up 
 
 I've also included additional scripts and information on cleaning up and updating Windows in the [Boxstarter](#chocolatey-and-boxstarter) and [Privacy](#privacy) sections below.
 
+### Windows reinstall tasks
+
+Refreshing Windows often means taking an existing machine, wiping the drive and starting again from scratch. This also means you have to back up and reload what you had. LifeHacker has a [guide for backing up and restoring a previous Windows installation](https://lifehacker.com/the-ultimate-guide-to-reinstalling-windows-from-scratch-1832897572).
+
 ## Projects Directory
 
 If you don't already have one, create a projects directory. I like to use `C:\Users\<winusername>\Sites\<project-name>`. I prefer my Sites folder to exist along side the rest of my user profile folders.
