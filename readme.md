@@ -191,6 +191,10 @@ After a restart, install your preferred version of Linux Distribution, Ubuntu be
 
 Once installed, as you'll see below, we're going to use this container to harbor the various languages and packages needed for web development.
 
+For more detailed instructions for installing WSL on Windows 10, [here's detailed guide with more front-end minded advice](https://www.smashingmagazine.com/2019/09/moving-javascript-development-bash-windows/).
+
+### Projects Directory
+
 One of the first things we need to figure out is how to access our projects within Windows.
 
 Here's the windows folder structure for the Home directory:
