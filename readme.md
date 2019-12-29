@@ -1,6 +1,6 @@
 # Front-End Development Setup on a PC
 
-This document assumes you're running a fresh copy of the latest version of **Windows 10**, >=version 1809.
+This document assumes you're running a fresh copy of the latest version of **Windows 10**, >=version 1909.
 
 The following workflow assumes a clean installation of Windows 10, whether from Signature PC or a full manual reinstall from a vendor laptop. While it's okay to have third-party software installed, the installation process will be more streamlined and less convoluted with a bare Windows 10 system.
 
@@ -147,7 +147,7 @@ Chocolatey is awesome because now that you understand what it does, you can inst
 
 Note: if you use Boxstarter, you can include the following line inside your Powershell script and run everything together.
 
-    choco install googlechrome chromium firefox opera brave vivaldi tor-browser thunderbird slack git sublimetext3 atom vscode openvpn cmder notepadplusplus sourcetree vlc filezilla virtualbox vagrant malwarebytes qbittorrent authy-desktop -y
+    choco install firefox microsoft-edge-insider-dev opera brave tor-browser thunderbird slack git sublimetext3 atom vscode openvpn notepadplusplus vlc virtualbox vagrant malwarebytes qbittorrent authy-desktop wox libreoffice-fresh wireguard --pre -y
 
 Note: Google Chrome and Microsoft Edge contain encapsulated versions of Adobe Reader, Flash and Java by default. Running standalone versions of Adobe Reader, Flash, and Java is not recommended because they are a security risk without regular maintenance and updates.
 
