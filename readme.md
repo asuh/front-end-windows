@@ -147,7 +147,7 @@ Chocolatey is awesome because now that you understand what it does, you can inst
 
 Note: if you use Boxstarter, you can include the following line inside your Powershell script and run everything together.
 
-    choco install firefox microsoft-edge-insider-dev opera brave tor-browser thunderbird slack git sublimetext3 atom vscode openvpn notepadplusplus vlc virtualbox vagrant malwarebytes qbittorrent authy-desktop wox libreoffice-fresh wireguard --pre -y
+    choco install firefox microsoft-edge-insider-dev opera brave tor-browser thunderbird slack git sublimetext3 atom vscodium openvpn notepadplusplus vlc virtualbox vagrant malwarebytes qbittorrent authy-desktop wox libreoffice-fresh wireguard --pre -y
 
 Note: Google Chrome and Microsoft Edge contain encapsulated versions of Adobe Reader, Flash and Java by default. Running standalone versions of Adobe Reader, Flash, and Java is not recommended because they are a security risk without regular maintenance and updates.
 
