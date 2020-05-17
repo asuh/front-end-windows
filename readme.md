@@ -11,16 +11,19 @@ The following workflow assumes a clean installation of Windows 10, whether from 
 - [Chocolatey and Boxstarter](#chocolatey-and-boxstarter)
 - [Ninite](#ninite)
 - [Privacy](#privacy)
+- [ZSH](#zsh)
 - [Windows Subsystem for Linux](#windows-subsystem-for-linux)
 - [Git](#git)
 - [Node.js](#nodejs)
+- [SSH](#ssh)
 - [ES6](#es6)
 - [Sass](#sass)
 - [PHP and Composer](#php-and-composer)
 - [Sublime Text, Atom, and VSCode](#sublime-text-atom-and-vscode)
+- [Vim](#vim)
 - [VirtualBox](#virtualbox)
 - [Vagrant](#vagrant)
-- [ZSH](#zsh-optional)
+- [Docker](#docker)
 
 ## Command Line Interface
 
@@ -30,7 +33,7 @@ Throughout this document, you will encounter examples like this that contain one
 sudo command -flag --flag directory file.extention # Comments are behind pound signs
 ```
 
-Anytime you see the above, it is referring to your CLI of choice, whether it's the built-in Command Prompt or Powershell as well as Bash Shell or Z Shell [see below](#zsh-optional) in your [Windows Subsystem for Linux](#windows-subsystem-for-linux). You might also use a third-party application like [Cmder](https://cmder.net/), [Cygwin](https://www.cygwin.com/) or [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/).
+Anytime you see the above, it is referring to your CLI of choice, whether it's the built-in Command Prompt or Powershell as well as Bash Shell or Z Shell [see below](#zsh) in your [Windows Subsystem for Linux](#windows-subsystem-for-linux). You might also use a third-party application like [Cmder](https://cmder.net/), [Cygwin](https://www.cygwin.com/) or [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/).
 
 Front-end development has increasingly moved towards an open-source driven, command-line interface (CLI) dependent workflow. Whether we access modules, packages or simply useful commands, setting up a command-line shell to your liking is a good idea.
 
@@ -41,6 +44,8 @@ Step One - Update the system!
 **Windows Key > Settings > Update & Security**
 
 Step Two - Turn on BitLocker for full disk encryption (read 2018/11 Addendum below before continuing)
+
+(If you can't install Bitlocker on Windows 10 Home, you can use a third-party encryption software like [Veracrypt](https://en.wikipedia.org/wiki/VeraCrypt/), which is open-source and well regarded by the security community.)
 
 **Control Panel\System and Security\BitLocker Drive Encryption**
 
@@ -55,8 +60,6 @@ To enable software encryption with a group policy, [follow the instructions foun
 
 In Bitlocker manage page, click on the text "Turn on BitLocker" to turn on and enable BitLocker and follow the recommendations for drive encryption.
 
-Alternatively, you can use a third-party encryption software like [Veracrypt](https://en.wikipedia.org/wiki/VeraCrypt/), which is open-source and well regarded in the security community.
-
 ### Full Disk Encryption
 
 Why do you want [full-disk encryption](https://en.wikipedia.org/wiki/Disk_encryption)? Theft.
@@ -64,12 +67,12 @@ Why do you want [full-disk encryption](https://en.wikipedia.org/wiki/Disk_encryp
 You're most likely using a portable laptop of some kind. If you lose it, the laptop gets stolen or someone tries to hack into it, your personal data is at risk. Using full-disk encryption is an extra layer of security to keep your mind at ease in case of potential intrusion.
 
 Two main caveats:
-- Make sure you do not forget your BitLocker password. You'll have four options to retain a recovery key so choose the best option for you. Losing this recovery key means you cannot log in and everything on your computer is 100% inaccessible.
-- After encryption completes, a corruption that makes the Windows 10 partition unaccessible has no recovery because of the level of encryption. Make sure you're both backing up using a local backup device such as [Windows 10 Backup](https://support.microsoft.com/en-us/help/17143/windows-10-back-up-your-files) on an external drive or a NAS, and a cloud backup provider like [Backblaze](https://www.backblaze.com/), [Carbonite](https://carbonite.com/), or [iDrive](https://www.idrive.com).
+- Make sure you do not forget your BitLocker or encryption software password. You'll have multiple options to retain a recovery key so choose the best option for you. Losing this recovery key means you cannot log in and everything on your computer is 100% inaccessible.
+- After encryption completes, any corruption that makes the Windows 10 partition unaccessible has no recovery. Make sure you're both backing up using a local backup device such as [Windows 10 Backup](https://support.microsoft.com/en-us/help/17143/windows-10-back-up-your-files) on an external drive or a NAS, and a cloud backup provider like [Backblaze](https://www.backblaze.com/), [Sync](https://www.sync.com), or [iDrive](https://www.idrive.com).
 
 ### Clean up Windows
 
-Whether you're using a Signature PC from Microsoft, a manufacturer's Windows installation with third-party software or you installed Windows from scratch yourself, it's always a good idea to have a solid base installation with as few potential issues as possible.
+Whether you're using a [https://www.microsoft.com/en-gd/store/b/signaturepcs](Signature PC from Microsoft), a manufacturer's Windows installation with third-party software or you installed Windows from scratch yourself, it's always a good idea to have a minimal and clean base installation with as few potential issues as possible.
 
 There are a ton of community driven starter packages and files to help clean up and uninstall unnecessary software and files. [Tron](https://github.com/bmrf/tron) is an all-inclusive from start to finish that touches everything from uninstall software to cleaning up temp files and checking for malware. It can easily take a minimum of 2-3 hours because of how thorough it is.
 
@@ -94,7 +97,7 @@ An important dependency for application installation and IIS is **.NET Framework
 
 **Control Panel > Turn Windows features on or off**
 
-Choose to install, if not already installed, both .NET Framework 3.5 and .NET Framework 4.7.x.
+If not already installed, choose to install both .NET Framework 3.5 and .NET Framework 4.7.x.
 
 ## Chocolatey and Boxstarter
 
@@ -102,24 +105,17 @@ Package managers make it so much easier to install and update applications (for 
 
 ### Install
 
-Two options:
-
-Cmd.exe (Right-click, Run as Administrator)
-
-    C:\ @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
-    
-For PowerShell, ([Ensure Get-ExecutionPolicy is at least RemoteSigned](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-6&viewFallbackFrom=powershell-Microsoft.PowerShell.Core)). 
+([Ensure Get-ExecutionPolicy is at least RemoteSigned](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-6&viewFallbackFrom=powershell-Microsoft.PowerShell.Core)). 
 
 PowerShell.exe (Right-click, Run as Administrator)
 
-    Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+Run `Get-ExecutionPolicy`. If it returns `Restricted`, then run `Set-ExecutionPolicy AllSigned` or `Set-ExecutionPolicy Bypass -Scope Process`.
 
+    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 ### Usage
 
-Chocolatey can be used with either `choco install` or `cinst`. They are interchangable.
-
-To [install a package](https://chocolatey.org/docs/commands-install) simply type:
+Chocolatey can be used to install applications with either `choco install` or `cinst`. They are interchangable.
 
 ```bash
 choco install <package>
@@ -139,7 +135,7 @@ choco upgrade <package>
 choco list --a # what's installed, including version numbers
 ```
 
-Note: `choco outdated` does not stay in sync with evergreen software using the free version of Chocolatey. For example, if you use Chocolatey to install Firefox version 70, and Firefox upgrades itself to version 71, Chocolatey doesn't know that Firefox updated itself and the `outdated` command only remembers the version of Firefox you installed. In order to sync this up, [Chocolatey provides this feature in the paid upgrade](https://chocolatey.org/docs/features-synchronize) of Chocolatey.
+Note: `choco outdated` does not stay in sync with evergreen software using the free version of Chocolatey. For example, if you use Chocolatey to install Firefox version 80, and Firefox upgrades itself to version 81, Chocolatey doesn't know that Firefox updated itself and the `outdated` command only remembers the version of Firefox you installed. In order to sync this up, [Chocolatey provides this feature in the paid upgrade](https://chocolatey.org/docs/features-synchronize) of Chocolatey.
 
 ### Installing multiple applications
 
@@ -147,9 +143,9 @@ Chocolatey is awesome because now that you understand what it does, you can inst
 
 Note: if you use Boxstarter, you can include the following line inside your Powershell script and run everything together.
 
-    choco install firefox microsoft-edge-insider-dev opera brave tor-browser thunderbird slack git sublimetext3 atom vscodium openvpn notepadplusplus vlc virtualbox vagrant malwarebytes qbittorrent authy-desktop wox libreoffice-fresh wireguard --pre -y
+    choco install firefox microsoft-edge-insider-dev brave tor-browser microsoft-windows-terminal thunderbird slack skype zoom git nvm sublimetext3 atom vscodium filezilla notepadplusplus vlc virtualbox vagrant docker-desktop malwarebytes qbittorrent authy-desktop libreoffice-fresh wireguard --pre -y
 
-Note: Google Chrome and Microsoft Edge contain encapsulated versions of Adobe Reader, Flash and Java by default. Running standalone versions of Adobe Reader, Flash, and Java is not recommended because they are a security risk without regular maintenance and updates.
+Note: Most modern browsers contain PDF readers like Adobe Reader and sometimes Flash and Java by default. Running standalone versions of each is not recommended because they are a security risk without regular maintenance and updates.
 
 Using Chocolatey to install software like Vagrant will require you to restart Windows for Vagrant to complete its installation. Several packages will auto-start the software and ask you to set them up as well.
 
@@ -174,10 +170,24 @@ If you have more software you need installed not included in Chocolatey or you w
 
 ## Privacy
 
-I think now is the time to briefly let you know that Windows 10 communicates with many remote Microsoft services by default. Microsoft collects data on how you use the operating system through a process called telemetry. There's not a lot of transparency about what's going on but there are many free and open source applications that help us shut down and block as many as we know about.
+I think now is the time to briefly let you know that Windows 10 communicates with Microsoft by default. Microsoft collects data on how you use the operating system through a process called telemetry. There's not a lot of transparency about what's going on but there are many free and open source applications that help us shut down and block as many as we know about.
 
 First, I recommend you look through [PrivacyTools.io](https://www.privacytools.io/). There's a ton of valuable software and links to consume.
 Second, [consult this evergreen, updated list of privacy tools for Windows 10](https://www.ghacks.net/2015/08/14/comparison-of-windows-10-privacy-tools/). As of June 2018, most of the content is updated and relevant. Run any scripts you feel will help you.
+
+
+## ZSH
+
+[Z Shell](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH), or ZSH, was written to extend Bash and make improvements to how Bash works. Install ZSH on WSL:
+
+    apt install zsh
+
+Don't forget to customize ZSH!
+
+[Themes](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes) are available.
+[Autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) and [Syntax Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) will improve ZSH user experience too.
+
+[Sign up and follow the videos recorded by Wes Bos](http://commandlinepoweruser.com/) to learn a ton more about ZSH and why it's so powerful. Or a [free 80 minute video on YouTube by Karl Hadwen](https://www.youtube.com/watch?v=MSPu-lYF-A8).
 
 ## Windows Subsystem for Linux
 
@@ -189,7 +199,9 @@ Powershell.exe (Run as Administrator)
 
 After a restart, install your preferred version of Linux Distribution, Ubuntu being the most popular choice and loaded with many useful packages and languages like Git. Here's a [complete set of instructions](https://docs.microsoft.com/en-us/windows/wsl/install-win10) from Microsoft to install WSL.
 
-Once installed, as you'll see below, we're going to use this container to harbor the various languages and packages needed for web development.
+Once installed, as you'll see below, we're going to use this container to harbor the various languages and packages needed for web development. I'd recommend install cURL for installing other packages too.
+
+    sudo apt-get install curl
 
 For more detailed instructions for installing WSL on Windows 10, [here's detailed guide with more front-end minded advice](https://www.smashingmagazine.com/2019/09/moving-javascript-development-bash-windows/).
 
@@ -237,7 +249,7 @@ What's a developer without [Git](http://git-scm.com/)? To install, from **WSL co
     git config --global user.email "your_email@youremail.com"
     git config --global core.autocrlf input
 
-The `core.autocrlf=input` setting is pretty crucial; it can break things you install over git. If you have 2FA enabled on Github (you should), you’ll also need to follow the [Add SSH Key to Github](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/#platform-linux) and be sure you’re using the Linux instructions.
+The `core.autocrlf=input` setting is pretty crucial; it can break things you install over git. If you have 2FA enabled on Github (you should), you’ll also need to follow the [Add SSH Key to Github](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account#platform-linux) and be sure you’re using the Linux instructions.
 
 If you used Chocolatey above to install applications, you'll notice this is the 2nd time we're installing Git; it is required for Visual Studio Code and is available for other local Windows apps.
 
@@ -245,66 +257,62 @@ If you used Chocolatey above to install applications, you'll notice this is the 
 
 Node.js allows Node Package Manager (NPM) to install external scripts from a repository. Why is this important? You don't have to go to multiple websites to grab the individual library files. They can be automated into your project using NPM. The following commands should all be run using WSL.
 
-Install [Node.js](https://nodejs.org/) and [npm](https://npmjs.org/):
-
-    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-    sudo apt-get install -y nodejs
-
-Alternatively, there's a useful utility called [nvm](https://github.com/creationix/nvm) that allows you to install multiple versions of Node. One project might not be able to support the latest version of Node so nvm to the rescue.
+There's a useful utility called [nvm](https://github.com/creationix/nvm) that allows you to install multiple versions of Node. One project might not be able to support the latest version of Node so nvm to the rescue.
 
 ```bash
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-source ~/.bashrc
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 nvm install --lts # long-term support, which is not always the latest version
 ```
 
-Once installation is complete, restart your command line application so that you can verify that Node and NPM are correctly installed:
+### nvm usage
 
-    node --version
-    npm --version
+When you enter a project, you can install Node using NVM.
+
+    nvm install node
+
+Restart terminal and run the final command.
+
+    nvm use node
+
+Confirm that you are using the latest version of Node and npm.
+
+    node -v
+    npm -v
+
+You can switch to another version and use it by changing to the directory where you want to use Node and run the following.
+
+    nvm install xx.xx
+    nvm use xx.xx
 
 Node modules are defined in a local `package.json` file inside your project. `npm install` will download external libraries and frameworks into each project's own `node_modules` folder by default. You'll never need to actually edit files in this folder, only reference them.
 
-Two popular packages worth installing globally are [TypeScript](http://www.typescriptlang.org/), [Gulp](http://gulpjs.com/):
+## SSH
 
-    npm install typescript
-    npm install -g gulp
+Whether it's Github or directly working on servers, SSH has become imperative for modern projects. 
 
-Your specific project might not need either of these but this is an example of how to install external libraries.
+[Github has excellent instructions for setting up git and connecting it to a Github account](https://help.github.com/en/github/getting-started-with-github/set-up-git)
 
-### Npm usage
+Now you can add a little shortcut to make SSHing into other boxes easier. Paste the following block of code into your SSH config file at `~/.ssh/config`, changing the variables for any hosts that you connect to.
 
-To install a package:
+```ssh
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_rsa
 
-```bash
-npm install <package> # Install locally
-npm install -g <package> # Install globally
-npm install <package> --save # Insert into package.json as dependency
-npm install <package> --save-dev # Insert into package.json as devDependency
-```
-
-To see what's installed:
-
-```bash
-npm list # Local
-npm list -g # Global
-```
-
-Other useful commands:
-
-```bash
-npm outdated # Outdated packages
-npm update <package> # Update a package
-npm uninstall <package> # Uninstall a package
+Host myssh
+  HostName example.com
+  User user
+  IdentityFile ~/.ssh/key.pem
 ```
 
 ## ES6
 
-Javascript frameworks such as Angular, React and Vue now rely on the newest version of Javascript starting with ECMAScript 2015 (ES6). Browser quirks that gave rise to jQuery are less problematic because web standards are regularly implemented and iterated. Thus, the golden age of Javascript is upon us.
+Javascript libraries such as React and Vue use modern versions of Javascript starting with ECMAScript 2015 (ES6). Browser quirks that gave rise to jQuery are less problematic because web standards are regularly implemented and iterated. Thus, a golden age of Javascript is upon us.
 
 Until browsers catch up implementing the newest features of ES6, it is recommended to use a transpiler to convert your unsupported ES6 back to ES5, which is universally supported in all modern browsers.
 
-The most popular transpiler is Babel(https://babeljs.io/). Only install this locally into an already created project using WSL command line:
+The most popular transpiler is Babel(https://babeljs.io/). Only install this locally into an already created project if you need ES5 support. Check your project, it might already use Babel and you can skip this step.
 
     npm install --save-dev babel-cli babel-preset-env
 
@@ -312,13 +320,13 @@ Since it's generally a bad idea to run Babel globally you may want to uninstall 
 
 ## Sass
 
-Install your preprocessor of choice, but I recommend using Sass. They all do the same thing but Sass has the most momentum behind it right now.
+Install your preprocessor of choice, but I recommend using either Sass (or maybe PostCSS). They all do the same thing but Sass has the most momentum since the end of the 2010s.
 
 With **WSL command line**:
 
     npm install -g sass
 
-Keep in mind that the utility that Sass offers is slowly being complimented and deprecated with the rise of [CSS variables](https://medium.freecodecamp.org/everything-you-need-to-know-about-css-variables-c74d922ea855).
+Keep in mind that the utility that Sass offers is slowly being complimented and deprecated with the rise of [CSS variables](https://www.freecodecamp.org/news/everything-you-need-to-know-about-css-variables-c74d922ea855/).
 
 ## PHP and Composer
 
@@ -326,7 +334,7 @@ PHP is still one of the most used programming languages on the web, thanks in pa
 
 One of the most popular PHP dependency managers is called [Composer](https://getcomposer.org/). The difference between Composer and NPM, for example, is that Composer works on a project-by-project basis, there is no global installations. So you must run and setup Composer on every new project if you want to use it.
 
-To install Composer globally within Windows, go to the [Download page](https://getcomposer.org/download/) and run the package installer. It would be preferable to install this inside WSL instead of Windows.
+To install Composer globally, go to the [Download page](https://getcomposer.org/download/) and run the package installer. It would be preferable to install this inside WSL instead of Windows.
 
 ## Sublime Text, Atom, and VSCode
 
@@ -347,10 +355,11 @@ After installing Sublime Text, add [Package Control](https://packagecontrol.io/i
 #### Colors
 
 I recommend to change two color settings:
+
 - **Theme** (which is how the tabs, the file explorer on the left, etc. look)
 - **Color Scheme** (the colors of the code).
 
-My favorite theme is [Material Design Darker](https://equinsuocha.io/material-theme/#/darker) and a close second to [Seti_UI Theme](https://packagecontrol.io/packages/Seti_UI). 
+My favorite theme is [Material Design Darker](https://github.com/equinusocio/material-theme) and a close second to [Seti_UI Theme](https://packagecontrol.io/packages/Seti_UI). 
 
 Go to **Tools > Command Palette** (Shift-Command-P), Highlight **Package Control: Install Package** and then search for your preferred theme, make sure it's highlighted then press Enter to install it.
 
@@ -374,7 +383,6 @@ Feel free to tweak these to your preference. When done, save the file and close 
 
 ![Add System variable](https://i.imgur.com/pXTqfL8.jpg)
 
-
 Now I can open a file with `subl myfile.html` or start a new project in the current directory with `subl .`. Pretty cool!
 
 ### Atom
@@ -385,7 +393,39 @@ The main problem for Atom as of autumn 2018 is that large files and projects not
 
 ### VSCode
 
-Visual Studio Code is 2018's "it" open-source code editor. There's a ton of great tutorials and articles, such as [VS Code Docs](https://code.visualstudio.com/docs/introvideos/basics) and [VS Code Can Do That?](https://vscodecandothat.com/).
+Visual Studio Code found popularity at the end of the 2010s and has become a staple open-source code editor for many front-end developers. I use it both personally and professionally because of various built-in features like git support, terminal integration and a similar-to-Sublime-Text repository of great plugins. I recommend using VSCodium, as it strips away the tracking that Github integrates into VSCode.
+
+    choco install vscodium
+
+There's a ton of great tutorials and articles, such as [VS Code Docs](https://code.visualstudio.com/docs/introvideos/basics) and [VS Code Can Do That?](https://vscodecandothat.com/).
+
+## Vim
+
+It is a good idea to learn some very basic usage of [Vim](http://www.vim.org/). It is a very popular open-source editor accessed using command-line shells and is usually pre-installed on Unix systems.
+
+For example, when you run a `git commit`, it will open Vim to allow you to type the commit message.
+
+I suggest you read a tutorial on Vim. Grasping the concept of the two "modes" of the editor, **Insert** (by pressing `i`) and **Normal** (by pressing `Esc` to exit Insert mode), will be the part that feels most unnatural. After that it's just remembering a few important keys.
+
+Vim's default settings aren't great, and you could spend a lot of time tweaking your configuration (the `.vimrc` file). But if you're like me and just use Vim occasionally, you'll be happy to know that [Tim Pope](https://github.com/tpope) has put together some sensible defaults to quickly get started.
+
+First, install [pathogen.vim](https://github.com/tpope/vim-pathogen) by running:
+
+    mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+If you're brand new to Vim and lacking a vimrc, vim ~/.vimrc and paste in the following super-minimal example:
+
+    execute pathogen#infect()
+    syntax on
+    filetype plugin indent on
+
+And finally, install the Vim "sensible defaults" by running:
+
+    cd ~/.vim/bundle && \
+    git clone git://github.com/tpope/vim-sensible.git
+
+With that, Vim will look a lot better next time you open it!
 
 ## Virtualbox
 
@@ -403,7 +443,7 @@ Once installed, you can easily install many [versions of Internet Explorer from 
 
 ## Vagrant
 
-I have personally tried to move away from packaged development environments like MAMP. The alternative I've been enjoying a lot lately is called [Vagrant](https://www.vagrantup.com/). This gives you a powerful way to create a virtual and portable dev environment! It also has built-in connection to your local OS so that you develop in Windows but the environment runs in the VM.
+I have personally tried to move away from packaged development environments like MAMP. The alternative I like is called [Vagrant](https://www.vagrantup.com/). This gives you a powerful way to create a virtual and portable dev environment! It also has built-in connection to your local OS so that you develop in Windows but the environment runs in the VM.
 
     choco install vagrant
 
@@ -411,21 +451,23 @@ The brilliance of vagrant is its ability to be so portable. When you have a proj
 
     vagrant up
 
-My favorite box to use for new projects is called [Scotch Box](https://box.scotch.io/). It is fully-featured and contains everything I need built in to get started with many projects using PHP, JS or Ruby. For a WordPress environment, [Roots](https://roots.io/) has [Trellis](https://roots.io/trellis/) which includes everything you need for a powerful VM.
+A great box to use for new projects is called [Scotch Box](https://box.scotch.io/). It is fully-featured and contains everything I need built in to get started with many projects using PHP, JS or Ruby. For a WordPress environment, [Roots](https://roots.io/) has [Trellis](https://roots.io/trellis/) which includes everything you need for a powerful VM.
 
-## ZSH (optional)
+## Docker
 
-[Z Shell](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH), or ZSH, was written to extend Bash and make improvements to how Bash works. Install Zsh on WSL:
+Similar to Vagrant, I increasingly use Docker for professional projects. It comes with similar benefits to Vagrant, such as portability, encapsulation for the environment within the OS, and consistent environments. Docker goes a little further because it's a container manager it's lighter in resources and file size than Vagrant.
 
-    apt install zsh
+    brew cask install docker
+    
+Docker can be quite powerful but complicated to set up. For this reason, I'm a fan of another project which is a wrapper around Docker called [Lando](https://lando.dev/). Originally designed for Drupal, it's increased support for many other environments including WordPress, Node.js, and Laravel.
 
-One of the most popular frameworks written around ZSH is called [Oh My Zsh!](http://ohmyz.sh/).
+    brew cask install lando
+    
+For privacy, I recommend disabling tracking. Inside of your `.lando.yml` file, add the following:
 
-Install Oh My Zsh! using WSL:
-
-    sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-[Sign up and follow the videos recorded by Wes Bos](https://commandlinepoweruser.com/) to learn a ton more about ZSH and why it's so powerful.
+    stats:
+      - report: false
+        url: https://metrics.lando.dev
 
 ## TODO
 - Allow apps downloaded from anywhere system preferences
