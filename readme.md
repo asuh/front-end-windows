@@ -132,10 +132,10 @@ Other useful commands:
 
 ```bash
 choco upgrade <package>
-choco list --a # what's installed, including version numbers
+choco list --localonly # what's installed on your local machine, including version numbers
 ```
 
-Note: `choco outdated` does not stay in sync with evergreen software using the free version of Chocolatey. For example, if you use Chocolatey to install Firefox version 80, and Firefox upgrades itself to version 81, Chocolatey doesn't know that Firefox updated itself and the `outdated` command only remembers the version of Firefox you installed. In order to sync this up, [Chocolatey provides this feature in the paid upgrade](https://chocolatey.org/docs/features-synchronize) of Chocolatey.
+Note: `choco outdated` does not stay in sync with evergreen software using the free version of Chocolatey. For example, if you use Chocolatey to install Firefox version 90, and Firefox upgrades itself to version 91, Chocolatey doesn't know that Firefox updated itself and the `outdated` command only remembers the version of Firefox you installed. In order to sync this up, [Chocolatey provides this feature in the paid upgrade](https://chocolatey.org/docs/features-synchronize) of Chocolatey.
 
 ### Installing multiple applications
 
@@ -143,7 +143,7 @@ Chocolatey is awesome because now that you understand what it does, you can inst
 
 Note: if you use Boxstarter, you can include the following line inside your Powershell script and run everything together.
 
-    choco install firefox microsoft-edge-insider-dev brave tor-browser microsoft-windows-terminal thunderbird slack skype zoom git nvm sublimetext3 atom vscodium filezilla notepadplusplus vlc virtualbox vagrant docker-desktop malwarebytes qbittorrent authy-desktop libreoffice-fresh wireguard --pre -y
+    choco install firefox microsoft-edge-insider-dev brave tor-browser microsoft-windows-terminal powertoys rainmeter thunderbird slack skype zoom git nvm sublimetext3 atom vscodium filezilla notepadplusplus vlc virtualbox vagrant docker-desktop malwarebytes qbittorrent authy-desktop libreoffice-fresh wireguard --pre -y
 
 Note: Most modern browsers contain PDF readers like Adobe Reader and sometimes Flash and Java by default. Running standalone versions of each is not recommended because they are a security risk without regular maintenance and updates.
 
