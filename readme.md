@@ -11,16 +11,17 @@ The following workflow assumes a clean installation of Windows 10, whether from 
 - [Chocolatey and Boxstarter](#chocolatey-and-boxstarter)
 - [Ninite](#ninite)
 - [Privacy](#privacy)
-- [ZSH](#zsh)
 - [Windows Subsystem for Linux](#windows-subsystem-for-linux)
+- [Sublime Text, Atom, and VSCode](#sublime-text-atom-and-vscode)
+- [Vim](#vim)
+- [ZSH](#zsh)
+- [SSH](#ssh)
 - [Git](#git)
 - [Node.js](#nodejs)
 - [SSH](#ssh)
 - [ES6](#es6)
 - [Sass](#sass)
 - [PHP and Composer](#php-and-composer)
-- [Sublime Text, Atom, and VSCode](#sublime-text-atom-and-vscode)
-- [Vim](#vim)
 - [VirtualBox](#virtualbox)
 - [Vagrant](#vagrant)
 - [Docker](#docker)
@@ -175,20 +176,6 @@ I think now is the time to briefly let you know that Windows 10 communicates wit
 First, I recommend you look through [PrivacyTools.io](https://www.privacytools.io/). There's a ton of valuable software and links to consume.
 Second, [consult this evergreen, updated list of privacy tools for Windows 10](https://www.ghacks.net/2015/08/14/comparison-of-windows-10-privacy-tools/). As of June 2018, most of the content is updated and relevant. Run any scripts you feel will help you.
 
-
-## ZSH
-
-[Z Shell](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH), or ZSH, was written to extend Bash and make improvements to how Bash works. Install ZSH on WSL:
-
-    apt install zsh
-
-Don't forget to customize ZSH!
-
-[Themes](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes) are available.
-[Autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) and [Syntax Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) will improve ZSH user experience too.
-
-[Sign up and follow the videos recorded by Wes Bos](http://commandlinepoweruser.com/) to learn a ton more about ZSH and why it's so powerful. Or a [free 80 minute video on YouTube by Karl Hadwen](https://www.youtube.com/watch?v=MSPu-lYF-A8).
-
 ## Windows Subsystem for Linux
 
 Web development is not a sole operating system or browser process. WSL gives us more tools such as using native Unix commands within Windows. This is a big deal if you come from a Unix based OS and want to feel more comfortable on Windows.
@@ -239,102 +226,6 @@ sudo apt update && sudo apt upgrade # apt and apt-get are interchangable
 It's a good habit to get into that every time you use `apt-get`, run this update first. You can combine the two using the following:
 
     sudo apt update && apt-get <package>
-
-## Git
-
-What's a developer without [Git](http://git-scm.com/)? To install, from **WSL command line** run:
-
-    sudo apt install git
-    git config --global user.name "Your Name Here"
-    git config --global user.email "your_email@youremail.com"
-    git config --global core.autocrlf input
-
-The `core.autocrlf=input` setting is pretty crucial; it can break things you install over git. If you have 2FA enabled on Github (you should), you’ll also need to follow the [Add SSH Key to Github](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account#platform-linux) and be sure you’re using the Linux instructions.
-
-If you used Chocolatey above to install applications, you'll notice this is the 2nd time we're installing Git; it is required for Visual Studio Code and is available for other local Windows apps.
-
-## Node.js
-
-Node.js allows Node Package Manager (NPM) to install external scripts from a repository. Why is this important? You don't have to go to multiple websites to grab the individual library files. They can be automated into your project using NPM. The following commands should all be run using WSL.
-
-There's a useful utility called [nvm](https://github.com/creationix/nvm) that allows you to install multiple versions of Node. One project might not be able to support the latest version of Node so nvm to the rescue.
-
-```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-nvm install --lts # long-term support, which is not always the latest version
-```
-
-### nvm usage
-
-When you enter a project, you can install Node using NVM.
-
-    nvm install node
-
-Restart terminal and run the final command.
-
-    nvm use node
-
-Confirm that you are using the latest version of Node and npm.
-
-    node -v
-    npm -v
-
-You can switch to another version and use it by changing to the directory where you want to use Node and run the following.
-
-    nvm install xx.xx
-    nvm use xx.xx
-
-Node modules are defined in a local `package.json` file inside your project. `npm install` will download external libraries and frameworks into each project's own `node_modules` folder by default. You'll never need to actually edit files in this folder, only reference them.
-
-## SSH
-
-Whether it's Github or directly working on servers, SSH has become imperative for modern projects. 
-
-[Github has excellent instructions for setting up git and connecting it to a Github account](https://help.github.com/en/github/getting-started-with-github/set-up-git)
-
-Now you can add a little shortcut to make SSHing into other boxes easier. Paste the following block of code into your SSH config file at `~/.ssh/config`, changing the variables for any hosts that you connect to.
-
-```ssh
-Host *
-  AddKeysToAgent yes
-  UseKeychain yes
-  IdentityFile ~/.ssh/id_rsa
-
-Host myssh
-  HostName example.com
-  User user
-  IdentityFile ~/.ssh/key.pem
-```
-
-## ES6
-
-Javascript libraries such as React and Vue use modern versions of Javascript starting with ECMAScript 2015 (ES6). Browser quirks that gave rise to jQuery are less problematic because web standards are regularly implemented and iterated. Thus, a golden age of Javascript is upon us.
-
-Until browsers catch up implementing the newest features of ES6, it is recommended to use a transpiler to convert your unsupported ES6 back to ES5, which is universally supported in all modern browsers.
-
-The most popular transpiler is Babel(https://babeljs.io/). Only install this locally into an already created project if you need ES5 support. Check your project, it might already use Babel and you can skip this step.
-
-    npm install --save-dev babel-cli babel-preset-env
-
-Since it's generally a bad idea to run Babel globally you may want to uninstall the global copy by running `npm uninstall --global babel-cli`
-
-## Sass
-
-Install your preprocessor of choice, but I recommend using either Sass (or maybe PostCSS). They all do the same thing but Sass has the most momentum since the end of the 2010s.
-
-With **WSL command line**:
-
-    npm install -g sass
-
-Keep in mind that the utility that Sass offers is slowly being complimented and deprecated with the rise of [CSS variables](https://www.freecodecamp.org/news/everything-you-need-to-know-about-css-variables-c74d922ea855/).
-
-## PHP and Composer
-
-PHP is still one of the most used programming languages on the web, thanks in part to the amount of sites still using WordPress. We need a way to manage PHP scripts and packages similarly to how we manage JS dependencies using NPM.
-
-One of the most popular PHP dependency managers is called [Composer](https://getcomposer.org/). The difference between Composer and NPM, for example, is that Composer works on a project-by-project basis, there is no global installations. So you must run and setup Composer on every new project if you want to use it.
-
-To install Composer globally, go to the [Download page](https://getcomposer.org/download/) and run the package installer. It would be preferable to install this inside WSL instead of Windows.
 
 ## Sublime Text, Atom, and VSCode
 
@@ -426,6 +317,162 @@ And finally, install the Vim "sensible defaults" by running:
     git clone git://github.com/tpope/vim-sensible.git
 
 With that, Vim will look a lot better next time you open it!
+
+## ZSH
+
+[Z Shell](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH), or ZSH, was written to extend Bash and make improvements to how Bash works. Install ZSH on WSL:
+
+    apt install zsh
+
+Don't forget to customize ZSH!
+
+[Themes](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes) are available.
+[Autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) and [Syntax Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) will improve ZSH user experience too.
+
+[Sign up and follow the videos recorded by Wes Bos](http://commandlinepoweruser.com/) to learn a ton more about ZSH and why it's so powerful. Or a [free 80 minute video on YouTube by Karl Hadwen](https://www.youtube.com/watch?v=MSPu-lYF-A8).
+
+## SSH
+
+SSH is imperative, just like git and node as you'll see.
+
+[Github has excellent instructions for setting up git and connecting it to a Github account](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/set-up-git). This will help you to install the repos to your computer from Github as well as set up keys that you'll need to connect git and github.
+
+Now you can add a little shortcut to make SSHing into other boxes easier. Paste the following block of code into your SSH config file at `~/.ssh/config`, changing the variables for any hosts that you connect to.
+
+```ssh
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_rsa
+```
+
+Below the above, you can add other sites as needed.
+
+```ssh
+Host myssh
+  HostName example.com
+  User user
+  IdentityFile ~/.ssh/key.pem
+```
+
+With the above code, you can now run the alias `myssh` to connect.
+
+    ssh myssh
+
+## Git
+
+What's a developer without [Git](http://git-scm.com/)? To install, from **WSL command line** run:
+
+    sudo apt install git
+    git config --global user.name "Your Name Here"
+    git config --global user.email "your_email@youremail.com"
+    git config --global core.autocrlf input
+
+The `core.autocrlf=input` is used to change how Git handles line endings. 
+
+If you have [2FA enabled on Github](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/configuring-two-factor-authentication) (you should), you’ll also need to follow the [Add SSH Key to Github](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account#platform-linux) and be sure you’re using the Linux instructions.
+
+### Git aliases (optional)
+
+Less keystrokes can be better, so here are optional and ensible shortcuts to a global Git config file.
+
+    touch ~/.gitconfig
+    
+Pick and choose any of these aliases to help you.
+
+    [user]
+      name   = Firstname Lastname
+      email  = you@example.com
+    [github]
+      user   = username
+    [alias]
+      a      = add
+      ca     = commit -a
+      cam    = commit -am
+      cm     = commit -m
+      s      = status
+      pom    = push origin master
+      pog    = push origin gh-pages
+      puom   = pull origin master
+      puog   = pull origin gh-pages
+      cob    = checkout -b
+      co     = checkout
+      fp     = fetch --prune --all
+      l      = log --oneline --decorate --graph
+      lall   = log --oneline --decorate --graph --all
+      ls     = log --oneline --decorate --graph --stat
+      lt     = log --graph --decorate --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)%an%Creset'
+
+With the above aliases, I can run `git s` instead of `git status` or `git ca` instead of `git commit -a` when I have a bunch of file updates.
+
+If you used Chocolatey above to install applications, you'll notice this is the 2nd time we're installing Git; it is required for Visual Studio Code and is available for other local Windows apps.
+
+## Node.js
+
+For modern Javascript programming, Node.js is required. Using [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm/) to install Node allows you to easily switch between Node versions and is useful for projects on different versions of Node.
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+```
+
+### nvm usage
+
+When you enter a project, you can install Node using NVM.
+
+    nvm install node
+
+Restart terminal and run the final command.
+
+    nvm use node
+
+Set a default version of Node.
+
+    nvm alias default xx.xx
+
+Confirm that you are using the default version of Node and npm.
+
+    node -v && npm -v
+
+You can switch to another version and use it by changing to the directory where you want to use Node and run the following.
+
+    nvm install xx.xx
+    nvm use xx.xx
+
+Node modules are defined in a local `package.json` file inside your project. `npm install` will download external libraries and frameworks into each project's own `node_modules` folder by default. You'll never need to edit files in this folder, only reference them.
+
+Update NVM
+
+    nvm install node --reinstall-packages-from=node
+
+## ES6
+
+Javascript libraries such as React and Vue use modern versions of Javascript starting with ECMAScript 2015 (ES6). Browser quirks that gave rise to jQuery are less problematic because web standards are regularly implemented and iterated. Thus, a golden age of Javascript is upon us.
+
+Until browsers catch up implementing the newest features of ES6, it is recommended to use a transpiler to convert your unsupported ES6 back to ES5, which is universally supported in all modern browsers.
+
+The most popular transpiler is Babel(https://babeljs.io/). Only install this locally into an already created project if you need ES5 support. Check your project, it might already use Babel and you can skip this step.
+
+    npm install --save-dev babel-cli babel-preset-env
+
+Since it's generally a bad idea to run Babel globally you may want to uninstall the global copy by running `npm uninstall --global babel-cli`
+
+## Sass
+
+Install your preprocessor of choice, but I recommend using either Sass (or maybe PostCSS). They all do the same thing but Sass has the most momentum since the end of the 2010s.
+
+With **WSL command line**:
+
+    npm install -g sass
+
+Keep in mind that the utility that Sass offers is slowly being complimented and deprecated with the rise of [CSS variables](https://www.freecodecamp.org/news/everything-you-need-to-know-about-css-variables-c74d922ea855/).
+
+## PHP and Composer
+
+PHP is still one of the most used programming languages on the web, thanks in part to the amount of sites still using WordPress. We need a way to manage PHP scripts and packages similarly to how we manage JS dependencies using NPM.
+
+One of the most popular PHP dependency managers is called [Composer](https://getcomposer.org/). The difference between Composer and NPM, for example, is that Composer works on a project-by-project basis, there is no global installations. So you must run and setup Composer on every new project if you want to use it.
+
+To install Composer globally, go to the [Download page](https://getcomposer.org/download/) and run the package installer. It would be preferable to install this inside WSL instead of Windows.
 
 ## Virtualbox
 
