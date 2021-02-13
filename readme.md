@@ -144,7 +144,7 @@ Chocolatey is awesome because now that you understand what it does, you can inst
 
 Note: if you use Boxstarter, you can include the following line inside your Powershell script and run everything together.
 
-    choco install firefox microsoft-edge-insider-dev brave tor-browser microsoft-windows-terminal powertoys rainmeter thunderbird slack skype zoom git nvm sublimetext3 atom vscodium filezilla notepadplusplus vlc virtualbox vagrant docker-desktop malwarebytes qbittorrent authy-desktop libreoffice-fresh wireguard --pre -y
+    choco install firefox microsoft-edge-insider-dev brave tor-browser microsoft-windows-terminal powertoys rainmeter thunderbird slack skype zoom git nvm sublimetext3 atom vscodium filezilla notepadplusplus vlc virtualbox vagrant docker-desktop malwarebytes qbittorrent quicklook authy-desktop libreoffice-fresh wireguard --pre -y
 
 Note: Most modern browsers contain PDF readers like Adobe Reader and sometimes Flash and Java by default. Running standalone versions of each is not recommended because they are a security risk without regular maintenance and updates.
 
@@ -180,11 +180,25 @@ Second, [consult this evergreen, updated list of privacy tools for Windows 10](h
 
 Web development is not a sole operating system or browser process. WSL gives us more tools such as using native Unix commands within Windows. This is a big deal if you come from a Unix based OS and want to feel more comfortable on Windows.
 
+Let's [install WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install-win10), the latest version of WSL. You must be on the latest version of Windows 10, as far back as Version 1903.
+
 Powershell.exe (Run as Administrator)
 
-    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+    dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 
-After a restart, install your preferred version of Linux Distribution, Ubuntu being the most popular choice and loaded with many useful packages and languages like Git. Here's a [complete set of instructions](https://docs.microsoft.com/en-us/windows/wsl/install-win10) from Microsoft to install WSL.
+Next, enable the Virtual Machine Platform.
+
+    dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
+(or if you're on version 1903 or 1909)
+
+    Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
+    
+Once you restart, set WSL 2 as the default.
+
+    wsl --set-default-version 2
+    
+Now it's time to choose your Linux distro, which I recommend the [lastest version of Ubuntu](https://www.microsoft.com/store/apps/9n6svws3rx71)
 
 Once installed, as you'll see below, we're going to use this container to harbor the various languages and packages needed for web development. I'd recommend install cURL for installing other packages too.
 
@@ -523,3 +537,4 @@ For privacy, I recommend disabling tracking. Inside of your `.lando.yml` file, a
 
 - [Front-End OS X](https://github.com/asuh/front-end-osx)
 - [Webdev on Windows with WSL and VS Code](https://daverupert.com/2018/04/developing-on-windows-with-wsl-and-visual-studio-code/)
+- [How to Install WSL 2 on Windows 10 (Updated)](https://www.omgubuntu.co.uk/how-to-install-wsl2-on-windows-10)
