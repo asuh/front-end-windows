@@ -538,3 +538,4 @@ For privacy, I recommend disabling tracking. Inside of your `.lando.yml` file, a
 - [Front-End OS X](https://github.com/asuh/front-end-osx)
 - [Webdev on Windows with WSL and VS Code](https://daverupert.com/2018/04/developing-on-windows-with-wsl-and-visual-studio-code/)
 - [How to Install WSL 2 on Windows 10 (Updated)](https://www.omgubuntu.co.uk/how-to-install-wsl2-on-windows-10)
+- [Nodejs and npm setup on WSL](https://evancalz.medium.com/nodejs-and-npm-setup-on-wsl-a4fa06ad7c0)
