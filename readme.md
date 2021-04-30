@@ -7,7 +7,6 @@ The following workflow assumes a clean installation of Windows 10, whether from 
 - [Command Line Interface](#command-line-interface)
 - [Windows Prepartion](#system-update-and-disk-encryption)
 - [Projects Directory](#projects-directory)
-- [.NET Framework](#net)
 - [Chocolatey and Boxstarter](#chocolatey-and-boxstarter)
 - [Ninite](#ninite)
 - [Privacy](#privacy)
@@ -19,7 +18,6 @@ The following workflow assumes a clean installation of Windows 10, whether from 
 - [Git](#git)
 - [Node.js](#nodejs)
 - [SSH](#ssh)
-- [ES6](#es6)
 - [Sass](#sass)
 - [PHP and Composer](#php-and-composer)
 - [VirtualBox](#virtualbox)
@@ -40,7 +38,7 @@ Front-end development has increasingly moved towards an open-source driven, comm
 
 ## System update and Disk Encryption
 
-Step One - Update the system!
+Step One - Update the system! (Prepare for lots of reboots)
 
 **Windows Key > Settings > Update & Security**
 
@@ -83,22 +81,20 @@ I've also included additional scripts and information on cleaning up and updatin
 
 Refreshing Windows often means taking an existing machine, wiping the drive and starting again from scratch. This also means you have to back up and reload what you had. LifeHacker has a [guide for backing up and restoring a previous Windows installation](https://lifehacker.com/the-ultimate-guide-to-reinstalling-windows-from-scratch-1832897572).
 
+### .NET
+
+An important dependency for application installation and IIS is **.NET Framework**. If you don't install it now, you'll likely be prompted to during other software installation in the future.
+
+**Control Panel > Turn Windows features on or off**
+
 ## Projects Directory
 
-If you don't already have one, create a projects directory. I like to use `C:\Users\<winusername>\Sites\<project-name>`. I prefer my Sites folder to exist along side the rest of my user profile folders.
+If you don't already have one, create a directory for your digital projects. I like to use `C:\Users\<winusername>\Sites\<project-name>`, and the name *Sites* can be anything you want. I prefer my *Sites* folder to exist along side the rest of my user profile folders.
 
     cd c:\Users\<winusername>
     mkdir -p Sites
 
 Depending on the type of projects you work on, this might not be necessary or preferable.
-
-## .NET
-
-An important dependency for application installation and IIS is **.NET Framework**.
-
-**Control Panel > Turn Windows features on or off**
-
-If not already installed, choose to install both .NET Framework 3.5 and .NET Framework 4.7.x.
 
 ## Chocolatey and Boxstarter
 
@@ -106,7 +102,7 @@ Package managers make it so much easier to install and update applications (for 
 
 ### Install
 
-([Ensure Get-ExecutionPolicy is at least RemoteSigned](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-6&viewFallbackFrom=powershell-Microsoft.PowerShell.Core)). 
+([Ensure Get-ExecutionPolicy is at least RemoteSigned](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.1&viewFallbackFrom=powershell-6)). 
 
 PowerShell.exe (Right-click, Run as Administrator)
 
@@ -116,7 +112,7 @@ Run `Get-ExecutionPolicy`. If it returns `Restricted`, then run `Set-ExecutionPo
 
 ### Usage
 
-Chocolatey can be used to install applications with either `choco install` or `cinst`. They are interchangable.
+Chocolatey can be used to install applications with either `choco install` or `cinst` (deprecated). They are interchangable.
 
 ```bash
 choco install <package>
@@ -134,9 +130,10 @@ Other useful commands:
 ```bash
 choco upgrade <package>
 choco list --localonly # what's installed on your local machine, including version numbers
+choco outdated # which installs are not current
 ```
 
-Note: `choco outdated` does not stay in sync with evergreen software using the free version of Chocolatey. For example, if you use Chocolatey to install Firefox version 90, and Firefox upgrades itself to version 91, Chocolatey doesn't know that Firefox updated itself and the `outdated` command only remembers the version of Firefox you installed. In order to sync this up, [Chocolatey provides this feature in the paid upgrade](https://chocolatey.org/docs/features-synchronize) of Chocolatey.
+Note: `choco outdated` does not stay in sync with evergreen software using the free version of Chocolatey. For example, if you use Chocolatey to install Firefox version 90, and Firefox upgrades itself to version 91, Chocolatey doesn't know that Firefox updated itself and the `outdated` command only remembers the version of Firefox you installed. I use `outdated` to see what the newest versions are available rather than what I have installed. In order to track local installation versions, [Chocolatey provides this feature in the paid upgrade](https://chocolatey.org/docs/features-synchronize) of Chocolatey.
 
 ### Installing multiple applications
 
@@ -144,11 +141,11 @@ Chocolatey is awesome because now that you understand what it does, you can inst
 
 Note: if you use Boxstarter, you can include the following line inside your Powershell script and run everything together.
 
-    choco install firefox microsoft-edge-insider-dev brave tor-browser microsoft-windows-terminal powertoys rainmeter thunderbird slack skype zoom git nvm sublimetext3 atom vscodium filezilla notepadplusplus vlc virtualbox vagrant docker-desktop malwarebytes qbittorrent quicklook authy-desktop libreoffice-fresh wireguard --pre -y
+    choco install firefox microsoft-edge-insider-dev brave tor-browser microsoft-windows-terminal powertoys thunderbird slack skype zoom git nvm sublimetext3 atom vscodium filezilla vlc virtualbox vagrant docker-desktop malwarebytes qbittorrent quicklook authy-desktop libreoffice-fresh wireguard --pre -y
 
-Note: Most modern browsers contain PDF readers like Adobe Reader and sometimes Flash and Java by default. Running standalone versions of each is not recommended because they are a security risk without regular maintenance and updates.
+Note: Most modern browsers contain PDF readers like Adobe Reader. Running a standalone PDF reader is not recommended because it is another security risk without regular maintenance and updates.
 
-Using Chocolatey to install software like Vagrant will require you to restart Windows for Vagrant to complete its installation. Several packages will auto-start the software and ask you to set them up as well.
+Using Chocolatey to install software like Vagrant will require you to restart Windows to complete its installation. Several packages will auto-start the software and ask you to set them up as well.
 
 ### Boxstarter
 
@@ -180,7 +177,7 @@ Second, [consult this evergreen, updated list of privacy tools for Windows 10](h
 
 Web development is not a sole operating system or browser process. WSL gives us more tools such as using native Unix commands within Windows. This is a big deal if you come from a Unix based OS and want to feel more comfortable on Windows.
 
-Let's [install WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install-win10), the latest version of WSL. You must be on the latest version of Windows 10, as far back as Version 1903.
+Let's [install WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install-win10), the latest version of WSL. You must be on the latest version of Windows 10, I recommend at least 21H1, but as far back as Version 1903.
 
 Powershell.exe (Run as Administrator)
 
@@ -189,22 +186,30 @@ Powershell.exe (Run as Administrator)
 Next, enable the Virtual Machine Platform.
 
     dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
-
-(or if you're on version 1903 or 1909)
-
-    Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
     
 Once you restart, set WSL 2 as the default.
 
     wsl --set-default-version 2
     
-Now it's time to choose your Linux distro, which I recommend the [lastest version of Ubuntu](https://www.microsoft.com/store/apps/9n6svws3rx71)
+Now it's time to choose your Linux distro, which I recommend the [lastest version of Ubuntu](https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6)
 
-Once installed, as you'll see below, we're going to use this container to harbor the various languages and packages needed for web development. I'd recommend install cURL for installing other packages too.
+### Windows Terminal
+
+Once WSL is installed, as you'll see below, we're going to use this container to harbor the various languages and packages needed for web development. Before we continue, let's install one more highly recommended program called *Windows Terminal*.
+
+    choco install microsoft-windows-terminal
+
+This app gives us one place to use all Windows command line apps: Command Prompt, Powershell, and WSL default shell. Any time I use this, I search for it and right-click to open as Administrator.
+
+Next, I'd recommend installing cURL in your distro for installing other Linux packages too. So for this next command, let's open Windows Terminal and go to the shell for your distro (Ubuntu in my case).
 
     sudo apt-get install curl
 
 For more detailed instructions for installing WSL on Windows 10, [here's detailed guide with more front-end minded advice](https://www.smashingmagazine.com/2019/09/moving-javascript-development-bash-windows/).
+
+### WSL performance can suffer
+
+WSL has one caveat that I can't overcome yet, which is the performance hit. I've had my environment set up, using Windows Terminal or another terminal in VSCodium, running and NPM script or just trying to `git status` my project, and it TAKES FOREVER. It's one of the worst issues I've had with WSL. There are fixes slowly being added to Windows but it's a slow rollout. In the meantime, if you have issues with `npm`, `webpack`, `gulp`, `git`, or one of many other utilities, try using Powershell or Git Bash (if you installed git for Windows).
 
 ### Projects Directory
 
@@ -218,9 +223,9 @@ WSL maps that to this:
 
     /mnt/c/Users/<winusername>
 
-Using the Projects directory I created above, if I store all my projects in `C:\Users\Micah\Sites`, in bash I'll get there using this command:
+Using the Projects directory I created above, if I store all my projects in `C:\Users\micah\Sites`, in bash I'll get there using this command:
 
-    cd /mnt/c/Users/Micah/Sites
+    cd /mnt/c/Users/micah/Sites
 
 Once you create a new folder inside of your Projects directory, this will become your home for that project. It's where you'll install any package managers you might need such as NPM and Composer.
 
@@ -241,17 +246,27 @@ It's a good habit to get into that every time you use `apt-get`, run this update
 
     sudo apt update && apt-get <package>
 
+### Environment confusion
+
+One last thing to mention about WSL inside of Windows, using these environments means you're effectively working with one environment in Windows and another in Linux. In this respect, it's the same for the various terminals. Powershell works in the Windows environment and Ubuntu shell works in the Ubuntu environment.
+
+I've had to install packages on both Windows and Ubuntu as well. So I'll have git installed in Ubuntu and then also in Windows and they're not related. Same with Node.js. And so on.
+
+When using your favorite editor, it's a similar situation. Opening the project in your Windows folder means you're working with it in the Windows file system. It could be faster to put the project folder/files in the Ubuntu folder. Or, as of 21H1, we can now mount the Ubuntu file system as a mapped drive which will make things a bit easier to work with from Windows.
+
+Long story short, this is a sad reality that will take some maturing to get past as of 2021. You'll have to fiddle around with Window to make it work well sometimes.
+
 ## Sublime Text, Atom, and VSCode
 
 The text editor is a developer's most important tool. Everyone has their preferences, but unless you're a hardcore [Vim](https://en.wikipedia.org/wiki/Vim_(text_editor)) user, I recommend one of three editors: [Sublime Text](https://www.sublimetext.com/), [VSCode](https://code.visualstudio.com/) or [Atom](https://atom.io/).
 
 ### Sublime Text
 
-My preferred editor is Sublime Text 3.
+My preferred editor is Sublime Text.
 
     choco install sublimetext3
 
-I prefer using the [beta version of Sublime Text 3](https://sublimetext.com/3) which is usually just as stable as version 2.
+I prefer using the [beta version of Sublime Text 3](https://sublimetext.com/3) which is usually just as stable as version 2, and if you join the Discord channel you'll get access to the latest alpha version 4.
 
 Sublime Text is not free, but it has an unlimited "evaluation period". The seemingly expensive $70 price tag is worth every penny. If you can afford it, I suggest you [support](https://www.sublimetext.com/buy) this awesome editor. :)
 
@@ -264,7 +279,7 @@ I recommend to change two color settings:
 - **Theme** (which is how the tabs, the file explorer on the left, etc. look)
 - **Color Scheme** (the colors of the code).
 
-My favorite theme is [Material Design Darker](https://github.com/equinusocio/material-theme) and a close second to [Seti_UI Theme](https://packagecontrol.io/packages/Seti_UI). 
+My favorite theme is [Material Design Darker](https://github.com/equinusocio/material-theme) as well as [Seti_UI Theme](https://packagecontrol.io/packages/Seti_UI). 
 
 Go to **Tools > Command Palette** (Shift-Command-P), Highlight **Package Control: Install Package** and then search for your preferred theme, make sure it's highlighted then press Enter to install it.
 
@@ -275,20 +290,11 @@ Then go to **Sublime Text > Preferences > Settings - User** and add the followin
 
 #### Settings
 
-Let's configure our editor a little. Go to **Sublime Text > Preferences > Settings - User** and paste this code from [my Preferences.sublime-settings file](https://gist.github.com/asuh/67586e056eba7757330f).
+Let's configure our editor a little. Go to **Sublime Text > Preferences > Settings - User** and paste this code (and edit it if you want) from [my Preferences.sublime-settings file](https://gist.github.com/asuh/67586e056eba7757330f).
 
-Feel free to tweak these to your preference. When done, save the file and close it.
-
-[Let's create a shortcut so we can launch Sublime Text from the command-line](https://scotch.io/tutorials/open-sublime-text-from-the-command-line-using-subl-exe-windows) 
+[I also recommend creating shortcuts so you can launch Sublime Text from the command-line](https://www.sublimetext.com/docs/command_line.html)
     
-    1. Open Powershell as Administrator
-    2. Type `sysdm.cpl` and press enter and go to System Properties > Advanced System Settings > Advanced > Environment Variables
-    3. Create a New System Variable Create a new system variable called SUBLIME that will point to the folder of your Sublime installation.
-    4. Add the System Variable to Your PATH Add the following to the end of your PATH variable: `;%SUBLIME%`
-
-![Add System variable](https://i.imgur.com/pXTqfL8.jpg)
-
-Now I can open a file with `subl myfile.html` or start a new project in the current directory with `subl .`. Pretty cool!
+Now, we can open a file with `subl myfile.html` or start a new project in the current directory with `subl .`. Pretty cool!
 
 ### Atom
 
@@ -380,9 +386,7 @@ What's a developer without [Git](http://git-scm.com/)? To install, from **WSL co
     sudo apt install git
     git config --global user.name "Your Name Here"
     git config --global user.email "your_email@youremail.com"
-    git config --global core.autocrlf input
-
-The `core.autocrlf=input` is used to change how Git handles line endings. 
+    git config --global core.autocrlf input # Set to change how Git handles line endings
 
 If you have [2FA enabled on Github](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/configuring-two-factor-authentication) (you should), you’ll also need to follow the [Add SSH Key to Github](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account#platform-linux) and be sure you’re using the Linux instructions.
 
@@ -426,7 +430,7 @@ If you used Chocolatey above to install applications, you'll notice this is the 
 For modern Javascript programming, Node.js is required. Using [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm/) to install Node allows you to easily switch between Node versions and is useful for projects on different versions of Node.
 
 ```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 ```
 
 ### nvm usage
@@ -447,7 +451,7 @@ Confirm that you are using the default version of Node and npm.
 
     node -v && npm -v
 
-You can switch to another version and use it by changing to the directory where you want to use Node and run the following.
+You can switch to another version of Node and use it by changing to the directory where you want to use Node and run the following.
 
     nvm install xx.xx
     nvm use xx.xx
@@ -458,18 +462,6 @@ Update NVM
 
     nvm install node --reinstall-packages-from=node
 
-## ES6
-
-Javascript libraries such as React and Vue use modern versions of Javascript starting with ECMAScript 2015 (ES6). Browser quirks that gave rise to jQuery are less problematic because web standards are regularly implemented and iterated. Thus, a golden age of Javascript is upon us.
-
-Until browsers catch up implementing the newest features of ES6, it is recommended to use a transpiler to convert your unsupported ES6 back to ES5, which is universally supported in all modern browsers.
-
-The most popular transpiler is Babel(https://babeljs.io/). Only install this locally into an already created project if you need ES5 support. Check your project, it might already use Babel and you can skip this step.
-
-    npm install --save-dev babel-cli babel-preset-env
-
-Since it's generally a bad idea to run Babel globally you may want to uninstall the global copy by running `npm uninstall --global babel-cli`
-
 ## Sass
 
 Install your preprocessor of choice, but I recommend using either Sass (or maybe PostCSS). They all do the same thing but Sass has the most momentum since the end of the 2010s.
@@ -478,7 +470,7 @@ With **WSL command line**:
 
     npm install -g sass
 
-Keep in mind that the utility that Sass offers is slowly being complimented and deprecated with the rise of [CSS variables](https://www.freecodecamp.org/news/everything-you-need-to-know-about-css-variables-c74d922ea855/).
+Keep in mind that the kind of utility that Sass offers is slowly being complimented and deprecated with the rise of [CSS variables](https://css-tricks.com/a-complete-guide-to-custom-properties/).
 
 ## PHP and Composer
 
@@ -518,11 +510,9 @@ A great box to use for new projects is called [Scotch Box](https://box.scotch.io
 
 Similar to Vagrant, I increasingly use Docker for professional projects. It comes with similar benefits to Vagrant, such as portability, encapsulation for the environment within the OS, and consistent environments. Docker goes a little further because it's a container manager it's lighter in resources and file size than Vagrant.
 
-    brew cask install docker
+    choco install docker-desktop
     
-Docker can be quite powerful but complicated to set up. For this reason, I'm a fan of another project which is a wrapper around Docker called [Lando](https://lando.dev/). Originally designed for Drupal, it's increased support for many other environments including WordPress, Node.js, and Laravel.
-
-    brew cask install lando
+Docker can be quite powerful but complicated to set up. For this reason, I'm a fan of another project which is a wrapper around Docker called [Lando](https://lando.dev/). Originally designed for Drupal, it's increased support for many other environments including WordPress, Node.js, and Laravel. You can find the [latest executable file on Github](https://github.com/lando/lando/releases).
     
 For privacy, I recommend disabling tracking. Inside of your `.lando.yml` file, add the following:
 
