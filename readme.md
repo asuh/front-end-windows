@@ -17,7 +17,6 @@ The following workflow assumes a clean installation of Windows 10, whether from 
 - [SSH](#ssh)
 - [Git](#git)
 - [Node.js](#nodejs)
-- [SSH](#ssh)
 - [Sass](#sass)
 - [PHP and Composer](#php-and-composer)
 - [VirtualBox](#virtualbox)
