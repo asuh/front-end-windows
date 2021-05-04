@@ -208,7 +208,11 @@ For more detailed instructions for installing WSL on Windows 10, [here's detaile
 
 ### WSL performance can suffer
 
-WSL has one caveat that I can't overcome yet, which is the performance hit. I've had my environment set up, using Windows Terminal or another terminal in VSCodium, running and NPM script or just trying to `git status` my project, and it TAKES FOREVER. It's one of the worst issues I've had with WSL. There are fixes slowly being added to Windows but it's a slow rollout. In the meantime, if you have issues with `npm`, `webpack`, `gulp`, `git`, or one of many other utilities, try using Powershell or Git Bash (if you installed git for Windows).
+WSL has two caveats that I can't overcome yet both decreasing performance.
+
+I have my environment set up, using Windows Terminal or another terminal in VSCodium. I run `npm` script or just trying to `git status` my project and it TAKES FOREVER. It's one of the worst issues I've had with WSL. There are fixes slowly being added to WSL or Windows but it's a slow rollout. In the meantime, if you have issues with `npm`, `webpack`, `gulp`, `git`, or one of many other utilities, try using Powershell or Git Bash (if you installed git for Windows).
+
+Another issue that can cause a headache is the virtual machine memory task called `Vmmem`. After running WSL and Docker for more than a week, I saw the memory usage went up to more almost 10GB. At first I thought it was just Docker, but after shutting that down, I still saw about 8GB or memory usage. Only after using powershell to `wsl --shutdown` did I see the memory usage drop to a decent level below 1GB.
 
 ### Projects Directory
 
