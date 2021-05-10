@@ -17,8 +17,7 @@ The following workflow assumes a clean installation of Windows 10, whether from 
 - [SSH](#ssh)
 - [Git](#git)
 - [Node.js](#nodejs)
-- [Sass](#sass)
-- [PHP and Composer](#php-and-composer)
+- [Composer](#composer)
 - [VirtualBox](#virtualbox)
 - [Vagrant](#vagrant)
 - [Docker](#docker)
@@ -465,17 +464,7 @@ Update NVM
 
     nvm install node --reinstall-packages-from=node
 
-## Sass
-
-Install your preprocessor of choice, but I recommend using either Sass (or maybe PostCSS). They all do the same thing but Sass has the most momentum since the end of the 2010s.
-
-With **WSL command line**:
-
-    npm install -g sass
-
-Keep in mind that the kind of utility that Sass offers is slowly being complimented and deprecated with the rise of [CSS variables](https://css-tricks.com/a-complete-guide-to-custom-properties/).
-
-## PHP and Composer
+## Composer
 
 PHP is still one of the most used programming languages on the web, thanks in part to the amount of sites still using WordPress. We need a way to manage PHP scripts and packages similarly to how we manage JS dependencies using NPM.
 
