@@ -17,6 +17,8 @@ The following workflow assumes a clean installation of Windows 10, whether from 
 - [SSH](#ssh)
 - [Git](#git)
 - [Node.js](#nodejs)
+- [Python](#python)
+- [Ansible](#ansible)
 - [Composer](#composer)
 - [VirtualBox](#virtualbox)
 - [Vagrant](#vagrant)
@@ -463,6 +465,31 @@ Node modules are defined in a local `package.json` file inside your project. `np
 Update NVM
 
     nvm install node --reinstall-packages-from=node
+
+## Python
+
+Even if you don't use Python in your day to day, it's likely you'll encounter something that requires it. Older WSL distros probably include Python 2.x by default. Version 2 is years outdated and almost all python can and should run with a minimum of version 3. Let's update python!
+
+Even if you already installed it with `choco`, let's install the latest python using Windows Terminal on your **WSL command line**. (Remember to update `apt` if  you're doing this at a later date)
+
+    sudo apt update python3
+
+After installation, open a new terminal tab or window to make sure it installed correctly.
+
+    python --version
+
+### Pip
+
+With `python` now running the latest version, it's a good idea to install Pip, which is a package manager for Python.
+
+    sudo apt install python3-pip
+    python get-pip.py --user
+
+## Ansible
+
+If you're working with virtual machines or remote servers, it's possible you'll need a way to automate/manage tasks on/with them. Ansible is your answer to this.
+
+    python -m pip install --user ansible
 
 ## Composer
 
