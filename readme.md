@@ -71,9 +71,9 @@ Two main caveats:
 
 ### Clean up Windows
 
-Whether you're using a [https://www.microsoft.com/en-gd/store/b/signaturepcs](Signature PC from Microsoft), a manufacturer's Windows installation with third-party software or you installed Windows from scratch yourself, it's always a good idea to have a minimal and clean base installation with as few potential issues as possible.
+Whether you're using a [Signature PC from Microsoft](https://www.microsoft.com/en-gd/store/b/signaturepcs), a manufacturer's Windows installation with third-party software or you installed Windows from scratch yourself, it's always a good idea to have a minimal and clean base installation with as few potential issues as possible.
 
-There are a ton of community driven starter packages and files to help clean up and uninstall unnecessary software and files. [Tron](https://github.com/bmrf/tron) is an all-inclusive from start to finish that touches everything from uninstall software to cleaning up temp files and checking for malware. It can easily take a minimum of 2-3 hours because of how thorough it is.
+There are a ton of community driven starter packages and files to help clean up and uninstall unnecessary software and files. [Tron](https://github.com/bmrf/tron) is an all-inclusive from start to finish that touches everything from uninstall software to cleaning up temp files and checking for malware. It can easily take a minimum of 2-3 hours because of how thorough it is, but I often just run specific sections that I think are necssary to clean up Windows, such as removing default apps or blocking telemetry.
 
 I've also included additional scripts and information on cleaning up and updating Windows in the [Boxstarter](#chocolatey-and-boxstarter) and [Privacy](#privacy) sections below.
 
@@ -98,7 +98,7 @@ Depending on the type of projects you work on, this might not be necessary or pr
 
 ## Chocolatey and Boxstarter
 
-Package managers make it so much easier to install and update applications (for Operating Systems) or libraries (for programming languages). The most popular one for Windows is [Chocolatey](https://chocolatey.org/).
+Package managers make it so much easier to install and update applications (for Operating Systems) or libraries (for programming languages). The most popular one for Windows is [Chocolatey](https://communitychocolatey.org/).
 
 ### Install
 
@@ -108,11 +108,11 @@ PowerShell.exe (Right-click, Run as Administrator)
 
 Run `Get-ExecutionPolicy`. If it returns `Restricted`, then run `Set-ExecutionPolicy AllSigned` or `Set-ExecutionPolicy Bypass -Scope Process`.
 
-    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
 ### Usage
 
-Chocolatey can be used to install applications with either `choco install` or `cinst` (deprecated). They are interchangable.
+Chocolatey can be used to install applications with either `choco install`.
 
 ```bash
 choco install <package>
@@ -123,7 +123,7 @@ Replace `<package>` with the name of the package you want to install.
 
 To view Chocolatey's directory of packages:
 
-[https://chocolatey.org/packages](https://chocolatey.org/packages)
+(https://community.chocolatey.org/packages)[https://community.chocolatey.org/packages]
 
 Other useful commands:
 
@@ -133,7 +133,7 @@ choco list --localonly # what's installed on your local machine, including versi
 choco outdated # which installs are not current
 ```
 
-Note: `choco outdated` does not stay in sync with evergreen software using the free version of Chocolatey. For example, if you use Chocolatey to install Firefox version 90, and Firefox upgrades itself to version 91, Chocolatey doesn't know that Firefox updated itself and the `outdated` command only remembers the version of Firefox you installed. I use `outdated` to see what the newest versions are available rather than what I have installed. In order to track local installation versions, [Chocolatey provides this feature in the paid upgrade](https://chocolatey.org/docs/features-synchronize) of Chocolatey.
+Note: `choco outdated` does not stay in sync with evergreen software using the free version of Chocolatey. For example, if you use Chocolatey to install Firefox version 90, and Firefox upgrades itself to version 91, Chocolatey doesn't know that Firefox updated itself and the `outdated` command only remembers the version of Firefox you installed. I use `outdated` to see what the newest versions are available rather than what I have installed. In order to track local installation versions, [Chocolatey provides this feature in the paid upgrade](https://docs.chocolatey.org/en-us/features/package-synchronization/) of Chocolatey.
 
 ### Installing multiple applications
 
@@ -141,7 +141,7 @@ Chocolatey is awesome because now that you understand what it does, you can inst
 
 Note: if you use Boxstarter, you can include the following line inside your Powershell script and run everything together.
 
-    choco install firefox microsoft-edge-insider-dev brave tor-browser microsoft-windows-terminal powertoys thunderbird slack skype zoom git nvm sublimetext3 atom vscodium filezilla vlc virtualbox vagrant docker-desktop malwarebytes qbittorrent quicklook authy-desktop libreoffice-fresh wireguard --pre -y
+    choco install firefox microsoft-edge-insider-dev brave tor-browser powertoys thunderbird slack skype zoom git nvm sublimetext3 vscodium filezilla vlc virtualbox docker-desktop malwarebytes qbittorrent quicklook authy-desktop libreoffice-fresh wireguard --pre -y
 
 Note: Most modern browsers contain PDF readers like Adobe Reader. Running a standalone PDF reader is not recommended because it is another security risk without regular maintenance and updates.
 
@@ -153,9 +153,7 @@ The folks at Chcolatey provide new tool called [Boxstarter](http://www.boxstarte
 
 ```bash
 # Install boxstarter
-. { iwr -useb https://boxstarter.org/bootstrapper.ps1 } | iex; get-boxstarter -Force
-# Run your boxstarter script
-Install-BoxstarterPackage -PackageName https://gist.githubusercontent.com/asuh/ba46d8c534b13ae4db89b4d3323eec97/raw/1a4c9d55dce2909218919b16ed567cf16d6c85a6/boxstarter.ps1 -DisableReboots
+choco install boxstarter
 ```
 
 Using boxstarter requires some step by step instructions to create an executable file all found on the website above. To get you started, I recommend starting with [this already created .ps1 file](https://gist.github.com/asuh/ba46d8c534b13ae4db89b4d3323eec97).
@@ -170,32 +168,24 @@ If you have more software you need installed not included in Chocolatey or you w
 
 I think now is the time to briefly let you know that Windows 10 communicates with Microsoft by default. Microsoft collects data on how you use the operating system through a process called telemetry. There's not a lot of transparency about what's going on but there are many free and open source applications that help us shut down and block as many as we know about.
 
-First, I recommend you look through [PrivacyTools.io](https://www.privacytools.io/). There's a ton of valuable software and links to consume.
+First, I recommend you look through [https://www.privacyguides.org/en/](https://www.privacyguides.org/en/). There's a ton of valuable software and links to consume.
 Second, [consult this evergreen, updated list of privacy tools for Windows 10](https://www.ghacks.net/2015/08/14/comparison-of-windows-10-privacy-tools/). As of June 2018, most of the content is updated and relevant. Run any scripts you feel will help you.
 
 ## Windows Subsystem for Linux
 
 Web development is not a sole operating system or browser process. WSL gives us more tools such as using native Unix commands within Windows. This is a big deal if you come from a Unix based OS and want to feel more comfortable on Windows.
 
-Let's [install WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install-win10), the latest version of WSL. You must be on the latest version of Windows 10, I recommend at least 21H1, but as far back as Version 1903.
+Let's [install WSL 2](https://learn.microsoft.com/en-us/windows/wsl/install), the latest version of WSL. You must be on the latest version of Windows 10 or Windows 11.
 
 Powershell.exe (Run as Administrator)
 
-    dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
-
-Next, enable the Virtual Machine Platform.
-
-    dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+    wsl --install
     
-Once you restart, set WSL 2 as the default.
-
-    wsl --set-default-version 2
-    
-Now it's time to choose your Linux distro, which I recommend the [lastest version of Ubuntu](https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6)
+Now it's time to choose your Linux distro, which I recommend the [lastest version of Ubuntu](https://apps.microsoft.com/store/detail/ubuntu-on-windows/9NBLGGH4MSV6?hl=en-us&gl=us)
 
 ### Windows Terminal
 
-Once WSL is installed, as you'll see below, we're going to use this container to harbor the various languages and packages needed for web development. Before we continue, let's install one more highly recommended program called *Windows Terminal*.
+Once WSL is installed, as you'll see below, we're going to use this container to harbor the various languages and packages needed for web development. Before we continue, let's use one more highly recommended program called *Windows Terminal*. As of Windows 11, this is included by default. Windows 10 22H2 should also now have it installed by default.
 
     choco install microsoft-windows-terminal
 
@@ -260,9 +250,9 @@ When using your favorite editor, it's a similar situation. Opening the project i
 
 Long story short, this is a sad reality that will take some maturing to get past as of 2021. You'll have to fiddle around with Window to make it work well sometimes.
 
-## Sublime Text, Atom, and VSCode
+## Sublime Text and VSCode
 
-The text editor is a developer's most important tool. Everyone has their preferences, but unless you're a hardcore [Vim](https://en.wikipedia.org/wiki/Vim_(text_editor)) user, I recommend one of three editors: [Sublime Text](https://www.sublimetext.com/), [VSCode](https://code.visualstudio.com/) or [Atom](https://atom.io/).
+The text editor is a developer's most important tool. Everyone has their preferences, but unless you're a hardcore [Vim](https://en.wikipedia.org/wiki/Vim_(text_editor)) user, I recommend either [Sublime Text](https://www.sublimetext.com/) or [Visual Studio Code](https://code.visualstudio.com/).
 
 ### Sublime Text
 
@@ -270,7 +260,7 @@ My preferred editor is Sublime Text.
 
     choco install sublimetext3
 
-I prefer using the [beta version of Sublime Text 3](https://sublimetext.com/3) which is usually just as stable as version 2, and if you join the Discord channel you'll get access to the latest alpha version 4.
+I prefer using the [beta version of Sublime Text 4](https://www.sublimetext.com/dev) which is usually just as stable as version 3.
 
 Sublime Text is not free, but it has an unlimited "evaluation period". The seemingly expensive $70 price tag is worth every penny. If you can afford it, I suggest you [support](https://www.sublimetext.com/buy) this awesome editor. :)
 
@@ -283,7 +273,7 @@ I recommend to change two color settings:
 - **Theme** (which is how the tabs, the file explorer on the left, etc. look)
 - **Color Scheme** (the colors of the code).
 
-My favorite theme is [Material Design Darker](https://github.com/equinusocio/material-theme) as well as [Seti_UI Theme](https://packagecontrol.io/packages/Seti_UI). 
+My favorite theme is [Material Design Darker](https://github.com/material-theme/vsc-material-theme) as well as [Seti_UI Theme](https://packagecontrol.io/packages/Seti_UI). 
 
 Go to **Tools > Command Palette** (Shift-Command-P), Highlight **Package Control: Install Package** and then search for your preferred theme, make sure it's highlighted then press Enter to install it.
 
@@ -299,12 +289,6 @@ Let's configure our editor a little. Go to **Sublime Text > Preferences > Settin
 [I also recommend creating shortcuts so you can launch Sublime Text from the command-line](https://www.sublimetext.com/docs/command_line.html)
     
 Now, we can open a file with `subl myfile.html` or start a new project in the current directory with `subl .`. Pretty cool!
-
-### Atom
-
-If you like Sublime Text but can't afford or don't want to pay for it, [Atom](https://atom.io/) is an open-source editor in the spirit of Sublime Text that has a healthy community and regular updates.
-
-The main problem for Atom as of autumn 2018 is that large files and projects noticeably slow down Atom's performance.
 
 ### VSCode
 
@@ -359,7 +343,7 @@ Don't forget to customize ZSH!
 
 SSH is imperative, just like git and node as you'll see.
 
-[Github has excellent instructions for setting up git and connecting it to a Github account](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/set-up-git). This will help you to install the repos to your computer from Github as well as set up keys that you'll need to connect git and github.
+[Github has excellent instructions for setting up git and connecting it to a Github account](https://docs.github.com/en/get-started/quickstart/set-up-git). This will help you to install the repos to your computer from Github as well as set up keys that you'll need to connect git and github.
 
 Now you can add a little shortcut to make SSHing into other boxes easier. Paste the following block of code into your SSH config file at `~/.ssh/config`, changing the variables for any hosts that you connect to.
 
@@ -392,7 +376,7 @@ What's a developer without [Git](http://git-scm.com/)? To install, from **WSL co
     git config --global user.email "your_email@youremail.com"
     git config --global core.autocrlf input # Set to change how Git handles line endings
 
-If you have [2FA enabled on Github](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/configuring-two-factor-authentication) (you should), you’ll also need to follow the [Add SSH Key to Github](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account#platform-linux) and be sure you’re using the Linux instructions.
+If you have [2FA enabled on Github](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication) (you should), you’ll also need to follow the [Add SSH Key to Github](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?platform=linux) and be sure you’re using the Linux instructions.
 
 ### Git aliases (optional)
 
@@ -434,7 +418,7 @@ If you used Chocolatey above to install applications, you'll notice this is the 
 For modern Javascript programming, Node.js is required. Using [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm/) to install Node allows you to easily switch between Node versions and is useful for projects on different versions of Node.
 
 ```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 ```
 
 ### nvm usage
@@ -505,25 +489,11 @@ The traditional way of setting up a front-end development environment used to be
 
 The last decade has seen significant changes to the front-end workflow, one of the most important being a local development environment: a local database, a local web server, and back-end language among other things. Using this environment decreases time and increases efficiency for front-end development.
 
-There are several ways to setup a local development environment, whether it's installing a package like [MAMP](https://www.mamp.info/en/) or [XAMPP](https://www.apachefriends.org/index.html) or using virtual machines like [Virtual PC](https://www.microsoft.com/en-us/download/details.aspx?id=3702) to install the environments above.
+There are several ways to setup a local development environment, whether it's installing a package like [MAMP](https://www.mamp.info/en/) or [XAMPP](https://www.apachefriends.org/index.html) to install the environments above.
 
 The free, open-source alternative that I've been enjoying is called [Virtualbox](https://www.virtualbox.org/). This gives you a basic but very capable virtual machine host for any operating system that supports virtual installations.
 
     choco install virtualbox
-
-Once installed, you can easily install many [versions of Internet Explorer from the Microsoft's VM site](https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/).
-
-## Vagrant
-
-I have personally tried to move away from packaged development environments like MAMP. The alternative I like is called [Vagrant](https://www.vagrantup.com/). This gives you a powerful way to create a virtual and portable dev environment! It also has built-in connection to your local OS so that you develop in Windows but the environment runs in the VM.
-
-    choco install vagrant
-
-The brilliance of vagrant is its ability to be so portable. When you have a project you work with other developers, creating and destroying the identical dev environment is very simple, by reading a local vagrant instruction file. Once created, starting this environment is as simple as typing one command.
-
-    vagrant up
-
-A great box to use for new projects is called [Scotch Box](https://box.scotch.io/). It is fully-featured and contains everything I need built in to get started with many projects using PHP, JS or Ruby. For a WordPress environment, [Roots](https://roots.io/) has [Trellis](https://roots.io/trellis/) which includes everything you need for a powerful VM.
 
 ## Docker
 
