@@ -11,7 +11,7 @@ The following workflow assumes a clean installation of Windows 10, whether from 
 - [Ninite](#ninite)
 - [Privacy](#privacy)
 - [Windows Subsystem for Linux](#windows-subsystem-for-linux)
-- [Sublime Text, Atom, and VSCode](#sublime-text-atom-and-vscode)
+- [Sublime Text and VSCode](#sublime-text-and-vscode)
 - [Vim](#vim)
 - [ZSH](#zsh)
 - [SSH](#ssh)
@@ -21,7 +21,6 @@ The following workflow assumes a clean installation of Windows 10, whether from 
 - [Ansible](#ansible)
 - [Composer](#composer)
 - [VirtualBox](#virtualbox)
-- [Vagrant](#vagrant)
 - [Docker](#docker)
 
 ## Command Line Interface
