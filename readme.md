@@ -1,8 +1,8 @@
 # Front-End Development Setup on a PC
 
-This document assumes you're running a fresh copy of the latest version of **Windows 10**, >=version 1909.
+This document assumes you're running a fresh copy of the latest version of **Windows 10**, >=version 21H2.
 
-The following workflow assumes a clean installation of Windows 10, whether from Signature PC or a full manual reinstall from a vendor laptop. While it's okay to have third-party software installed, the installation process will be more streamlined and less convoluted with a bare Windows 10 system.
+The following workflow assumes a clean installation of Windows or from a full manual reinstall. While it's okay to have third-party software installed, the installation process will be more streamlined and less convoluted with a manually installed Windows system.
 
 - [Command Line Interface](#command-line-interface)
 - [Windows Prepartion](#system-update-and-disk-encryption)
@@ -43,7 +43,7 @@ Step One - Update the system! (Prepare for lots of reboots)
 
 Step Two - Turn on BitLocker for full disk encryption (read 2018/11 Addendum below before continuing)
 
-(If you can't install Bitlocker on Windows 10 Home, you can use a third-party encryption software like [Veracrypt](https://en.wikipedia.org/wiki/VeraCrypt/), which is open-source and well regarded by the security community.)
+(If you can't install Bitlocker, you can use a third-party encryption software like [Veracrypt](https://en.wikipedia.org/wiki/VeraCrypt/), which is open-source and well regarded by the security community.)
 
 **Control Panel\System and Security\BitLocker Drive Encryption**
 
@@ -65,12 +65,12 @@ Why do you want [full-disk encryption](https://en.wikipedia.org/wiki/Disk_encryp
 You're most likely using a portable laptop of some kind. If you lose it, the laptop gets stolen or someone tries to hack into it, your personal data is at risk. Using full-disk encryption is an extra layer of security to keep your mind at ease in case of potential intrusion.
 
 Two main caveats:
-- Make sure you do not forget your BitLocker or encryption software password. You'll have multiple options to retain a recovery key so choose the best option for you. Losing this recovery key means you cannot log in and everything on your computer is 100% inaccessible.
+- Make sure you do not forget your encryption software password. You'll have multiple options to retain a recovery key so choose the best option for you. Losing this recovery key means you cannot log in and everything on your computer is 100% inaccessible.
 - After encryption completes, any corruption that makes the Windows 10 partition unaccessible has no recovery. Make sure you're both backing up using a local backup device such as [Windows 10 Backup](https://support.microsoft.com/en-us/help/17143/windows-10-back-up-your-files) on an external drive or a NAS, and a cloud backup provider like [Backblaze](https://www.backblaze.com/), [Sync](https://www.sync.com), or [iDrive](https://www.idrive.com).
 
 ### Clean up Windows
 
-Whether you're using a [Signature PC from Microsoft](https://www.microsoft.com/en-gd/store/b/signaturepcs), a manufacturer's Windows installation with third-party software or you installed Windows from scratch yourself, it's always a good idea to have a minimal and clean base installation with as few potential issues as possible.
+Whether you're using a manufacturer's provided Windows with third-party software or you installed Windows from scratch yourself, it's always a good idea to have a minimal and clean base installation with as few potential issues as possible.
 
 There are a ton of community driven starter packages and files to help clean up and uninstall unnecessary software and files. [Tron](https://github.com/bmrf/tron) is an all-inclusive from start to finish that touches everything from uninstall software to cleaning up temp files and checking for malware. It can easily take a minimum of 2-3 hours because of how thorough it is, but I often just run specific sections that I think are necssary to clean up Windows, such as removing default apps or blocking telemetry.
 
@@ -180,7 +180,7 @@ Powershell.exe (Run as Administrator)
 
     wsl --install
     
-Now it's time to choose your Linux distro, which I recommend the [lastest version of Ubuntu](https://apps.microsoft.com/store/detail/ubuntu-on-windows/9NBLGGH4MSV6?hl=en-us&gl=us)
+Now it's time to choose your Linux distro, which I recommend the [lastest version of Ubuntu](https://apps.microsoft.com/detail/9NBLGGH4MSV6?hl=en-us&gl=us)
 
 ### Windows Terminal
 
