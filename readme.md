@@ -1,10 +1,11 @@
 # Front-End Development Setup on a PC
 
-This document assumes you're running a fresh copy of the latest version of **Windows 10**, >=version 21H2.
+This document assumes you're running a fresh copy of the latest version of **Windows 10**, >=version 22H2.
 
 The following workflow assumes a clean installation of Windows or from a full manual reinstall. While it's okay to have third-party software installed, the installation process will be more streamlined and less convoluted with a manually installed Windows system.
 
 - [Command Line Interface](#command-line-interface)
+- [Windows Installations](#windows-installations)
 - [Windows Prepartion](#system-update-and-disk-encryption)
 - [Projects Directory](#projects-directory)
 - [Chocolatey and Boxstarter](#chocolatey-and-boxstarter)
@@ -34,6 +35,14 @@ sudo command -flag --flag directory file.extention # Comments are behind pound s
 Anytime you see the above, it is referring to your CLI of choice, whether it's the built-in Command Prompt or Powershell as well as Bash Shell or Z Shell [see below](#zsh) in your [Windows Subsystem for Linux](#windows-subsystem-for-linux). You might also use a third-party application like [Cmder](https://cmder.net/), [Cygwin](https://www.cygwin.com/) or [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/).
 
 Front-end development has increasingly moved towards an open-source driven, command-line interface (CLI) dependent workflow. Whether we access modules, packages or simply useful commands, setting up a command-line shell to your liking is a good idea.
+
+## Windows Installations
+
+If you're looking to just wipe the system complete and start from scratch, there's a project called Tiny10 (and Tiny11 for Win11) that provides full ISOs tweaked to be minimal.
+
+[https://archive.org/details/@ntdev](https://archive.org/details/@ntdev)
+
+I've never used these myself, but this could be a seriously convenient install if it takes care of a lot of removing telemetry and enhancing privacy. YMMV, so you probably want to test this out before using it.
 
 ## System update and Disk Encryption
 
@@ -517,3 +526,4 @@ For privacy, I recommend disabling tracking. Inside of your `.lando.yml` file, a
 - [Webdev on Windows with WSL and VS Code](https://daverupert.com/2018/04/developing-on-windows-with-wsl-and-visual-studio-code/)
 - [How to Install WSL 2 on Windows 10 (Updated)](https://www.omgubuntu.co.uk/how-to-install-wsl2-on-windows-10)
 - [Nodejs and npm setup on WSL](https://evancalz.medium.com/nodejs-and-npm-setup-on-wsl-a4fa06ad7c0)
+- [Windows-as-a-nuisance: How I clean up a “clean install” of Windows 11 and Edge](https://arstechnica.com/gadgets/2024/02/what-i-do-to-clean-up-a-clean-install-of-windows-11-23h2-and-edge/)
