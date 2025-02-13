@@ -12,6 +12,7 @@ The following workflow assumes a clean installation of Windows or from a full ma
 - [Ninite](#ninite)
 - [Privacy](#privacy)
 - [Windows Subsystem for Linux](#windows-subsystem-for-linux)
+- [AI](#ai)
 - [Sublime Text and VSCode](#sublime-text-and-vscode)
 - [Vim](#vim)
 - [ZSH](#zsh)
@@ -19,7 +20,6 @@ The following workflow assumes a clean installation of Windows or from a full ma
 - [Git](#git)
 - [Node.js](#nodejs)
 - [Python](#python)
-- [Ansible](#ansible)
 - [Composer](#composer)
 - [VirtualBox](#virtualbox)
 - [Docker](#docker)
@@ -149,7 +149,7 @@ Chocolatey is awesome because now that you understand what it does, you can inst
 
 Note: if you use Boxstarter, you can include the following line inside your Powershell script and run everything together.
 
-    choco install firefox microsoft-edge-insider-dev brave tor-browser powertoys thunderbird slack skype zoom git nvm sublimetext3 vscodium filezilla vlc virtualbox docker-desktop malwarebytes qbittorrent quicklook authy-desktop libreoffice-fresh wireguard --pre -y
+    choco install firefox firefox-dev brave ungoogled-chromium tor-browser powertoys thunderbird slack skype zoom git nvm sublimetext4 vscodium filezilla mullvad-app vlc virtualbox vnc-viewer docker-desktop malwarebytes qbittorrent quicklook libreoffice-fresh wireguard freetube --pre -y
 
 Note: Most modern browsers contain PDF readers like Adobe Reader. Running a standalone PDF reader is not recommended because it is another security risk without regular maintenance and updates.
 
@@ -258,15 +258,41 @@ When using your favorite editor, it's a similar situation. Opening the project i
 
 Long story short, this is a sad reality that will take some maturing to get past as of 2021. You'll have to fiddle around with Window to make it work well sometimes.
 
+## AI
+
+As the 2020s move forward, it is clear that AI is neessary for many tasks. Used properly, it can give feedback that could be expected from senior developers and management. It can give immediate feedback and help that can increase productivity.
+
+Using many code editors, you can integrate many different services like [Github CoPilot](https://github.com/features/copilot) using models from [OpenAI](https://openai.com/), [Google](https://gemini.google.com), or [Anthropic](https://www.anthropic.com/).
+
+I can recommend [T3 Chat](https://t3.chat) as the most affordable service to use any of the above AI and more as standalone chat services. You can have extensive conversations and get code samples as feedback from the conversations.
+
 ## Sublime Text and VSCode
 
-The text editor is a developer's most important tool. Everyone has their preferences, but unless you're a hardcore [Vim](https://en.wikipedia.org/wiki/Vim_(text_editor)) user, I recommend either [Sublime Text](https://www.sublimetext.com/) or [Visual Studio Code](https://code.visualstudio.com/).
+The text editor is a developer's most important tool. Everyone has their preferences, but unless you're a hardcore [Vim](https://en.wikipedia.org/wiki/Vim_(text_editor)) user, I recommend one of two editors: [Sublime Text](https://www.sublimetext.com/) or [VSCode](https://code.visualstudio.com/).
+
+### VSCode
+
+As of 2025, most of my time is spent in a fork of Visual Studio Code. It found popularity at the end of the 2010s and is a staple open-source code editor for most front-end developers. I use it both personally and professionally because of various built-in features like git support, terminal integration, live sharing your code with another developer (using an extension), and a large repository of great extensions. 
+
+    choco install vscode
+
+#### VSC Forks
+
+I recommend using [VSCodium](https://vscodium.com/) because it strips away the telemetry and tracking that Microsoft/Github integrates into VSCode. However, [VSCodium has issues with extensions](https://github.com/VSCodium/vscodium/wiki/Extensions-Compatibility) like Live Share, so keep that in mind.
+
+    choco install vscodium
+
+There's a ton of great tutorials and articles, such as [VS Code Docs](https://code.visualstudio.com/docs/introvideos/basics).
+
+Because of the rise of AI since CoPilot and the release of ChatGPT, there are multiple projects that take an approach treating AI as a primary integration. I've tried multiple of these editors and they're interesting and helpful if you are good at your craft and can request the right approaches.
+
+[Chris Coyier wrote about various code editors in 2025](https://frontendmasters.com/blog/notes-on-the-code-editors-with-ai-landscape/).
 
 ### Sublime Text
 
 My preferred editor is Sublime Text.
 
-    choco install sublimetext3
+    choco install sublimetext4
 
 I prefer using the [beta version of Sublime Text 4](https://www.sublimetext.com/dev) which is usually just as stable as version 3.
 
@@ -297,14 +323,6 @@ Let's configure our editor a little. Go to **Sublime Text > Preferences > Settin
 [I also recommend creating shortcuts so you can launch Sublime Text from the command-line](https://www.sublimetext.com/docs/command_line.html)
     
 Now, we can open a file with `subl myfile.html` or start a new project in the current directory with `subl .`. Pretty cool!
-
-### VSCode
-
-Visual Studio Code found popularity at the end of the 2010s and has become a staple open-source code editor for many front-end developers. I use it both personally and professionally because of various built-in features like git support, terminal integration and a similar-to-Sublime-Text repository of great plugins. I recommend using VSCodium, as it strips away the tracking that Github integrates into VSCode.
-
-    choco install vscodium
-
-There's a ton of great tutorials and articles, such as [VS Code Docs](https://code.visualstudio.com/docs/introvideos/basics) and [VS Code Can Do That?](https://vscodecandothat.com/).
 
 ## Vim
 
@@ -476,12 +494,6 @@ With `python` now running the latest version, it's a good idea to install Pip, w
 
     sudo apt install python3-pip
     python get-pip.py --user
-
-## Ansible
-
-If you're working with virtual machines or remote servers, it's possible you'll need a way to automate/manage tasks on/with them. Ansible is your answer to this.
-
-    python -m pip install --user ansible
 
 ## Composer
 
