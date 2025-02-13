@@ -1,6 +1,6 @@
 # Front-End Development Setup on a PC
 
-This document assumes you're running a fresh copy of the latest version of **Windows 10**, >=version 22H2.
+This document assumes you're running a fresh copy of the latest version of **Windows 10**, >=version 22H2. Most of this also applies to Windows 11.
 
 The following workflow assumes a clean installation of Windows or from a full manual reinstall. While it's okay to have third-party software installed, the installation process will be more streamlined and less convoluted with a manually installed Windows system.
 
@@ -32,9 +32,7 @@ Throughout this document, you will encounter examples like this that contain one
 sudo command -flag --flag directory file.extention # Comments are behind pound signs
 ```
 
-Anytime you see the above, it is referring to your CLI of choice, whether it's the built-in Command Prompt or Powershell as well as Bash Shell or Z Shell [see below](#zsh) in your [Windows Subsystem for Linux](#windows-subsystem-for-linux). You might also use a third-party application like [Cmder](https://cmder.net/), [Cygwin](https://www.cygwin.com/) or [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/).
-
-Front-end development has increasingly moved towards an open-source driven, command-line interface (CLI) dependent workflow. Whether we access modules, packages or simply useful commands, setting up a command-line shell to your liking is a good idea.
+Anytime you see the above, it is referring to your CLI of choice, whether it's the built-in Command Prompt or Powershell as well as Bash Shell or Z Shell [see below](#zsh) in [Windows Subsystem for Linux](#windows-subsystem-for-linux). You might also use a third-party application like [Cygwin](https://www.cygwin.com/) or [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/). Setting up a command-line shell to your liking is a good idea.
 
 ## Windows Installations
 
@@ -56,7 +54,8 @@ Step Two - Turn on BitLocker for full disk encryption (read 2018/11 Addendum bel
 
 **Control Panel\System and Security\BitLocker Drive Encryption**
 
-Note: As of November 2018, it is recommended to disable hardware encryption and force Bitlocker to use Software Encryption because of [research that reveals vulnerabilities](https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/ADV180028).
+> [!NOTE]
+> As of November 2018, it is recommended to disable hardware encryption and force Bitlocker to use Software Encryption because of [research that reveals vulnerabilities](https://msrc.microsoft.com/update-guide/en-us/advisory/ADV180028).
 
 ```bash
     # If encryption was previously enabled, check the type of drive encryption being used
@@ -75,11 +74,11 @@ You're most likely using a portable laptop of some kind. If you lose it, the lap
 
 Two main caveats:
 - Make sure you do not forget your encryption software password. You'll have multiple options to retain a recovery key so choose the best option for you. Losing this recovery key means you cannot log in and everything on your computer is 100% inaccessible.
-- After encryption completes, any corruption that makes the Windows 10 partition unaccessible has no recovery. Make sure you're both backing up using a local backup device such as [Windows 10 Backup](https://support.microsoft.com/en-us/help/17143/windows-10-back-up-your-files) on an external drive or a NAS, and a cloud backup provider like [Backblaze](https://www.backblaze.com/), [Sync](https://www.sync.com), or [iDrive](https://www.idrive.com).
+- After encryption completes, any corruption that makes the Windows 10 partition unaccessible has no recovery. Make sure you're both backing up using a local backup device such as [Windows 10 Backup](https://support.microsoft.com/en-us/windows/back-up-and-restore-with-windows-backup-87a81f8a-78fa-456e-b521-ac0560e32338) on an external drive or a NAS, and a cloud backup provider like [Backblaze](https://www.backblaze.com/), [Sync](https://www.sync.com), or [iDrive](https://www.idrive.com).
 
 ### Clean up Windows
 
-Whether you're using a manufacturer's provided Windows with third-party software or you installed Windows from scratch yourself, it's always a good idea to have a minimal and clean base installation with as few potential issues as possible.
+Whether you're using a company's provided Windows with third-party software or you installed Windows from scratch yourself, it's always a good idea to have a minimal and clean base installation with as few potential issues as possible.
 
 There are a ton of community driven starter packages and files to help clean up and uninstall unnecessary software and files. [Tron](https://github.com/bmrf/tron) is an all-inclusive from start to finish that touches everything from uninstall software to cleaning up temp files and checking for malware. It can easily take a minimum of 2-3 hours because of how thorough it is, but I often just run specific sections that I think are necssary to clean up Windows, such as removing default apps or blocking telemetry.
 
@@ -110,7 +109,7 @@ Package managers make it so much easier to install and update applications (for 
 
 ### Install
 
-([Ensure Get-ExecutionPolicy is at least RemoteSigned](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.1&viewFallbackFrom=powershell-6)). 
+([Ensure Get-ExecutionPolicy is at least RemoteSigned](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.5&viewFallbackFrom=powershell-7.1)). 
 
 PowerShell.exe (Right-click, Run as Administrator)
 
@@ -141,19 +140,20 @@ choco list --localonly # what's installed on your local machine, including versi
 choco outdated # which installs are not current
 ```
 
-Note: `choco outdated` does not stay in sync with evergreen software using the free version of Chocolatey. For example, if you use Chocolatey to install Firefox version 90, and Firefox upgrades itself to version 91, Chocolatey doesn't know that Firefox updated itself and the `outdated` command only remembers the version of Firefox you installed. I use `outdated` to see what the newest versions are available rather than what I have installed. In order to track local installation versions, [Chocolatey provides this feature in the paid upgrade](https://docs.chocolatey.org/en-us/features/package-synchronization/) of Chocolatey.
+> [!NOTE]
+> `choco outdated` does not stay in sync with evergreen software using the free version of Chocolatey. For example, if you use Chocolatey to install Firefox version 135, and Firefox upgrades itself to version 136, Chocolatey doesn't know that Firefox updated itself and the `outdated` command only remembers the version of Firefox you installed. I use `outdated` to see what the newest versions are available rather than what I have installed. In order to track local installation versions, [Chocolatey provides this feature in the paid upgrade](https://docs.chocolatey.org/en-us/features/package-synchronization/) of Chocolatey.
 
 ### Installing multiple applications
 
 Chocolatey is awesome because now that you understand what it does, you can install all your favorite apps in one command. Here's a list of my favorite apps, including Firefox, that I need for development on a regular basis.
 
-Note: if you use Boxstarter, you can include the following line inside your Powershell script and run everything together.
-
     choco install firefox firefox-dev brave ungoogled-chromium tor-browser powertoys thunderbird slack skype zoom git nvm sublimetext4 vscodium filezilla mullvad-app vlc virtualbox vnc-viewer docker-desktop malwarebytes qbittorrent quicklook libreoffice-fresh wireguard freetube --pre -y
 
-Note: Most modern browsers contain PDF readers like Adobe Reader. Running a standalone PDF reader is not recommended because it is another security risk without regular maintenance and updates.
 
-Using Chocolatey to install software like Vagrant will require you to restart Windows to complete its installation. Several packages will auto-start the software and ask you to set them up as well.
+> [!NOTE]
+> if you use Boxstarter, you can include the above line inside your Powershell script and run everything together.
+
+Using Chocolatey to install software will sometimes require you to restart Windows to complete its installation. Several packages will auto-start the software and ask you to set them up as well.
 
 ### Boxstarter
 
@@ -193,7 +193,7 @@ Now it's time to choose your Linux distro, which I recommend the [lastest versio
 
 ### Windows Terminal
 
-Once WSL is installed, as you'll see below, we're going to use this container to harbor the various languages and packages needed for web development. Before we continue, let's use one more highly recommended program called *Windows Terminal*. As of Windows 11, this is included by default. Windows 10 22H2 should also now have it installed by default.
+Once WSL is installed, as you'll see below, we're going to use this container to harbor the various languages and packages needed for web development. Before we continue, let's use one more highly recommended program called *Windows Terminal*. As of Windows 11, this is included by default. Windows 10 22H2 and newer should also now have it installed by default.
 
     choco install microsoft-windows-terminal
 
@@ -254,9 +254,9 @@ One last thing to mention about WSL inside of Windows, using these environments 
 
 I've had to install packages on both Windows and Ubuntu as well. So I'll have git installed in Ubuntu and then also in Windows and they're not related. Same with Node.js. And so on.
 
-When using your favorite editor, it's a similar situation. Opening the project in your Windows folder means you're working with it in the Windows file system. It could be faster to put the project folder/files in the Ubuntu folder. Or, as of 21H1, we can now mount the Ubuntu file system as a mapped drive which will make things a bit easier to work with from Windows.
+When using your favorite editor, it's a similar situation. Opening the project in your Windows folder means you're working with it in the Windows file system. It could be faster to put the project folder/files in the Ubuntu folder. Mount the Ubuntu file system as a mapped drive which will make things a bit easier to work with from Windows.
 
-Long story short, this is a sad reality that will take some maturing to get past as of 2021. You'll have to fiddle around with Window to make it work well sometimes.
+Long story short, this is a sad reality that will take some maturing to understand. You'll have to fiddle around with Window to make it work well sometimes.
 
 ## AI
 
