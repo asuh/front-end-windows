@@ -444,7 +444,7 @@ If you used Chocolatey above to install applications, you'll notice this is the 
 For modern Javascript programming, Node.js is required. Using [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm/) to install Node allows you to easily switch between Node versions and is useful for projects on different versions of Node.
 
 ```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 ```
 
 ### nvm usage
@@ -453,17 +453,17 @@ When you enter a project, you can install Node using NVM.
 
     nvm install node
 
-Restart terminal and run the final command.
+Restart terminal and confirm that you are using the default version of Node and npm.
 
-    nvm use node
+    node -v && npm -v
+
+If desired, install a custom version of node
+
+    node install 20
 
 Set a default version of Node.
 
     nvm alias default xx.xx
-
-Confirm that you are using the default version of Node and npm.
-
-    node -v && npm -v
 
 You can switch to another version of Node and use it by changing to the directory where you want to use Node and run the following.
 
@@ -475,6 +475,58 @@ Node modules are defined in a local `package.json` file inside your project. `np
 Update NVM
 
     nvm install node --reinstall-packages-from=node
+
+Auto invoke NPM
+
+Automating NPM to switch to the right Node is a nice little time saver. [Add some code to your shell to allow this auto switch capability](https://github.com/nvm-sh/nvm/?tab=readme-ov-file#deeper-shell-integration).
+
+Put this into your $HOME/.bashrc (via WSL):
+```
+cdnvm() {
+    command cd "$@" || return $?
+    nvm_path="$(nvm_find_up .nvmrc | command tr -d '\n')"
+
+    # If there are no .nvmrc file, use the default nvm version
+    if [[ ! $nvm_path = *[^[:space:]]* ]]; then
+
+        declare default_version
+        default_version="$(nvm version default)"
+
+        # If there is no default version, set it to `node`
+        # This will use the latest version on your machine
+        if [ $default_version = 'N/A' ]; then
+            nvm alias default node
+            default_version=$(nvm version default)
+        fi
+
+        # If the current version is not the default version, set it to use the default version
+        if [ "$(nvm current)" != "${default_version}" ]; then
+            nvm use default
+        fi
+    elif [[ -s "${nvm_path}/.nvmrc" && -r "${nvm_path}/.nvmrc" ]]; then
+        declare nvm_version
+        nvm_version=$(<"${nvm_path}"/.nvmrc)
+
+        declare locally_resolved_nvm_version
+        # `nvm ls` will check all locally-available versions
+        # If there are multiple matching versions, take the latest one
+        # Remove the `->` and `*` characters and spaces
+        # `locally_resolved_nvm_version` will be `N/A` if no local versions are found
+        locally_resolved_nvm_version=$(nvm ls --no-colors "${nvm_version}" | command tail -1 | command tr -d '\->*' | command tr -d '[:space:]')
+
+        # If it is not already installed, install it
+        # `nvm install` will implicitly use the newly-installed version
+        if [ "${locally_resolved_nvm_version}" = 'N/A' ]; then
+            nvm install "${nvm_version}";
+        elif [ "$(nvm current)" != "${locally_resolved_nvm_version}" ]; then
+            nvm use "${nvm_version}";
+        fi
+    fi
+}
+
+alias cd='cdnvm'
+cdnvm "$PWD" || exit
+```
 
 ## Python
 
