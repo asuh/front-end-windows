@@ -1,6 +1,6 @@
 # Front-End Development Setup on a PC
 
-This document assumes you're running a fresh copy of the latest version of **Windows 10**, >=version 22H2. Most of this also applies to Windows 11.
+This document assumes you're running a fresh copy of the latest version of **Windows 11** or **Windows 10**, >=version 25H2.
 
 The following workflow assumes a clean installation of Windows or from a full manual reinstall. While it's okay to have third-party software installed, the installation process will be more streamlined and less convoluted with a manually installed Windows system.
 
@@ -8,7 +8,7 @@ The following workflow assumes a clean installation of Windows or from a full ma
 - [Windows Installations](#windows-installations)
 - [Windows Prepartion](#system-update-and-disk-encryption)
 - [Projects Directory](#projects-directory)
-- [Chocolatey and Boxstarter](#chocolatey-and-boxstarter)
+- [Chocolatey](#chocolatey)
 - [Ninite](#ninite)
 - [Privacy](#privacy)
 - [Windows Subsystem for Linux](#windows-subsystem-for-linux)
@@ -32,39 +32,27 @@ Throughout this document, you will encounter examples like this that contain one
 sudo command -flag --flag directory file.extention # Comments are behind pound signs
 ```
 
-Anytime you see the above, it is referring to your CLI of choice, whether it's the built-in Command Prompt or Powershell as well as Bash Shell or Z Shell [see below](#zsh) in [Windows Subsystem for Linux](#windows-subsystem-for-linux). You might also use a third-party application like [Cygwin](https://www.cygwin.com/) or [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/). Setting up a command-line shell to your liking is a good idea.
+Anytime you see the above, it is referring to your CLI of choice, now defaulted to [Windows Terminal](https://learn.microsoft.com/en-us/windows/terminal/) as well as Bash Shell or Z Shell [see below](#zsh) in [Windows Subsystem for Linux](#windows-subsystem-for-linux). Setting up a command-line shell to your liking is a good idea.
 
 ## Windows Installations
 
-If you're looking to just wipe the system complete and start from scratch, there's a project called Tiny10 (and Tiny11 for Win11) that provides full ISOs tweaked to be minimal.
+If you're looking to just wipe the system complete and start from scratch, there's a project called [Tiny11Builder](https://github.com/ntdevlabs/tiny11builder) (and Tiny10 for Win10) that provides full ISOs tweaked to be minimal.
 
-[https://archive.org/details/@ntdev](https://archive.org/details/@ntdev)
+[Here's an overview of what Tiny11Builder can do.](https://youtu.be/_P2wtYQ84oA) It's very impressive and a great way to minmally install Windows.
 
-I've never used these myself, but this could be a seriously convenient install if it takes care of a lot of removing telemetry and enhancing privacy. YMMV, so you probably want to test this out before using it.
+It also removes telemetry and enhances privacy. YMMV, so you probably want to test this out before using it.
 
 ## System update and Disk Encryption
 
-Step One - Update the system! (Prepare for lots of reboots)
+Step One - Update the system! (Prepare for more than one reboot)
 
 **Windows Key > Settings > Update & Security**
 
-Step Two - Turn on BitLocker for full disk encryption (read 2018/11 Addendum below before continuing)
+Step Two - [Turn on BitLocker](https://windowsreport.com/device-encryption-windows-11/) for full disk encryption
 
 (If you can't install Bitlocker, you can use a third-party encryption software like [Veracrypt](https://en.wikipedia.org/wiki/VeraCrypt/), which is open-source and well regarded by the security community.)
 
 **Control Panel\System and Security\BitLocker Drive Encryption**
-
-> [!NOTE]
-> As of November 2018, it is recommended to disable hardware encryption and force Bitlocker to use Software Encryption because of [research that reveals vulnerabilities](https://msrc.microsoft.com/update-guide/en-us/advisory/ADV180028).
-
-```bash
-    # If encryption was previously enabled, check the type of drive encryption being used
-    manage-bde.exe -status
-```
-
-To enable software encryption with a group policy, [follow the instructions found on lifehacker.com](https://lifehacker.com/how-to-switch-to-software-encryption-on-your-vulnerable-1830289471)
-
-In Bitlocker manage page, click on the text "Turn on BitLocker" to turn on and enable BitLocker and follow the recommendations for drive encryption.
 
 ### Full Disk Encryption
 
@@ -73,26 +61,20 @@ Why do you want [full-disk encryption](https://en.wikipedia.org/wiki/Disk_encryp
 You're most likely using a portable laptop of some kind. If you lose it, the laptop gets stolen or someone tries to hack into it, your personal data is at risk. Using full-disk encryption is an extra layer of security to keep your mind at ease in case of potential intrusion.
 
 Two main caveats:
-- Make sure you do not forget your encryption software password. You'll have multiple options to retain a recovery key so choose the best option for you. Losing this recovery key means you cannot log in and everything on your computer is 100% inaccessible.
-- After encryption completes, any corruption that makes the Windows 10 partition unaccessible has no recovery. Make sure you're both backing up using a local backup device such as [Windows 10 Backup](https://support.microsoft.com/en-us/windows/back-up-and-restore-with-windows-backup-87a81f8a-78fa-456e-b521-ac0560e32338) on an external drive or a NAS, and a cloud backup provider like [Backblaze](https://www.backblaze.com/), [Sync](https://www.sync.com), or [iDrive](https://www.idrive.com).
+- **Make sure you do not forget your encryption software password**. You'll have multiple options to retain a recovery key so choose the best option for you. Losing this recovery key means you cannot log in and everything on your computer is 100% inaccessible.
+- After encryption completes, any corruption that makes the Windows partition unaccessible has no recovery. Make sure you're both backing up using a local backup device such as [Windows 11 Backup](https://support.microsoft.com/en-us/windows/back-up-and-restore-with-windows-backup-87a81f8a-78fa-456e-b521-ac0560e32338) on an external drive or a NAS, and a cloud backup provider like [Backblaze](https://www.backblaze.com/), [Sync](https://www.sync.com), or [iDrive](https://www.idrive.com).
 
 ### Clean up Windows
 
-Whether you're using a company's provided Windows with third-party software or you installed Windows from scratch yourself, it's always a good idea to have a minimal and clean base installation with as few potential issues as possible.
+Whether you're using a company's provided Windows with third-party software or you installed Windows from scratch yourself, it's always a good idea to have a minimal and clean installation.
 
 There are a ton of community driven starter packages and files to help clean up and uninstall unnecessary software and files. [Tron](https://github.com/bmrf/tron) is an all-inclusive from start to finish that touches everything from uninstall software to cleaning up temp files and checking for malware. It can easily take a minimum of 2-3 hours because of how thorough it is, but I often just run specific sections that I think are necssary to clean up Windows, such as removing default apps or blocking telemetry.
 
-I've also included additional scripts and information on cleaning up and updating Windows in the [Boxstarter](#chocolatey-and-boxstarter) and [Privacy](#privacy) sections below.
+I've also included additional scripts and information on cleaning up and updating Windows in the [Privacy](#privacy) section below.
 
 ### Windows reinstall tasks
 
 Refreshing Windows often means taking an existing machine, wiping the drive and starting again from scratch. This also means you have to back up and reload what you had. LifeHacker has a [guide for backing up and restoring a previous Windows installation](https://lifehacker.com/the-ultimate-guide-to-reinstalling-windows-from-scratch-1832897572).
-
-### .NET
-
-An important dependency for application installation and IIS is **.NET Framework**. If you don't install it now, you'll likely be prompted to during other software installation in the future.
-
-**Control Panel > Turn Windows features on or off**
 
 ## Projects Directory
 
@@ -103,15 +85,29 @@ If you don't already have one, create a directory for your digital projects. I l
 
 Depending on the type of projects you work on, this might not be necessary or preferable.
 
-## Chocolatey and Boxstarter
+## Winget
 
-Package managers make it so much easier to install and update applications (for Operating Systems) or libraries (for programming languages). The most popular one for Windows is [Chocolatey](https://communitychocolatey.org/).
+Included by default in Windows 11 is a package manager called Winget. Because it's pre-installed, there's no additional configuration and you can immeidately use it to install applications and software.
+
+Historically, because this package manager is one of the newest ones for Windows, it doesn't have as many applications or packages available. But, as of the end of 2025, there is a good chance you'll find what you need.
+
+[winget.run](https://winget.run/) is a good place to check and see if your software is available for Winget.
+
+    winget install firefox
+
+One thing to note is that Winget collects data and telemetry by default, but there is an opt-out.
+
+**Windows Key > Settings > Privacy & Security > Diagnostics & feedback > Diagnostic data > Send optional diagnostic data** Unselect the last option
+
+## Chocolatey
+
+[Chocolatey](https://chocolatey.org) is the most popular package manager for Windows.
 
 ### Install
 
-([Ensure Get-ExecutionPolicy is at least RemoteSigned](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.5&viewFallbackFrom=powershell-7.1)). 
+**Windows Key > Search for "Terminal" > Right-click, Run as Administrator)
 
-PowerShell.exe (Right-click, Run as Administrator)
+With PowerShell, you must ensure [Get-ExecutionPolicy](https://go.microsoft.com/fwlink/?LinkID=135170) is not Restricted. We suggest using Bypass to bypass the policy to get things installed or AllSigned for quite a bit more security.
 
 Run `Get-ExecutionPolicy`. If it returns `Restricted`, then run `Set-ExecutionPolicy AllSigned` or `Set-ExecutionPolicy Bypass -Scope Process`.
 
@@ -141,7 +137,7 @@ choco outdated # which installs are not current
 ```
 
 > [!NOTE]
-> `choco outdated` does not stay in sync with evergreen software using the free version of Chocolatey. For example, if you use Chocolatey to install Firefox version 135, and Firefox upgrades itself to version 136, Chocolatey doesn't know that Firefox updated itself and the `outdated` command only remembers the version of Firefox you installed. I use `outdated` to see what the newest versions are available rather than what I have installed. In order to track local installation versions, [Chocolatey provides this feature in the paid upgrade](https://docs.chocolatey.org/en-us/features/package-synchronization/) of Chocolatey.
+> `choco outdated` does not stay in sync with evergreen software using the free version of Chocolatey. For example, if you use Chocolatey to install Firefox version 149, and Firefox upgrades itself to version 150, Chocolatey doesn't know that Firefox updated itself and the `outdated` command only remembers the version of Firefox you installed. I use `outdated` to see what the newest versions are available rather than what I have installed. In order to track local installation versions, [Chocolatey provides this feature in the paid upgrade](https://docs.chocolatey.org/en-us/features/package-synchronization/) of Chocolatey.
 
 ### Installing multiple applications
 
@@ -149,35 +145,18 @@ Chocolatey is awesome because now that you understand what it does, you can inst
 
     choco install firefox firefox-dev brave ungoogled-chromium tor-browser powertoys thunderbird slack skype zoom git nvm sublimetext4 vscodium filezilla mullvad-app vlc virtualbox vnc-viewer docker-desktop malwarebytes qbittorrent quicklook libreoffice-fresh wireguard freetube --pre -y
 
-
-> [!NOTE]
-> if you use Boxstarter, you can include the above line inside your Powershell script and run everything together.
-
 Using Chocolatey to install software will sometimes require you to restart Windows to complete its installation. Several packages will auto-start the software and ask you to set them up as well.
-
-### Boxstarter
-
-The folks at Chcolatey provide new tool called [Boxstarter](http://www.boxstarter.org/) to automate a Windows setup process. The important reasons to use this tools are for resilient reboot and Windows customization.
-
-```bash
-# Install boxstarter
-choco install boxstarter
-```
-
-Using boxstarter requires some step by step instructions to create an executable file all found on the website above. To get you started, I recommend starting with [this already created .ps1 file](https://gist.github.com/asuh/ba46d8c534b13ae4db89b4d3323eec97).
-
-Note: you will have to restart Windows to complete some of the installations.
 
 ## Ninite
 
-If you have more software you need installed not included in Chocolatey or you wish to use something that has a GUI, [Ninite](https://ninite.com/) is an awesome addition.
+If you need more software that's not included in Winget or Chocolatey, or you wish to use something that has a GUI, [Ninite](https://ninite.com/) is an awesome tool.
 
 ## Privacy
 
 I think now is the time to briefly let you know that Windows 10 communicates with Microsoft by default. Microsoft collects data on how you use the operating system through a process called telemetry. There's not a lot of transparency about what's going on but there are many free and open source applications that help us shut down and block as many as we know about.
 
 First, I recommend you look through [https://www.privacyguides.org/en/](https://www.privacyguides.org/en/). There's a ton of valuable software and links to consume.
-Second, [consult this evergreen, updated list of privacy tools for Windows 10](https://www.ghacks.net/2015/08/14/comparison-of-windows-10-privacy-tools/). As of June 2018, most of the content is updated and relevant. Run any scripts you feel will help you.
+Second, [consult this evergreen, updated list of privacy tools for Windows 10](https://www.ghacks.net/2015/08/14/comparison-of-windows-10-privacy-tools/).
 
 ## Windows Subsystem for Linux
 
@@ -189,21 +168,7 @@ Powershell.exe (Run as Administrator)
 
     wsl --install
     
-Now it's time to choose your Linux distro, which I recommend the [lastest version of Ubuntu](https://apps.microsoft.com/detail/9NBLGGH4MSV6?hl=en-us&gl=us)
-
-### Windows Terminal
-
-Once WSL is installed, as you'll see below, we're going to use this container to harbor the various languages and packages needed for web development. Before we continue, let's use one more highly recommended program called *Windows Terminal*. As of Windows 11, this is included by default. Windows 10 22H2 and newer should also now have it installed by default.
-
-    choco install microsoft-windows-terminal
-
-This app gives us one place to use all Windows command line apps: Command Prompt, Powershell, and WSL default shell. Any time I use this, I search for it and right-click to open as Administrator.
-
-Next, I'd recommend installing cURL in your distro for installing other Linux packages too. So for this next command, let's open Windows Terminal and go to the shell for your distro (Ubuntu in my case).
-
-    sudo apt-get install curl
-
-For more detailed instructions for installing WSL on Windows 10, [here's detailed guide with more front-end minded advice](https://www.smashingmagazine.com/2019/09/moving-javascript-development-bash-windows/).
+By default, the installed Linux distribution will be Ubuntu. I recommend this distro.
 
 ### WSL performance can suffer
 
