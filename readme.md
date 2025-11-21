@@ -9,6 +9,7 @@ The following workflow assumes a clean installation of Windows or from a full ma
 - [Windows Prepartion](#system-update-and-disk-encryption)
 - [Projects Directory](#projects-directory)
 - [Chocolatey](#chocolatey)
+- [Winget](#winget)
 - [Ninite](#ninite)
 - [Privacy](#privacy)
 - [Windows Subsystem for Linux](#windows-subsystem-for-linux)
