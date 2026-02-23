@@ -5,13 +5,13 @@ This document assumes you're running a fresh copy of the latest version of **Win
 The following workflow assumes a clean installation of Windows or from a full manual reinstall. While it's okay to have third-party software installed, the installation process will be more streamlined and less convoluted with a manually installed Windows system.
 
 - [Command Line Interface](#command-line-interface)
-- [Windows Installations](#windows-installations)
+- [Setting up Windows](#setting-up-windows)
+- [Privacy](#privacy)
 - [Windows Prepartion](#system-update-and-disk-encryption)
 - [Projects Directory](#projects-directory)
 - [Chocolatey](#chocolatey)
 - [Winget](#winget)
 - [Ninite](#ninite)
-- [Privacy](#privacy)
 - [Windows Subsystem for Linux](#windows-subsystem-for-linux)
 - [AI](#ai)
 - [Sublime Text and VSCode](#sublime-text-and-vscode)
@@ -35,13 +35,49 @@ sudo command -flag --flag directory file.extention # Comments are behind pound s
 
 Anytime you see the above, it is referring to your CLI of choice, now defaulted to [Windows Terminal](https://learn.microsoft.com/en-us/windows/terminal/) as well as Bash Shell or Z Shell [see below](#zsh) in [Windows Subsystem for Linux](#windows-subsystem-for-linux). Setting up a command-line shell to your liking is a good idea.
 
-## Windows Installations
+## Setting up Windows
+
+This covers two options: clean install or clean up.
+
+### Clean Install
+
+#### Tiny11Builder
 
 If you're looking to just wipe the system complete and start from scratch, there's a project called [Tiny11Builder](https://github.com/ntdevlabs/tiny11builder) (and Tiny10 for Win10) that provides full ISOs tweaked to be minimal.
 
-[Here's an overview of what Tiny11Builder can do.](https://youtu.be/_P2wtYQ84oA) It's very impressive and a great way to minmally install Windows.
+[Here's an overview of what Tiny11Builder can do.](https://inv.nadeko.net/watch?v=_P2wtYQ84oA) It's very impressive and a great way to minmally install Windows.
 
 It also removes telemetry and enhances privacy. YMMV, so you probably want to test this out before using it.
+
+#### UnattendedWinstall
+
+Another tool that has fascinating potential is called [UnattendedWinstall](https://github.com/memstechtips/UnattendedWinstall). Using this, you can start with a clean, debloated Windows and theoretically install it with minimal interaction from yourself.
+
+It's a similar workflow as Tiny11 where you have to create a bootable disk.
+
+### Clean up Windows
+
+Whether you're using a company's provided Windows with third-party software or you installed Windows from scratch yourself, it's always a good idea to have a minimal and clean installation.
+
+Most of you will likely need this section more. You've just bought a new laptop and you want to clean it up. The benefit of cleaning up is that the manufacturer's default software should provide some minimal to moderate benefits to stay on the laptop. So, you can primarily just remove the non-manufacturer software or unnecessary Microsoft software.
+
+#### Winhance
+
+[Winhance](https://winhance.net/) is a debloat app that has been rewritten, modernized, and provides a comprehensive aid to debloat and enhance. In my first usage, I like it so far.
+
+#### Tron
+
+[Tron](https://github.com/bmrf/tron) is an all-inclusive, from-start-to-finish suite of files that touches everything from uninstalling software to cleaning up temp files and checking for malware. It can easily take a minimum of 2-3 hours because of how thorough it is, but I usually run specific sections that I think are necssary to clean up Windows, such as removing default apps or blocking telemetry. It's slightly outdated as of 2026, but still has plenty of value.
+
+#### FlyOOBE
+
+Want to migrate a moderately old laptop to Windows 11? Look no further than [FlyOOBE](https://github.com/builtbybel/FlyOOBE). I used it in 2025 on my personal laptop that I bought in 2017 and it worked great.
+
+## Privacy
+
+Microsoft collects telemetry data on how you use Windows. There's not a lot of transparency about what's going on but there are many free and open source applications that help us shut down and block as many as we know about. Scroll above to see the section about cleaning up Windows.
+
+I recommend you look through [https://privacytools.techlore.tech/](https://privacytools.techlore.tech/). There's a ton of valuable software and links to consume.
 
 ## System update and Disk Encryption
 
@@ -65,14 +101,6 @@ Two main caveats:
 - **Make sure you do not forget your encryption software password**. You'll have multiple options to retain a recovery key so choose the best option for you. Losing this recovery key means you cannot log in and everything on your computer is 100% inaccessible.
 - After encryption completes, any corruption that makes the Windows partition unaccessible has no recovery. Make sure you're both backing up using a local backup device such as [Windows 11 Backup](https://support.microsoft.com/en-us/windows/back-up-and-restore-with-windows-backup-87a81f8a-78fa-456e-b521-ac0560e32338) on an external drive or a NAS, and a cloud backup provider like [Backblaze](https://www.backblaze.com/), [Sync](https://www.sync.com), or [iDrive](https://www.idrive.com).
 
-### Clean up Windows
-
-Whether you're using a company's provided Windows with third-party software or you installed Windows from scratch yourself, it's always a good idea to have a minimal and clean installation.
-
-There are a ton of community driven starter packages and files to help clean up and uninstall unnecessary software and files. [Tron](https://github.com/bmrf/tron) is an all-inclusive from start to finish that touches everything from uninstall software to cleaning up temp files and checking for malware. It can easily take a minimum of 2-3 hours because of how thorough it is, but I often just run specific sections that I think are necssary to clean up Windows, such as removing default apps or blocking telemetry.
-
-I've also included additional scripts and information on cleaning up and updating Windows in the [Privacy](#privacy) section below.
-
 ### Windows reinstall tasks
 
 Refreshing Windows often means taking an existing machine, wiping the drive and starting again from scratch. This also means you have to back up and reload what you had. LifeHacker has a [guide for backing up and restoring a previous Windows installation](https://lifehacker.com/the-ultimate-guide-to-reinstalling-windows-from-scratch-1832897572).
@@ -88,7 +116,7 @@ Depending on the type of projects you work on, this might not be necessary or pr
 
 ## Winget
 
-Included by default in Windows 11 is a package manager called Winget. Because it's pre-installed, there's no additional configuration and you can immeidately use it to install applications and software.
+Included by default in Windows 11 is a package manager called Winget. Because it's pre-installed, you can immeidately use it to install applications and software.
 
 Historically, because this package manager is one of the newest ones for Windows, it doesn't have as many applications or packages available. But, as of the end of 2025, there is a good chance you'll find what you need.
 
@@ -100,6 +128,8 @@ One thing to note is that Winget collects data and telemetry by default, but the
 
 **Windows Key > Settings > Privacy & Security > Diagnostics & feedback > Diagnostic data > Send optional diagnostic data** Unselect the last option
 
+Note: Winget is fussy if you don't provide the correct syntax to install something or you haven't chosen the method for download.
+
 ## Chocolatey
 
 [Chocolatey](https://chocolatey.org) is the most popular package manager for Windows.
@@ -110,9 +140,11 @@ One thing to note is that Winget collects data and telemetry by default, but the
 
 With PowerShell, you must ensure [Get-ExecutionPolicy](https://go.microsoft.com/fwlink/?LinkID=135170) is not Restricted. We suggest using Bypass to bypass the policy to get things installed or AllSigned for quite a bit more security.
 
-Run `Get-ExecutionPolicy`. If it returns `Restricted`, then run `Set-ExecutionPolicy AllSigned` or `Set-ExecutionPolicy Bypass -Scope Process`.
-
     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+Run above `Get-ExecutionPolicy` command. If it returns `Restricted`, then run `Set-ExecutionPolicy AllSigned` or `Set-ExecutionPolicy Bypass -Scope Process`.
+
+You might also have to [troubleshoot console errors if things like TLS 2.0 isn't available](https://docs.chocolatey.org/en-us/troubleshooting/).
 
 ### Usage
 
@@ -150,14 +182,7 @@ Using Chocolatey to install software will sometimes require you to restart Windo
 
 ## Ninite
 
-If you need more software that's not included in Winget or Chocolatey, or you wish to use something that has a GUI, [Ninite](https://ninite.com/) is an awesome tool.
-
-## Privacy
-
-I think now is the time to briefly let you know that Windows 10 communicates with Microsoft by default. Microsoft collects data on how you use the operating system through a process called telemetry. There's not a lot of transparency about what's going on but there are many free and open source applications that help us shut down and block as many as we know about.
-
-First, I recommend you look through [https://www.privacyguides.org/en/](https://www.privacyguides.org/en/). There's a ton of valuable software and links to consume.
-Second, [consult this evergreen, updated list of privacy tools for Windows 10](https://www.ghacks.net/2015/08/14/comparison-of-windows-10-privacy-tools/).
+If you need more software that's not included in Winget or Chocolatey, or you wish to use something that has a GUI, [Ninite](https://ninite.com/) is historically a solid app to install all the essential software you need.
 
 ## Windows Subsystem for Linux
 
