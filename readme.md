@@ -77,6 +77,8 @@ Want to migrate a moderately old laptop to Windows 11? Look no further than [Fly
 
 Microsoft collects telemetry data on how you use Windows. There's not a lot of transparency about what's going on but there are many free and open source applications that help us shut down and block as many as we know about. Scroll above to see the section about cleaning up Windows.
 
+In addtion to any of the clean up apps above, one really popular app for helping with privacy is [Win11Debloat](https://github.com/Raphire/Win11Debloat). I've used it in conjunction with Winhance and it is a great companion just to be sure.
+
 I recommend you look through [https://privacytools.techlore.tech/](https://privacytools.techlore.tech/). There's a ton of valuable software and links to consume.
 
 ## System update and Disk Encryption
