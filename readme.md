@@ -103,10 +103,6 @@ Two main caveats:
 - **Make sure you do not forget your encryption software password**. You'll have multiple options to retain a recovery key so choose the best option for you. Losing this recovery key means you cannot log in and everything on your computer is 100% inaccessible.
 - After encryption completes, any corruption that makes the Windows partition unaccessible has no recovery. Make sure you're both backing up using a local backup device such as [Windows 11 Backup](https://support.microsoft.com/en-us/windows/back-up-and-restore-with-windows-backup-87a81f8a-78fa-456e-b521-ac0560e32338) on an external drive or a NAS, and a cloud backup provider like [Backblaze](https://www.backblaze.com/), [Sync](https://www.sync.com), or [iDrive](https://www.idrive.com).
 
-### Windows reinstall tasks
-
-Refreshing Windows often means taking an existing machine, wiping the drive and starting again from scratch. This also means you have to back up and reload what you had. LifeHacker has a [guide for backing up and restoring a previous Windows installation](https://lifehacker.com/the-ultimate-guide-to-reinstalling-windows-from-scratch-1832897572).
-
 ## Projects Directory
 
 If you don't already have one, create a directory for your digital projects. I like to use `C:\Users\<winusername>\Sites\<project-name>`, and the name *Sites* can be anything you want. I prefer my *Sites* folder to exist along side the rest of my user profile folders.
@@ -124,11 +120,13 @@ Historically, because this package manager is one of the newest ones for Windows
 
 [winget.run](https://winget.run/) is a good place to check and see if your software is available for Winget.
 
-    winget install firefox
+    winget install -e --id Mozilla.Firefox
 
-One thing to note is that Winget collects data and telemetry by default, but there is an opt-out.
+Winget collects data and telemetry by default, but there is an opt-out:
 
 **Windows Key > Settings > Privacy & Security > Diagnostics & feedback > Diagnostic data > Send optional diagnostic data** Unselect the last option
+
+If you want to install multiple apps at once, try out [Winstall](https://winstall.app/). You can select multiple apps and get a long command to install everything at once.
 
 Note: Winget is fussy if you don't provide the correct syntax to install something or you haven't chosen the method for download.
 
@@ -178,7 +176,7 @@ choco outdated # which installs are not current
 
 Chocolatey is awesome because now that you understand what it does, you can install all your favorite apps in one command. Here's a list of my favorite apps, including Firefox, that I need for development on a regular basis.
 
-    choco install firefox firefox-dev brave ungoogled-chromium tor-browser powertoys thunderbird slack skype zoom git nvm sublimetext4 vscodium filezilla mullvad-app vlc virtualbox vnc-viewer docker-desktop malwarebytes qbittorrent quicklook libreoffice-fresh wireguard freetube --pre -y
+    choco install firefox firefox-dev brave helium tor-browser powertoys thunderbird slack zoom git nvm sublimetext4 vscodium filezilla mullvad-app vlc virtualbox vnc-viewer docker-desktop malwarebytes qbittorrent quicklook libreoffice-fresh wireguard freetube --pre -y
 
 Using Chocolatey to install software will sometimes require you to restart Windows to complete its installation. Several packages will auto-start the software and ask you to set them up as well.
 
