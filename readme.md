@@ -1,6 +1,6 @@
 # Front-End Development Setup on a PC
 
-This document assumes you're running a fresh copy of the latest version of **Windows 11** or **Windows 10**, >=version 25H2.
+This document assumes you're running a fresh copy of the latest version of **Windows 11** latest stable release. **Windows 10** 22H2 is out of support since 2025, but might still work for most of this.
 
 The following workflow assumes a clean installation of Windows or from a full manual reinstall. While it's okay to have third-party software installed, the installation process will be more streamlined and less convoluted with a manually installed Windows system.
 
@@ -43,11 +43,11 @@ This covers two options: clean install or clean up.
 
 #### Tiny11Builder
 
-If you're looking to just wipe the system complete and start from scratch, there's a project called [Tiny11Builder](https://github.com/ntdevlabs/tiny11builder) (and Tiny10 for Win10) that provides full ISOs tweaked to be minimal.
+If you're looking to just wipe the system complete and start from scratch, there's a project called [Tiny11Builder](https://github.com/ntdevlabs/tiny11builder) (and Tiny10 for Win10) is a tool for creating a smaller, customized Windows ISO from an official Windows ISO.
 
-[Here's an overview of what Tiny11Builder can do.](https://inv.nadeko.net/watch?v=_P2wtYQ84oA) It's very impressive and a great way to minmally install Windows.
+[Here's an overview of what Tiny11Builder can do.](https://inv.nadeko.net/watch?v=_P2wtYQ84oA) It's very impressive and a great way to mininmally install Windows.
 
-It also removes telemetry and enhances privacy. YMMV, so you probably want to test this out before using it.
+It can remove telemetry and enhance privacy but YMMV so you probably want to test this out before trusting it.
 
 #### UnattendedWinstall
 
@@ -85,7 +85,7 @@ I recommend you look through [https://privacytools.techlore.tech/](https://priva
 
 Step One - Update the system! (Prepare for more than one reboot)
 
-**Windows Key > Settings > Update & Security**
+**Settings > Windows Update**
 
 Step Two - [Turn on BitLocker](https://windowsreport.com/device-encryption-windows-11/) for full disk encryption
 
@@ -107,8 +107,8 @@ Two main caveats:
 
 If you don't already have one, create a directory for your digital projects. I like to use `C:\Users\<winusername>\Sites\<project-name>`, and the name *Sites* can be anything you want. I prefer my *Sites* folder to exist along side the rest of my user profile folders.
 
-    cd c:\Users\<winusername>
-    mkdir -p Sites
+    cd "$env:USERPROFILE"
+    mkdir Sites
 
 Depending on the type of projects you work on, this might not be necessary or preferable.
 
@@ -116,13 +116,14 @@ Depending on the type of projects you work on, this might not be necessary or pr
 
 Included by default in Windows 11 is a package manager called Winget. Because it's pre-installed, you can immeidately use it to install applications and software.
 
-Historically, because this package manager is one of the newest ones for Windows, it doesn't have as many applications or packages available. But, as of the end of 2025, there is a good chance you'll find what you need.
+Historically, because this package manager is one of the newest ones for Windows, it doesn't have as many applications or packages available. But, as 2026, there is a good chance you'll find what you need.
 
 [winget.run](https://winget.run/) is a good place to check and see if your software is available for Winget.
 
     winget install -e --id Mozilla.Firefox
 
-Winget collects data and telemetry by default, but there is an opt-out:
+Winget collects data and telemetry by default because it may use Microsoft services and is subject to Windows/Microsoft diagnostic
+settings, but there is an opt-out:
 
 **Windows Key > Settings > Privacy & Security > Diagnostics & feedback > Diagnostic data > Send optional diagnostic data** Unselect the last option
 
@@ -170,7 +171,7 @@ choco outdated # which installs are not current
 ```
 
 > [!NOTE]
-> `choco outdated` does not stay in sync with evergreen software using the free version of Chocolatey. For example, if you use Chocolatey to install Firefox version 149, and Firefox upgrades itself to version 150, Chocolatey doesn't know that Firefox updated itself and the `outdated` command only remembers the version of Firefox you installed. I use `outdated` to see what the newest versions are available rather than what I have installed. In order to track local installation versions, [Chocolatey provides this feature in the paid upgrade](https://docs.chocolatey.org/en-us/features/package-synchronization/) of Chocolatey.
+> `choco outdated` does not stay in sync with evergreen software using the free version of Chocolatey. For example, if you use Chocolatey to install Firefox version 150, and Firefox upgrades itself to version 151, Chocolatey doesn't know that Firefox updated itself and the `outdated` command only remembers the version of Firefox you installed. I use `outdated` to see what the newest versions are available rather than what I have installed. In order to track local installation versions, [Chocolatey provides this feature in the paid upgrade](https://docs.chocolatey.org/en-us/features/package-synchronization/) of Chocolatey.
 
 ### Installing multiple applications
 
@@ -203,6 +204,9 @@ WSL has two caveats that I can't overcome yet both decreasing performance.
 I have my environment set up, using Windows Terminal or another terminal in VSCodium. I run `npm` script or just trying to `git status` my project and it TAKES FOREVER. It's one of the worst issues I've had with WSL. There are fixes slowly being added to WSL or Windows but it's a slow rollout. In the meantime, if you have issues with `npm`, `webpack`, `gulp`, `git`, or one of many other utilities, try using Powershell or Git Bash (if you installed git for Windows).
 
 Another issue that can cause a headache is the virtual machine memory task called `Vmmem`. After running WSL and Docker for more than a week, I saw the memory usage went up to more almost 10GB. At first I thought it was just Docker, but after shutting that down, I still saw about 8GB or memory usage. Only after using powershell to `wsl --shutdown` did I see the memory usage drop to a decent level below 1GB.
+
+For best WSL performance, store Linux/Node-heavy projects inside the WSL filesystem, such as `~/Sites`, not under `/mnt/c/...`. Access them from Windows
+with `\\wsl$\Ubuntu\home\<linuxusername>\Sites` or through VS Code's WSL integration.
 
 ### Projects Directory
 
@@ -325,29 +329,29 @@ I suggest you read a tutorial on Vim. Grasping the concept of the two "modes" of
 
 Vim's default settings aren't great, and you could spend a lot of time tweaking your configuration (the `.vimrc` file). But if you're like me and just use Vim occasionally, you'll be happy to know that [Tim Pope](https://github.com/tpope) has put together some sensible defaults to quickly get started.
 
-First, install [pathogen.vim](https://github.com/tpope/vim-pathogen) by running:
+Keeping it simple:
 
-    mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+```ssh
+sudo apt install vim
+vimtutor
+```
 
-If you're brand new to Vim and lacking a vimrc, vim ~/.vimrc and paste in the following super-minimal example:
+And a minimal ~/.vimrc:
 
-    execute pathogen#infect()
-    syntax on
-    filetype plugin indent on
-
-And finally, install the Vim "sensible defaults" by running:
-
-    cd ~/.vim/bundle && \
-    git clone git://github.com/tpope/vim-sensible.git
-
-With that, Vim will look a lot better next time you open it!
+```ssh
+syntax on
+set number
+set expandtab
+set shiftwidth=2
+set tabstop=2
+set mouse=a
+```
 
 ## ZSH
 
 [Z Shell](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH), or ZSH, was written to extend Bash and make improvements to how Bash works. Install ZSH on WSL:
 
-    apt install zsh
+    sudo apt install zsh
 
 Don't forget to customize ZSH!
 
@@ -364,11 +368,18 @@ SSH is imperative, just like git and node as you'll see.
 
 Now you can add a little shortcut to make SSHing into other boxes easier. Paste the following block of code into your SSH config file at `~/.ssh/config`, changing the variables for any hosts that you connect to.
 
+First:
+
+```ssh
+  ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+Then:
+
 ```ssh
 Host *
   AddKeysToAgent yes
-  UseKeychain yes
-  IdentityFile ~/.ssh/id_rsa
+  IdentityFile ~/.ssh/id_ed25519
 ```
 
 Below the above, you can add other sites as needed.
@@ -397,7 +408,7 @@ If you have [2FA enabled on Github](https://docs.github.com/en/authentication/se
 
 ### Git aliases (optional)
 
-Less keystrokes can be better, so here are optional and ensible shortcuts to a global Git config file.
+Less keystrokes can be better, so here are optional and sensible shortcuts to a global Git config file.
 
     touch ~/.gitconfig
     
@@ -414,9 +425,9 @@ Pick and choose any of these aliases to help you.
       cam    = commit -am
       cm     = commit -m
       s      = status
-      pom    = push origin master
+      pom    = push origin main
       pog    = push origin gh-pages
-      puom   = pull origin master
+      puom   = pull origin main
       puog   = pull origin gh-pages
       cob    = checkout -b
       co     = checkout
@@ -450,11 +461,11 @@ Restart terminal and confirm that you are using the default version of Node and 
 
 If desired, install a custom version of node
 
-    node install 20
+    nvm install 26
 
 Set a default version of Node.
 
-    nvm alias default xx.xx
+    nvm alias default 26
 
 You can switch to another version of Node and use it by changing to the directory where you want to use Node and run the following.
 
@@ -525,26 +536,36 @@ Even if you don't use Python in your day to day, it's likely you'll encounter so
 
 Even if you already installed it with `choco`, let's install the latest python using Windows Terminal on your **WSL command line**. (Remember to update `apt` if  you're doing this at a later date)
 
-    sudo apt update python3
+    sudo apt update
+    sudo apt install python3 python3-pip python3-venv
 
 After installation, open a new terminal tab or window to make sure it installed correctly.
 
-    python --version
+    python3 --version
+    pip3 --version
 
-### Pip
+On Ubuntu, python may not point to Python 3 unless python-is-python3 is installed:
 
-With `python` now running the latest version, it's a good idea to install Pip, which is a package manager for Python.
-
-    sudo apt install python3-pip
-    python get-pip.py --user
+    sudo apt install python-is-python3
 
 ## Composer
 
 PHP is still one of the most used programming languages on the web, thanks in part to the amount of sites still using WordPress. We need a way to manage PHP scripts and packages similarly to how we manage JS dependencies using NPM.
 
-One of the most popular PHP dependency managers is called [Composer](https://getcomposer.org/). The difference between Composer and NPM, for example, is that Composer works on a project-by-project basis, there is no global installations. So you must run and setup Composer on every new project if you want to use it.
+One of the most popular PHP dependency managers is called [Composer](https://getcomposer.org/). The difference between Composer and NPM, for example, Composer is usually installed as a global command, but dependencies are normally installed per project into that project's `vendor` directory. So you must run and setup Composer on every new project if you want to use it.
 
 To install Composer globally, go to the [Download page](https://getcomposer.org/download/) and run the package installer. It would be preferable to install this inside WSL instead of Windows.
+
+For WSL/Ubuntu, include:
+
+```
+sudo apt update
+sudo apt install php-cli unzip curl
+curl -sS https://getcomposer.org/installer -o composer-setup.php
+php composer-setup.php
+sudo mv composer.phar /usr/local/bin/composer
+composer --version
+```
 
 ## Virtualbox
 
@@ -558,12 +579,14 @@ The free, open-source alternative that I've been enjoying is called [Virtualbox]
 
     choco install virtualbox
 
+Note: VirtualBox can usually coexist with Hyper-V/WSL2 on modern versions, but some VMs may perform worse or require configuration changes.
+
 ## Docker
 
 Similar to Vagrant, I increasingly use Docker for professional projects. It comes with similar benefits to Vagrant, such as portability, encapsulation for the environment within the OS, and consistent environments. Docker goes a little further because it's a container manager it's lighter in resources and file size than Vagrant.
 
     choco install docker-desktop
-    
+
 Docker can be quite powerful but complicated to set up. For this reason, I'm a fan of another project which is a wrapper around Docker called [Lando](https://lando.dev/). Originally designed for Drupal, it's increased support for many other environments including WordPress, Node.js, and Laravel. You can find the [latest executable file on Github](https://github.com/lando/lando/releases).
     
 For privacy, I recommend disabling tracking. Inside of your `.lando.yml` file, add the following:
@@ -571,6 +594,8 @@ For privacy, I recommend disabling tracking. Inside of your `.lando.yml` file, a
     stats:
       - report: false
         url: https://metrics.lando.dev
+
+Note: Docker Desktop on Windows commonly uses the WSL2 backend. 
 
 ## TODO
 - Allow apps downloaded from anywhere system preferences
