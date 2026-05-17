@@ -7,7 +7,7 @@ The following workflow assumes a clean installation of Windows or from a full ma
 - [Command Line Interface](#command-line-interface)
 - [Setting up Windows](#setting-up-windows)
 - [Privacy](#privacy)
-- [Windows Prepartion](#system-update-and-disk-encryption)
+- [Windows Preparation](#system-update-and-disk-encryption)
 - [Projects Directory](#projects-directory)
 - [Chocolatey](#chocolatey)
 - [Winget](#winget)
@@ -67,7 +67,7 @@ Most of you will likely need this section more. You've just bought a new laptop 
 
 #### Tron
 
-[Tron](https://github.com/bmrf/tron) is an all-inclusive, from-start-to-finish suite of files that touches everything from uninstalling software to cleaning up temp files and checking for malware. It can easily take a minimum of 2-3 hours because of how thorough it is, but I usually run specific sections that I think are necssary to clean up Windows, such as removing default apps or blocking telemetry. It's slightly outdated as of 2026, but still has plenty of value.
+[Tron](https://github.com/bmrf/tron) is an all-inclusive, from-start-to-finish suite of files that touches everything from uninstalling software to cleaning up temp files and checking for malware. It can easily take a minimum of 2-3 hours because of how thorough it is, but I usually run specific sections that I think are necessary to clean up Windows, such as removing default apps or blocking telemetry. It's slightly outdated as of 2026, but still has plenty of value.
 
 #### FlyOOBE
 
@@ -114,7 +114,7 @@ Depending on the type of projects you work on, this might not be necessary or pr
 
 ## Winget
 
-Included by default in Windows 11 is a package manager called Winget. Because it's pre-installed, you can immeidately use it to install applications and software.
+Included by default in Windows 11 is a package manager called Winget. Because it's pre-installed, you can immediately use it to install applications and software.
 
 Historically, because this package manager is one of the newest ones for Windows, it doesn't have as many applications or packages available. But, as 2026, there is a good chance you'll find what you need.
 
@@ -122,10 +122,21 @@ Historically, because this package manager is one of the newest ones for Windows
 
     winget install -e --id Mozilla.Firefox
 
-Winget collects data and telemetry by default because it may use Microsoft services and is subject to Windows/Microsoft diagnostic
-settings, but there is an opt-out:
+Winget collects data and telemetry by default because it may use Microsoft services and is subject to Windows/Microsoft diagnostic settings, but there is a Windows diagnostics data opt-out:
 
 **Windows Key > Settings > Privacy & Security > Diagnostics & feedback > Diagnostic data > Send optional diagnostic data** Unselect the last option
+
+Optional but specific to [Winget to disable telemtry](https://github.com/microsoft/winget-cli/blob/master/doc/Settings.md#telemetry), in your terminal:
+
+    winget settings
+
+This will open `"$env:USERPROFILE"\AppData\Local\Packages\Microsoft.DesktopAppInstaller_xxxxxxxx\LocalState\settings.json` and you'll need to add a line to disable telemetry.
+
+```json
+    "telemetry": {
+        "disable": true
+    },
+```
 
 If you want to install multiple apps at once, try out [Winstall](https://winstall.app/). You can select multiple apps and get a long command to install everything at once.
 
@@ -205,8 +216,7 @@ I have my environment set up, using Windows Terminal or another terminal in VSCo
 
 Another issue that can cause a headache is the virtual machine memory task called `Vmmem`. After running WSL and Docker for more than a week, I saw the memory usage went up to more almost 10GB. At first I thought it was just Docker, but after shutting that down, I still saw about 8GB or memory usage. Only after using powershell to `wsl --shutdown` did I see the memory usage drop to a decent level below 1GB.
 
-For best WSL performance, store Linux/Node-heavy projects inside the WSL filesystem, such as `~/Sites`, not under `/mnt/c/...`. Access them from Windows
-with `\\wsl$\Ubuntu\home\<linuxusername>\Sites` or through VS Code's WSL integration.
+For best WSL performance, store Linux/git/Node-heavy projects inside the WSL filesystem, such as `~/Sites`, not under `/mnt/c/...`. Access them from Windows with `\\wsl$\Ubuntu\home\<linuxusername>\Sites` or through VS Code's WSL integration. To be explicit about this advice, WSL projects stored in the Linux filesystem `~/Sites` perform significantly better than `/mnt/c/...`.
 
 ### Projects Directory
 
@@ -285,13 +295,13 @@ Because of the rise of AI since CoPilot and the release of ChatGPT, there are mu
 
 ### Sublime Text
 
-My preferred editor is Sublime Text.
+Since the early 2010s, my classical goto editor is Sublime Text, because, it just works and is faster than all the rest.
 
     choco install sublimetext4
 
-I prefer using the [beta version of Sublime Text 4](https://www.sublimetext.com/dev) which is usually just as stable as version 3.
+I prefer using the [beta version of Sublime Text 4](https://www.sublimetext.com/dev).
 
-Sublime Text is not free, but it has an unlimited "evaluation period". The seemingly expensive $70 price tag is worth every penny. If you can afford it, I suggest you [support](https://www.sublimetext.com/buy) this awesome editor. :)
+Sublime Text is not free, but it has an unlimited "evaluation period". The seemingly expensive $99 price tag is worth the cost. If you can afford it, I suggest you [support](https://www.sublimetext.com/buy) this awesome editor. :)
 
 After installing Sublime Text, add [Package Control](https://packagecontrol.io/installation). This is the most important addition you'll make to Sublime Text and it'll give you the power to install plugins, add-ons, themes, color schemes and more.
 
@@ -532,14 +542,14 @@ cdnvm "$PWD" || exit
 
 ## Python
 
-Even if you don't use Python in your day to day, it's likely you'll encounter something that requires it. Older WSL distros probably include Python 2.x by default. Version 2 is years outdated and almost all python can and should run with a minimum of version 3. Let's update python!
+Even if you don't use Python in your day to day, it's likely you'll encounter something that requires it. Older WSL distros probably include Python 2.x by default. Version 2 is years outdated so let's install version 3!
 
-Even if you already installed it with `choco`, let's install the latest python using Windows Terminal on your **WSL command line**. (Remember to update `apt` if  you're doing this at a later date)
+Even if you already installed it with `choco`, let's install the latest python using Windows Terminal on your **WSL command line**.
 
     sudo apt update
     sudo apt install python3 python3-pip python3-venv
 
-After installation, open a new terminal tab or window to make sure it installed correctly.
+After installation, open a new terminal tab to make sure it installed correctly.
 
     python3 --version
     pip3 --version
@@ -569,13 +579,7 @@ composer --version
 
 ## Virtualbox
 
-The traditional way of setting up a front-end development environment used to be to work through FTP or directly on the server. WordPress installations still promote this workflow to some extent.
-
-The last decade has seen significant changes to the front-end workflow, one of the most important being a local development environment: a local database, a local web server, and back-end language among other things. Using this environment decreases time and increases efficiency for front-end development.
-
-There are several ways to setup a local development environment, whether it's installing a package like [MAMP](https://www.mamp.info/en/) or [XAMPP](https://www.apachefriends.org/index.html) to install the environments above.
-
-The free, open-source alternative that I've been enjoying is called [Virtualbox](https://www.virtualbox.org/). This gives you a basic but very capable virtual machine host for any operating system that supports virtual installations.
+The free, open-source virtual machine called [Virtualbox](https://www.virtualbox.org/) can be useful for isolated testing of older browsers or environments. This gives you a basic but very capable VM host for any operating system that supports virtual installations.
 
     choco install virtualbox
 
@@ -583,11 +587,11 @@ Note: VirtualBox can usually coexist with Hyper-V/WSL2 on modern versions, but s
 
 ## Docker
 
-Similar to Vagrant, I increasingly use Docker for professional projects. It comes with similar benefits to Vagrant, such as portability, encapsulation for the environment within the OS, and consistent environments. Docker goes a little further because it's a container manager it's lighter in resources and file size than Vagrant.
+Docker is regularly used for projects today. It features portability, encapsulation for the environment within the OS, and consistency for development environments.
 
     choco install docker-desktop
 
-Docker can be quite powerful but complicated to set up. For this reason, I'm a fan of another project which is a wrapper around Docker called [Lando](https://lando.dev/). Originally designed for Drupal, it's increased support for many other environments including WordPress, Node.js, and Laravel. You can find the [latest executable file on Github](https://github.com/lando/lando/releases).
+Docker can be quite powerful but complicated to set up. For this reason, I've enjoyed another project which is a wrapper around Docker called [Lando](https://lando.dev/). Originally designed for Drupal, it also supports WordPress, Node.js, and Laravel among others. You can find the [latest executable file on Github](https://github.com/lando/lando/releases).
     
 For privacy, I recommend disabling tracking. Inside of your `.lando.yml` file, add the following:
 
@@ -596,9 +600,6 @@ For privacy, I recommend disabling tracking. Inside of your `.lando.yml` file, a
         url: https://metrics.lando.dev
 
 Note: Docker Desktop on Windows commonly uses the WSL2 backend. 
-
-## TODO
-- Allow apps downloaded from anywhere system preferences
 
 ## Credits
 
