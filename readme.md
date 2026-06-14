@@ -65,10 +65,6 @@ Most of you will likely need this section more. You've just bought a new laptop 
 
 [Winhance](https://winhance.net/) is a debloat app that has been rewritten, modernized, and provides a comprehensive aid to debloat and enhance. In my first usage, I like it so far.
 
-#### Tron
-
-[Tron](https://github.com/bmrf/tron) is an all-inclusive, from-start-to-finish suite of files that touches everything from uninstalling software to cleaning up temp files and checking for malware. It can easily take a minimum of 2-3 hours because of how thorough it is, but I usually run specific sections that I think are necessary to clean up Windows, such as removing default apps or blocking telemetry. It's slightly outdated as of 2026, but still has plenty of value.
-
 #### FlyOOBE
 
 Want to migrate a moderately old laptop to Windows 11? Look no further than [FlyOOBE](https://github.com/builtbybel/FlyOOBE). I used it in 2025 on my personal laptop that I bought in 2017 and it worked great.
@@ -79,7 +75,7 @@ Microsoft collects telemetry data on how you use Windows. There's not a lot of t
 
 In addtion to any of the clean up apps above, one really popular app for helping with privacy is [Win11Debloat](https://github.com/Raphire/Win11Debloat). I've used it in conjunction with Winhance and it is a great companion just to be sure.
 
-I recommend you look through [https://privacytools.techlore.tech/](https://privacytools.techlore.tech/). There's a ton of valuable software and links to consume.
+I recommend you look through [https://privacytools.techlore.tech/](https://privacytools.techlore.tech/) and [https://www.privacyguides.org/](https://www.privacyguides.org/). There are valuable software and links to consume.
 
 ## System update and Disk Encryption
 
