@@ -261,9 +261,9 @@ Long story short, this is a sad reality that will take some maturing to understa
 
 ## AI
 
-As the 2020s move forward, it is clear that AI is neessary for many tasks. Used properly, it can give feedback that could be expected from senior developers and management. It can give immediate feedback and help that can increase productivity.
+As the 2020s move forward, it is clear that AI is necessary for many tasks. Used properly, it can give feedback that could be expected from senior developers and management. It can give immediate feedback and help that can increase productivity.
 
-Using many code editors, you can integrate many different services like [Github CoPilot](https://github.com/features/copilot) using models from [OpenAI](https://openai.com/), [Google](https://gemini.google.com), or [Anthropic](https://www.anthropic.com/).
+Using many code editors, you can integrate many different services like [GitHub CoPilot](https://github.com/features/copilot) using models from [OpenAI](https://openai.com/), [Google](https://gemini.google.com), or [Anthropic](https://www.anthropic.com/).
 
 I can recommend [T3 Chat](https://t3.chat) as the most affordable service to use any of the above AI and more as standalone chat services. You can have extensive conversations and get code samples as feedback from the conversations.
 
@@ -370,7 +370,7 @@ Don't forget to customize ZSH!
 
 SSH is imperative, just like git and node as you'll see.
 
-[Github has excellent instructions for setting up git and connecting it to a Github account](https://docs.github.com/en/get-started/quickstart/set-up-git). This will help you to install the repos to your computer from Github as well as set up keys that you'll need to connect git and github.
+[GitHub has excellent instructions for setting up git and connecting it to a GitHub account](https://docs.github.com/en/get-started/quickstart/set-up-git). This will help you to install the repos to your computer from GitHub as well as set up keys that you'll need to connect git and GitHub.
 
 Now you can add a little shortcut to make SSHing into other boxes easier. Paste the following block of code into your SSH config file at `~/.ssh/config`, changing the variables for any hosts that you connect to.
 
@@ -410,7 +410,7 @@ What's a developer without [Git](http://git-scm.com/)? To install, from **WSL co
     git config --global user.email "your_email@youremail.com"
     git config --global core.autocrlf input # Set to change how Git handles line endings
 
-If you have [2FA enabled on Github](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication) (you should), you’ll also need to follow the [Add SSH Key to Github](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?platform=linux) and be sure you’re using the Linux instructions.
+If you have [2FA enabled on GitHub](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication) (you should), you’ll also need to follow the [Add SSH Key to GitHub](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?platform=linux) and be sure you’re using the Linux instructions.
 
 ### Git aliases (optional)
 
@@ -484,7 +484,7 @@ Update NVM
 
     nvm install node --reinstall-packages-from=node
 
-Auto invoke NPM
+### Auto invoke NPM
 
 Automating NPM to switch to the right Node is a nice little time saver. [Add some code to your shell to allow this auto switch capability](https://github.com/nvm-sh/nvm/?tab=readme-ov-file#deeper-shell-integration).
 
@@ -587,7 +587,7 @@ Docker is regularly used for projects today. It features portability, encapsulat
 
     choco install docker-desktop
 
-Docker can be quite powerful but complicated to set up. For this reason, I've enjoyed another project which is a wrapper around Docker called [Lando](https://lando.dev/). Originally designed for Drupal, it also supports WordPress, Node.js, and Laravel among others. You can find the [latest executable file on Github](https://github.com/lando/lando/releases).
+Docker can be quite powerful but complicated to set up. For this reason, I've enjoyed another project which is a wrapper around Docker called [Lando](https://lando.dev/). Originally designed for Drupal, it also supports WordPress, Node.js, and Laravel among others. You can find the [latest executable file on GitHub](https://github.com/lando/lando/releases).
     
 For privacy, I recommend disabling tracking. Inside of your `.lando.yml` file, add the following:
 
