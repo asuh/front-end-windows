@@ -101,7 +101,7 @@ Two main caveats:
 
 ## Projects Directory
 
-If you don't already have one, create a directory for your digital projects. I like to use `C:\Users\<winusername>\Sites\<project-name>`, and the name *Sites* can be anything you want. I prefer my *Sites* folder to exist along side the rest of my user profile folders.
+If you don't already have one, create a directory for your digital projects. I like to use `C:\Users\<winusername>\Sites\<project-name>`, and the name *Sites* can be anything you want. I prefer my *Sites* folder to exist alongside the rest of my user profile folders.
 
     cd "$env:USERPROFILE"
     mkdir Sites
@@ -279,7 +279,7 @@ As of 2025, most of my time is spent in a fork of Visual Studio Code. It found p
 
 #### VSC Forks
 
-I recommend using [VSCodium](https://vscodium.com/) because it strips away the telemetry and tracking that Microsoft/Github integrates into VSCode. However, [VSCodium has issues with extensions](https://github.com/VSCodium/vscodium/wiki/Extensions-Compatibility) like Live Share, so keep that in mind.
+I recommend using [VSCodium](https://vscodium.com/) because it strips away the telemetry and tracking that Microsoft/GitHub integrates into VSCode. However, [VSCodium has issues with extensions](https://github.com/VSCodium/vscodium/wiki/Extensions-Compatibility) like Live Share, so keep that in mind.
 
     choco install vscodium
 
@@ -308,7 +308,7 @@ I recommend to change two color settings:
 - **Theme** (which is how the tabs, the file explorer on the left, etc. look)
 - **Color Scheme** (the colors of the code).
 
-My favorite theme is [Material Design Darker](https://github.com/material-theme/vsc-material-theme) as well as [Seti_UI Theme](https://packagecontrol.io/packages/Seti_UI). 
+My favorite theme is [Material Design Darker](https://github.com/material-theme/vsc-material-theme) as well as [Seti_UI Theme](https://packagecontrol.io/packages/Seti_UI).
 
 Go to **Tools > Command Palette** (Shift-Command-P), Highlight **Package Control: Install Package** and then search for your preferred theme, make sure it's highlighted then press Enter to install it.
 
@@ -322,7 +322,7 @@ Then go to **Sublime Text > Preferences > Settings - User** and add the followin
 Let's configure our editor a little. Go to **Sublime Text > Preferences > Settings - User** and paste this code (and edit it if you want) from [my Preferences.sublime-settings file](https://gist.github.com/asuh/67586e056eba7757330f).
 
 [I also recommend creating shortcuts so you can launch Sublime Text from the command-line](https://www.sublimetext.com/docs/command_line.html)
-    
+
 Now, we can open a file with `subl myfile.html` or start a new project in the current directory with `subl .`. Pretty cool!
 
 ## Vim
@@ -355,9 +355,17 @@ set mouse=a
 
 ## ZSH
 
-[Z Shell](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH), or ZSH, was written to extend Bash and make improvements to how Bash works. Install ZSH on WSL:
+[Z Shell](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH), or ZSH, was written to extend Bash and make improvements to how Bash works.
+
+Install or confirm ZSH for your OS:
 
     sudo apt install zsh
+
+Install [Oh My Zsh!](http://ohmyz.sh/) for extra help and nice defaults.
+
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
 
 Don't forget to customize ZSH!
 
@@ -403,7 +411,7 @@ With the above code, you can now run the alias `myssh` to connect.
 
 ## Git
 
-What's a developer without [Git](http://git-scm.com/)? To install, from **WSL command line** run:
+What's a developer without [Git](http://git-scm.com/)? Install Git, then configure your identity:
 
     sudo apt install git
     git config --global user.name "Your Name Here"
@@ -488,64 +496,51 @@ Update NVM
 
 Automating NPM to switch to the right Node is a nice little time saver. [Add some code to your shell to allow this auto switch capability](https://github.com/nvm-sh/nvm/?tab=readme-ov-file#deeper-shell-integration).
 
-Put this into your $HOME/.bashrc (via WSL):
-```
-cdnvm() {
-    command cd "$@" || return $?
-    nvm_path="$(nvm_find_up .nvmrc | command tr -d '\n')"
+Put this into your $HOME/.zshrc after nvm initialization:
 
-    # If there are no .nvmrc file, use the default nvm version
-    if [[ ! $nvm_path = *[^[:space:]]* ]]; then
+```bash
+# place this after nvm initialization!
+autoload -U add-zsh-hook
 
-        declare default_version
-        default_version="$(nvm version default)"
+load-nvmrc() {
+  local nvmrc_path
+  nvmrc_path="$(nvm_find_nvmrc)"
 
-        # If there is no default version, set it to `node`
-        # This will use the latest version on your machine
-        if [ $default_version = 'N/A' ]; then
-            nvm alias default node
-            default_version=$(nvm version default)
-        fi
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version
+    nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
 
-        # If the current version is not the default version, set it to use the default version
-        if [ "$(nvm current)" != "${default_version}" ]; then
-            nvm use default
-        fi
-    elif [[ -s "${nvm_path}/.nvmrc" && -r "${nvm_path}/.nvmrc" ]]; then
-        declare nvm_version
-        nvm_version=$(<"${nvm_path}"/.nvmrc)
-
-        declare locally_resolved_nvm_version
-        # `nvm ls` will check all locally-available versions
-        # If there are multiple matching versions, take the latest one
-        # Remove the `->` and `*` characters and spaces
-        # `locally_resolved_nvm_version` will be `N/A` if no local versions are found
-        locally_resolved_nvm_version=$(nvm ls --no-colors "${nvm_version}" | command tail -1 | command tr -d '\->*' | command tr -d '[:space:]')
-
-        # If it is not already installed, install it
-        # `nvm install` will implicitly use the newly-installed version
-        if [ "${locally_resolved_nvm_version}" = 'N/A' ]; then
-            nvm install "${nvm_version}";
-        elif [ "$(nvm current)" != "${locally_resolved_nvm_version}" ]; then
-            nvm use "${nvm_version}";
-        fi
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$(nvm version)" ]; then
+      nvm use
     fi
+  elif [ -n "$(PWD=$OLDPWD nvm_find_nvmrc)" ] && [ "$(nvm version)" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
 }
 
-alias cd='cdnvm'
-cdnvm "$PWD" || exit
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
 ```
+
+After saving the file, run source `~/.zshrc` to reload the configuration with the latest changes made.
 
 ## Python
 
-Even if you don't use Python in your day to day, it's likely you'll encounter something that requires it. Older WSL distros probably include Python 2.x by default. Version 2 is years outdated so let's install version 3!
+Even if you don't use Python in your day to day, it's likely you'll encounter something that requires it. Python 2 is years outdated, so install and use Python 3.
 
-Even if you already installed it with `choco`, let's install the latest python using Windows Terminal on your **WSL command line**.
+### Install Python 3
+
+Even if you already installed it with `choco`, install the latest Python using Windows Terminal on your **WSL command line**.
 
     sudo apt update
     sudo apt install python3 python3-pip python3-venv
 
 After installation, open a new terminal tab to make sure it installed correctly.
+
+### Verify
 
     python3 --version
     pip3 --version
@@ -559,6 +554,8 @@ On Ubuntu, python may not point to Python 3 unless python-is-python3 is installe
 PHP is still one of the most used programming languages on the web, thanks in part to the amount of sites still using WordPress. We need a way to manage PHP scripts and packages similarly to how we manage JS dependencies using NPM.
 
 One of the most popular PHP dependency managers is called [Composer](https://getcomposer.org/). The difference between Composer and NPM, for example, Composer is usually installed as a global command, but dependencies are normally installed per project into that project's `vendor` directory. So you must run and setup Composer on every new project if you want to use it.
+
+### Install Composer
 
 To install Composer globally, go to the [Download page](https://getcomposer.org/download/) and run the package installer. It would be preferable to install this inside WSL instead of Windows.
 
@@ -579,23 +576,29 @@ The free, open-source virtual machine called [Virtualbox](https://www.virtualbox
 
     choco install virtualbox
 
-Note: VirtualBox can usually coexist with Hyper-V/WSL2 on modern versions, but some VMs may perform worse or require configuration changes.
+Note: VirtualBox may require OS-specific permissions or configuration changes.
 
 ## Docker
 
 Docker is regularly used for projects today. It features portability, encapsulation for the environment within the OS, and consistency for development environments.
 
+### Install Docker
+
     choco install docker-desktop
 
+### Lando
+
 Docker can be quite powerful but complicated to set up. For this reason, I've enjoyed another project which is a wrapper around Docker called [Lando](https://lando.dev/). Originally designed for Drupal, it also supports WordPress, Node.js, and Laravel among others. You can find the [latest executable file on GitHub](https://github.com/lando/lando/releases).
-    
+
+### Privacy
+
 For privacy, I recommend disabling tracking. Inside of your `.lando.yml` file, add the following:
 
     stats:
       - report: false
         url: https://metrics.lando.dev
 
-Note: Docker Desktop on Windows commonly uses the WSL2 backend. 
+Note: Docker Desktop on Windows commonly uses the WSL2 backend.
 
 ## Credits
 
