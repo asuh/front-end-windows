@@ -14,7 +14,7 @@ The following workflow assumes a clean installation of Windows or from a full ma
 - [Ninite](#ninite)
 - [Windows Subsystem for Linux](#windows-subsystem-for-linux)
 - [AI](#ai)
-- [Sublime Text and VSCode](#sublime-text-and-vscode)
+- [Sublime Text and VS Code](#sublime-text-and-vs-code)
 - [Vim](#vim)
 - [ZSH](#zsh)
 - [SSH](#ssh)
@@ -30,7 +30,7 @@ The following workflow assumes a clean installation of Windows or from a full ma
 Throughout this document, you will encounter examples like this that contain one or more of the arguments listed:
 
 ```bash
-sudo command -flag --flag directory file.extention # Comments are behind pound signs
+sudo command -flag --flag directory file.extension # Comments are behind pound signs
 ```
 
 Anytime you see the above, it is referring to your CLI of choice, now defaulted to [Windows Terminal](https://learn.microsoft.com/en-us/windows/terminal/) as well as Bash Shell or Z Shell [see below](#zsh) in [Windows Subsystem for Linux](#windows-subsystem-for-linux). Setting up a command-line shell to your liking is a good idea.
@@ -45,7 +45,7 @@ This covers two options: clean install or clean up.
 
 If you're looking to just wipe the system complete and start from scratch, there's a project called [Tiny11Builder](https://github.com/ntdevlabs/tiny11builder) (and Tiny10 for Win10) is a tool for creating a smaller, customized Windows ISO from an official Windows ISO.
 
-[Here's an overview of what Tiny11Builder can do.](https://inv.nadeko.net/watch?v=_P2wtYQ84oA) It's very impressive and a great way to mininmally install Windows.
+[Here's an overview of what Tiny11Builder can do.](https://inv.nadeko.net/watch?v=_P2wtYQ84oA) It's very impressive and a great way to minimally install Windows.
 
 It can remove telemetry and enhance privacy but YMMV so you probably want to test this out before trusting it.
 
@@ -73,7 +73,7 @@ Want to migrate a moderately old laptop to Windows 11? Look no further than [Fly
 
 Microsoft collects telemetry data on how you use Windows. There's not a lot of transparency about what's going on but there are many free and open source applications that help us shut down and block as many as we know about. Scroll above to see the section about cleaning up Windows.
 
-In addtion to any of the clean up apps above, one really popular app for helping with privacy is [Win11Debloat](https://github.com/Raphire/Win11Debloat). I've used it in conjunction with Winhance and it is a great companion just to be sure.
+In addition to any of the clean up apps above, one really popular app for helping with privacy is [Win11Debloat](https://github.com/Raphire/Win11Debloat). I've used it in conjunction with Winhance and it is a great companion just to be sure.
 
 I recommend you look through [https://privacytools.techlore.tech/](https://privacytools.techlore.tech/) and [https://www.privacyguides.org/](https://www.privacyguides.org/). There are valuable software and links to consume.
 
@@ -122,7 +122,7 @@ Winget collects data and telemetry by default because it may use Microsoft servi
 
 **Windows Key > Settings > Privacy & Security > Diagnostics & feedback > Diagnostic data > Send optional diagnostic data** Unselect the last option
 
-Optional but specific to [Winget to disable telemtry](https://github.com/microsoft/winget-cli/blob/master/doc/Settings.md#telemetry), in your terminal:
+Optional but specific to [Winget to disable telemetry](https://github.com/microsoft/winget-cli/blob/master/doc/Settings.md#telemetry), in your terminal:
 
     winget settings
 
@@ -184,7 +184,10 @@ choco outdated # which installs are not current
 
 Chocolatey is awesome because now that you understand what it does, you can install all your favorite apps in one command. Here's a list of my favorite apps, including Firefox, that I need for development on a regular basis.
 
-    choco install firefox firefox-dev brave helium tor-browser powertoys thunderbird slack zoom git nvm sublimetext4 vscodium filezilla mullvad-app vlc virtualbox vnc-viewer docker-desktop malwarebytes qbittorrent quicklook libreoffice-fresh wireguard freetube --pre -y
+    choco install firefox firefox-dev brave helium tor-browser powertoys thunderbird slack zoom git sublimetext4 vscodium filezilla mullvad-app vlc virtualbox vnc-viewer docker-desktop malwarebytes qbittorrent quicklook libreoffice-fresh wireguard freetube --pre -y
+
+> [!NOTE]
+> This document installs Node inside WSL using `nvm-sh`, so the Windows-specific Chocolatey `nvm` package is intentionally not included above.
 
 Using Chocolatey to install software will sometimes require you to restart Windows to complete its installation. Several packages will auto-start the software and ask you to set them up as well.
 
@@ -230,7 +233,7 @@ Using the Projects directory I created above, if I store all my projects in `C:\
 
     cd /mnt/c/Users/micah/Sites
 
-Once you create a new folder inside of your Projects directory, this will become your home for that project. It's where you'll install any package managers you might need such as NPM and Composer.
+Once you create a new folder inside of your Projects directory, this will become your home for that project. It's where you'll install any package managers you might need such as npm and Composer.
 
 ### Security
 
@@ -239,7 +242,7 @@ Two of the most common commands to set up new projects and tools are `apt-get` a
 Once WSL is installed, update the `apt-get` tool as well as packages so that it updates the package lists for app updates.
 
 ```bash
-sudo apt update && sudo apt upgrade # apt and apt-get are interchangable
+sudo apt update && sudo apt upgrade # apt and apt-get are interchangeable
 ```
 
 `apt update` synchronizes your list of available packages with the servers in source repositories. 
@@ -257,21 +260,21 @@ I've had to install packages on both Windows and Ubuntu as well. So I'll have gi
 
 When using your favorite editor, it's a similar situation. Opening the project in your Windows folder means you're working with it in the Windows file system. It could be faster to put the project folder/files in the Ubuntu folder. Mount the Ubuntu file system as a mapped drive which will make things a bit easier to work with from Windows.
 
-Long story short, this is a sad reality that will take some maturing to understand. You'll have to fiddle around with Window to make it work well sometimes.
+Long story short, this is a sad reality that will take some maturing to understand. You'll have to fiddle around with Windows to make it work well sometimes.
 
 ## AI
 
 As the 2020s move forward, it is clear that AI is necessary for many tasks. Used properly, it can give feedback that could be expected from senior developers and management. It can give immediate feedback and help that can increase productivity.
 
-Using many code editors, you can integrate many different services like [GitHub CoPilot](https://github.com/features/copilot) using models from [OpenAI](https://openai.com/), [Google](https://gemini.google.com), or [Anthropic](https://www.anthropic.com/).
+Using many code editors, you can integrate many different services like [GitHub Copilot](https://github.com/features/copilot) using models from [OpenAI](https://openai.com/), [Google](https://gemini.google.com), or [Anthropic](https://www.anthropic.com/).
 
 I can recommend [T3 Chat](https://t3.chat) as the most affordable service to use any of the above AI and more as standalone chat services. You can have extensive conversations and get code samples as feedback from the conversations.
 
-## Sublime Text and VSCode
+## Sublime Text and VS Code
 
-The text editor is a developer's most important tool. Everyone has their preferences, but unless you're a hardcore [Vim](https://en.wikipedia.org/wiki/Vim_(text_editor)) user, I recommend one of two editors: [Sublime Text](https://www.sublimetext.com/) or [VSCode](https://code.visualstudio.com/).
+The text editor is a developer's most important tool. Everyone has their preferences, but unless you're a hardcore [Vim](https://en.wikipedia.org/wiki/Vim_(text_editor)) user, I recommend one of two editors: [Sublime Text](https://www.sublimetext.com/) or [VS Code](https://code.visualstudio.com/).
 
-### VSCode
+### VS Code
 
 As of 2025, most of my time is spent in a fork of Visual Studio Code. It found popularity at the end of the 2010s and is a staple open-source code editor for most front-end developers. I use it both personally and professionally because of various built-in features like git support, terminal integration, live sharing your code with another developer (using an extension), and a large repository of great extensions. 
 
@@ -279,13 +282,13 @@ As of 2025, most of my time is spent in a fork of Visual Studio Code. It found p
 
 #### VSC Forks
 
-I recommend using [VSCodium](https://vscodium.com/) because it strips away the telemetry and tracking that Microsoft/GitHub integrates into VSCode. However, [VSCodium has issues with extensions](https://github.com/VSCodium/vscodium/wiki/Extensions-Compatibility) like Live Share, so keep that in mind.
+I recommend using [VSCodium](https://vscodium.com/) because it strips away the telemetry and tracking that Microsoft/GitHub integrates into VS Code. However, [VSCodium has issues with extensions](https://github.com/VSCodium/vscodium/wiki/Extensions-Compatibility) like Live Share, so keep that in mind.
 
     choco install vscodium
 
 There's a ton of great tutorials and articles, such as [VS Code Docs](https://code.visualstudio.com/docs/introvideos/basics).
 
-Because of the rise of AI since CoPilot and the release of ChatGPT, there are multiple projects that take an approach treating AI as a primary integration. I've tried multiple of these editors and they're interesting and helpful if you are good at your craft and can request the right approaches.
+Because of the rise of AI since Copilot and the release of ChatGPT, there are multiple projects that take an approach treating AI as a primary integration. I've tried multiple of these editors and they're interesting and helpful if you are good at your craft and can request the right approaches.
 
 [Chris Coyier wrote about various code editors in 2025](https://frontendmasters.com/blog/notes-on-the-code-editors-with-ai-landscape/).
 
@@ -295,7 +298,7 @@ Since the early 2010s, my classical goto editor is Sublime Text, because, it jus
 
     choco install sublimetext4
 
-I prefer using the [beta version of Sublime Text 4](https://www.sublimetext.com/dev).
+I prefer using the [dev build of Sublime Text](https://www.sublimetext.com/dev), which requires a license. If you want Chocolatey-managed installs, use the stable package shown above.
 
 Sublime Text is not free, but it has an unlimited "evaluation period". The seemingly expensive $99 price tag is worth the cost. If you can afford it, I suggest you [support](https://www.sublimetext.com/buy) this awesome editor. :)
 
@@ -457,7 +460,7 @@ If you used Chocolatey above to install applications, you'll notice this is the 
 
 ## Node.js
 
-For modern Javascript programming, Node.js is required. Using [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm/) to install Node allows you to easily switch between Node versions and is useful for projects on different versions of Node.
+For modern JavaScript programming, Node.js is required. Using [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm/) to install Node allows you to easily switch between Node versions and is useful for projects on different versions of Node.
 
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
@@ -473,13 +476,17 @@ Restart terminal and confirm that you are using the default version of Node and 
 
     node -v && npm -v
 
-If desired, install a custom version of node
+For most projects, install the latest LTS version of Node.
 
-    nvm install 26
+    nvm install --lts
 
-Set a default version of Node.
+Set the latest LTS version as the default.
 
-    nvm alias default 26
+    nvm alias default 'lts/*'
+
+If desired, install the current version of Node for testing newer platform features.
+
+    nvm install node
 
 You can switch to another version of Node and use it by changing to the directory where you want to use Node and run the following.
 
@@ -492,9 +499,9 @@ Update NVM
 
     nvm install node --reinstall-packages-from=node
 
-### Auto invoke NPM
+### Auto invoke npm
 
-Automating NPM to switch to the right Node is a nice little time saver. [Add some code to your shell to allow this auto switch capability](https://github.com/nvm-sh/nvm/?tab=readme-ov-file#deeper-shell-integration).
+Automating npm to switch to the right Node is a nice little time saver. [Add some code to your shell to allow this auto switch capability](https://github.com/nvm-sh/nvm/?tab=readme-ov-file#deeper-shell-integration).
 
 Put this into your $HOME/.zshrc after nvm initialization:
 
@@ -551,9 +558,9 @@ On Ubuntu, python may not point to Python 3 unless python-is-python3 is installe
 
 ## Composer
 
-PHP is still one of the most used programming languages on the web, thanks in part to the amount of sites still using WordPress. We need a way to manage PHP scripts and packages similarly to how we manage JS dependencies using NPM.
+PHP is still one of the most used programming languages on the web, thanks in part to the amount of sites still using WordPress. We need a way to manage PHP scripts and packages similarly to how we manage JavaScript dependencies using npm.
 
-One of the most popular PHP dependency managers is called [Composer](https://getcomposer.org/). The difference between Composer and NPM, for example, Composer is usually installed as a global command, but dependencies are normally installed per project into that project's `vendor` directory. So you must run and setup Composer on every new project if you want to use it.
+One of the most popular PHP dependency managers is called [Composer](https://getcomposer.org/). The difference between Composer and npm, for example, Composer is usually installed as a global command, but dependencies are normally installed per project into that project's `vendor` directory. So you must run and setup Composer on every new project if you want to use it.
 
 ### Install Composer
 
@@ -570,9 +577,9 @@ sudo mv composer.phar /usr/local/bin/composer
 composer --version
 ```
 
-## Virtualbox
+## VirtualBox
 
-The free, open-source virtual machine called [Virtualbox](https://www.virtualbox.org/) can be useful for isolated testing of older browsers or environments. This gives you a basic but very capable VM host for any operating system that supports virtual installations.
+The free, open-source virtual machine called [VirtualBox](https://www.virtualbox.org/) can be useful for isolated testing of older browsers or environments. This gives you a basic but very capable VM host for any operating system that supports virtual installations.
 
     choco install virtualbox
 
@@ -588,7 +595,7 @@ Docker is regularly used for projects today. It features portability, encapsulat
 
 ### Lando
 
-Docker can be quite powerful but complicated to set up. For this reason, I've enjoyed another project which is a wrapper around Docker called [Lando](https://lando.dev/). Originally designed for Drupal, it also supports WordPress, Node.js, and Laravel among others. You can find the [latest executable file on GitHub](https://github.com/lando/lando/releases).
+Docker can be quite powerful but complicated to set up. For this reason, I've enjoyed another project which is a wrapper around Docker called [Lando](https://lando.dev/). Originally designed for Drupal, it also supports WordPress, Node.js, and Laravel among others. On Windows, use the [latest installer from GitHub](https://github.com/lando/lando/releases) unless your package manager has a current package.
 
 ### Privacy
 
