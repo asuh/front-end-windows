@@ -184,7 +184,7 @@ choco outdated # which installs are not current
 
 Chocolatey is awesome because now that you understand what it does, you can install all your favorite apps in one command. Here's a list of my favorite apps, including Firefox, that I need for development on a regular basis.
 
-    choco install firefox firefox-dev brave helium tor-browser powertoys thunderbird slack zoom git sublimetext4 vscodium filezilla mullvad-app vlc virtualbox vnc-viewer docker-desktop malwarebytes qbittorrent quicklook libreoffice-fresh wireguard freetube --pre -y
+    choco install firefox firefox-dev brave helium tor-browser powertoys thunderbird slack zoom git sublimetext4 vscodium filezilla mullvad-app vlc virtualbox tigervnc docker-desktop malwarebytes qbittorrent quicklook libreoffice-fresh wireguard freetube --pre -y
 
 > [!NOTE]
 > This document installs Node inside WSL using `nvm-sh`, so the Windows-specific Chocolatey `nvm` package is intentionally not included above.
